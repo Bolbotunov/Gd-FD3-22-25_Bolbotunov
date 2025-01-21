@@ -1,88 +1,89 @@
 import React from 'react';
 import './App.css';
 
-function MyExampleComponent(props) {
-  console.log('props:', props)
-  return null
+
+type TypeGoods = {
+  name: string;
+  price: number;
+  url: string;
+  remainder: number;
 }
 
+const goods: TypeGoods[] = [
+  {
+    name: 'apple',
+    price: 50,
+    url: 'https://plus.unsplash.com/premium_photo-1661322640130-f6a1e2c36653?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    remainder: 44,
+  },
+  {
+    name: 'pineapple',
+    price: 66,
+    url: 'https://plus.unsplash.com/premium_photo-1664391957389-43b217a5f4f3?q=80&w=1936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    remainder: 50,
+  },
+  {
+    name: 'banana',
+    price: 72,
+    url: 'https://images.unsplash.com/photo-1543218024-57a70143c369?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    remainder: 25,
+  },
+  {
+    name: 'tomato',
+    price: 50,
+    url: 'https://plus.unsplash.com/premium_photo-1661811820259-2575b82101bf?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    remainder: 35,
+  },
+  {
+    name: 'peach',
+    price: 112,
+    url: 'https://images.unsplash.com/photo-1532704868953-d85f24176d73?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    remainder: 12,
+  }
+];
 
-type MyLinkProps = {
-  label: string;
-}
 
-function MyLink(props: MyLinkProps) {
-  console.log('props:', props)
+type TypeGoodsNames = string[]
+const namesOfColumns: TypeGoodsNames = ['Name of product', 'Price of product', 'Picture', 'Balance in stock'];
+
+
+function CreateTable(props: TypeGoods) {
   return (
-    <a
-    className="App-link"
-    href={props.url}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    {props.label}
-  </a>
-  )
+    <table>
+      <thead>
+        <tr>
+        <th colSpan={namesOfColumns.length}>List of goods</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+          {namesOfColumns.map((item, index) => (
+            <th key={index}>{item}</th>
+          ))}
+        </tr>
+        {props.goods.map((item, index) => {
+          const arrData = [];
+          for (let key in item) {
+            arrData.push(
+              <td className='cell' key={`${index}-${key}`}>
+                {key === 'url' ? <img src = {item[key]} alt={item.name}/> : item[key]}
+                </td>
+            );
+          }
+          return <tr key={index}>{arrData}</tr>;
+        })}
+      </tbody>
+    </table>
+  );
 }
 
-
-
-
-const MyHello = () => <p>Hello, My component!</p>
-
-const varHello = <MyHello></MyHello>
-
-
-
+let tableOfGoods = <CreateTable goods = {goods} />
 
 function App() {
-  const links: MyLinkProps[] = [
-    {
-      label: 'new name',
-      url: 'https://mail.ru',
-    },
-    {
-      label: 'new name link',
-      url: 'https://google.com',
-    },
-    {
-      label: 'new name link2',
-      url: 'https://google.com',
-    }
-  ]
-
-  
-  
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        Hello!
-        {links.map((item)=><MyLink
-          label ={item.label}
-          url = {item.url}
-        />)}
-        <MyLink
-        label = 'new name'
-        url ='https://mail.ru'
-        />
-        <MyLink
-        label = 'new name google'
-        url ='https://google.by'
-        />
-        {varHello}
-        <MyExampleComponent
-        argArray = {['1','2']}
-        trueArg = {null}
-        data = {{
-          name:'oleg',
-          age: 33,
-          city: true,
-        }}
-        
-        />
+        {tableOfGoods}
       </header>
     </div>
   );

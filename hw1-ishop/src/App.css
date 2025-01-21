@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #99a2b5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,45 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.flex {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  max-width: 80%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+  border: 1px solid #ddd;
+  height: 70px;
+}
+
+
+thead th {
+  border: none;
+  font-size: 2em;
+  padding-bottom: 30px;
+}
+
+tbody td {
+  border: 1px solid #ddd;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

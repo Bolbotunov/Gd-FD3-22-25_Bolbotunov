@@ -46,8 +46,11 @@ const goods: TypeGoods[] = [
 type TypeGoodsNames = string[]
 const namesOfColumns: TypeGoodsNames = ['Name of product', 'Price of product', 'Picture', 'Balance in stock'];
 
+type CreateTableProps = {
+  goods: TypeGoods[]
+}
 
-function CreateTable(props: TypeGoods) {
+function CreateTable(props: CreateTableProps) {
   return (
     <table>
       <thead>
@@ -62,31 +65,28 @@ function CreateTable(props: TypeGoods) {
           ))}
         </tr>
         {props.goods.map((item, index) => {
-          const arrData = [];
-          for (let key in item) {
-            arrData.push(
-              <td className='cell' key={`${index}-${key}`}>
-                {key === 'url' ? <img src = {item[key]} alt={item.name}/> : item[key]}
-                </td>
-            );
-          }
-          return <tr key={index}>{arrData}</tr>;
+          return (<tr key = {index}>
+            {Object.keys(item).map((key) => {
+              return (<td className = 'cell' key = {`${index}-${key}`}>
+                {key === 'url' ? ( <img src = {item[key]} alt = {item.name}/> ) : (item[key])}
+              </td>)
+            })}
+          </tr>)
         })}
       </tbody>
     </table>
   );
 }
 
-let tableOfGoods = <CreateTable goods = {goods} />
-
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {tableOfGoods}
+        <CreateTable goods={goods}/>
       </header>
     </div>
   );
 }
 
 export default App;
+

@@ -4,9 +4,6 @@ import useMyHook from "./UseMyHook";
 export function Canvas() {
     let myHook = useMyHook()
     
-
-
-
     return <><div
     style = {{
         width:'200px',

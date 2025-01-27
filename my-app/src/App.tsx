@@ -6,7 +6,7 @@ import { InputComponent } from './components/InputComponent';
 import CounterComponent2 from './components/CounterComponent2';
 import MyWrapper from './components/MyWrapper';
 import CounterComponent1 from './components/counterComponent1';
-import Canvas from './components/Canvas';
+import { Canvas, TextCanvas } from './components/Canvas';
 
 // import InputWithSave from './components/InputWithSave';
 
@@ -58,6 +58,7 @@ function App() {
           Learn React
         </a>
         <Canvas/>
+        <TextCanvas/>
         <MyExampleComponent/>
         <MyWrapper>
         <CounterComponent1/>

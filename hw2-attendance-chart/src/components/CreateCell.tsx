@@ -1,12 +1,12 @@
-import './createTable.css';
+import '../createTable.css';
 
 type CellType = {
-    key:number;
+    id: number;
 }
 
 export default function CreateCell(props: CellType) {
-    
+
     return (
-        <div className='cell' key={props.key}></div>
+        <div className='cell' key={props.id}></div>
     )
 }

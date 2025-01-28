@@ -1,18 +1,12 @@
 import './App.css';
+import CreateTable from './components/CreateTable';
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello test 2
-        </a>
+      <CreateTable/>
       </header>
     </div>
   );

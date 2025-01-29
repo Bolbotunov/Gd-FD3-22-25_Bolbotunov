@@ -1,22 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import CreateCell from './CreateCell';
-import CreateDates from './CreateDates';
+import  CreateCell  from './CreateCell';
+import { CreateDates } from './CreateDates';
+import { countCells } from './CreateDates';
+
 
 export default function CreateTable() {
     const LOCAL_STORAGE_KEY = 'PASS';
-    const countCells: number = 5;
+    const MARKS_STORAGE_KEY = 'MARKS';
     type StudentsList = string[];
     let getStudentsList: StudentsList = []
+    let savedMarks: { [student: string]: { [id: number]: boolean } } = {};
 
     try {
         const storedStudents = localStorage.getItem(LOCAL_STORAGE_KEY);
         getStudentsList = storedStudents ? JSON.parse(storedStudents) : [];
+
+        const storedMarks = localStorage.getItem(MARKS_STORAGE_KEY);
+        savedMarks = storedMarks ? JSON.parse(storedMarks) : {};
     } catch (error) {
         console.log('error' , error)
     }
 
     const [students, setStudents] = useState(getStudentsList);
+    const [marks, setMarks] = useState(savedMarks);
     const [loading, setLoading] = useState(false)
+    const [newDate, setNewDate] = useState(0)
+
+
+    function toggleMark(student: string, id: number) {
+        setMarks((prev) => {
+            const studentMarks = prev[student] || {};
+            studentMarks[id] = !studentMarks[id];
+            return {
+                ...prev,
+                [student]: studentMarks,
+            };
+        });
+    }
 
     function addStudent() {
         const studentName = prompt('Введите имя студента');
@@ -29,22 +49,16 @@ export default function CreateTable() {
     }
 
 
+function addDate() {
+    setNewDate(newDate + 1)
+}
+
+
     function saveStudents() {
         setLoading(true)
-        // const data: savedJSON = {
-        //     name,
-        //     datesArray,
-        // }
-
-// {
-//     name:'oleg',
-//     '2025/01/29': true,
-//     '2025/01/30': false,
-//     '2025/01/31': true,
-// }
-
         setTimeout(()=>{
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(students));
+            localStorage.setItem(MARKS_STORAGE_KEY, JSON.stringify(marks));
             setLoading(false)
         }, 2000)
     }
@@ -57,13 +71,13 @@ export default function CreateTable() {
                         <div className='row' key={indexStud}>
                             <div className='cell'>{indexStud + 1}{') '}{item}</div>
                             {Array.from({ length: countCells }).map((_, index) => (
-                                <CreateCell key={index} id={index} />
+                                <CreateCell key={index} id={index} student = {item} mark={!!marks[item]?.[index]} toggleMark={toggleMark} />
                             ))}
                         </div>
                     ))}
                 <div style={{ padding: '20px' }}>
                     <button className='btn' onClick={addStudent}>Добавить студента</button>
-                    <button className='btn'>Добавить дату</button>
+                    <button className='btn' onClick={addDate}>Добавить дату</button>
                 </div>
                 <div style={{ padding: '20px'}}>
                     <button className='save-btn' onClick = {saveStudents} disabled = {loading} >{loading ? 'Идет сохранение...' : 'Сохранить'}</button>

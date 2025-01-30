@@ -26,32 +26,11 @@ export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateA
 }
 
 
-const obj: {name:string; year:string} = {
-  name:'Lesson',
-  year:'2025',
-}
-
-function Test(props: { name: string; year: string}) {
-  return (
-    <div>
-      <h1>start project {props.name}</h1>
-    </div>
-  )
-}
-
 function App() {
   return (
     <div className="App">
       <header className="App-header">
       <LocalStorageTest/>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
         <InputWithSave/>
         <br></br>
         <br></br>

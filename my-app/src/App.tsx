@@ -8,6 +8,7 @@ import CounterComponent1 from './components/counterComponent1';
 import { Canvas, TextCanvas } from './components/Canvas';
 import InputWithSave from './components/InputWithSave';
 import LocalStorageTest from './components/LocalStorageTest';
+import NewTestWrapper from './components/NewTestWrapper';
 
 // type SetStateNumberType = (arg1: number) => void
 // type SetStateNumberType = React.Dispatch<React.SetStateAction<number>>
@@ -21,7 +22,6 @@ export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateA
   if(count > limit) {
     value = limit
   }
-
   return [value, setCount]
 }
 
@@ -30,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <NewTestWrapper/>
       <LocalStorageTest/>
         <InputWithSave/>
         <br></br>

@@ -64,3 +64,48 @@ margin: 20px;
   margin: 20px;
   border-radius: 20px;
 }
+
+.wrapper{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  flex-direction: column;
+}
+
+.btns{
+  width: 150px;
+  height: 50px;
+  background-color: rgb(196, 235, 127);
+  transition: .5s;
+  margin:20px;
+}
+
+.btns:hover{
+  background-color: rgb(43, 215, 4);
+  cursor: pointer;
+}
+
+.btnsWrapper{
+display: flex;
+}
+
+.cells{
+  width: 350px;
+  height: 50px;
+  border: 2px solid white;
+}
+
+.container{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cellsMark{
+  border: 5px solid red;
+}

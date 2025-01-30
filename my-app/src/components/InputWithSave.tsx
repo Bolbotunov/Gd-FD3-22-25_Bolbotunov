@@ -12,18 +12,16 @@ const [message, setMessage] = useState('')
 const [age, setAge] = useState(NaN)
 const [savedMessage, setSavedMessage] = useState('')
 const [savedAge, setSaveAge] = useState(NaN)
-const [loading, setLoading] = useState(false)
+
 
 
 function save() {
-    setLoading(true)
     const data: savedJSON = {
         message,
         age,
     }
     console.log(data)
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data))
-    setLoading(false)
 }
 
 

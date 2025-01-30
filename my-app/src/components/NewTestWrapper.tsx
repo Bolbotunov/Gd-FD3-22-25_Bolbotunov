@@ -61,6 +61,7 @@ useEffect(() => {
             <div style={{border:'2px solid white', padding:'10px'}}>currentValue: {inputValue} </div>
             <div style={{border:'2px solid white', padding:'10px'}}>localStorage: {JSON.stringify(showData)} </div>
             <div className="container">
+                
                 <div className="cellsMark">
                     <div className="cells"><span style={{color:'gold'}}>Name: </span>{showData?.inputValue}</div>
                     <div className="cells mark" onClick={toggleMark}><span style={{color:'gold'}}>Mark: </span>{doMark ? 'V' : ''}</div>

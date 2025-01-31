@@ -1,0 +1,74 @@
+.wrapper{
+    width: 100%;
+    max-width: 1200px;
+    height: 500px;
+    margin: 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.row{
+    display: flex;
+    width: 100%;
+}
+.cell{
+    border: 2px solid white;
+    max-width: 100%;
+    width: 250px;
+    height: 80px;
+    padding: 8px;
+    flex: 1 1 25%;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: calc(12px + 0.8vw)
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn{
+    width: 350px;
+    height: 70px;
+    margin: 20px;
+    border-radius: 20px;
+    background-color: rgb(31, 158, 124);
+    color: white;
+    font-size: calc(10px + 0.8vw);
+    transition: .3s all;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(31, 158, 124)
+}
+
+.btn:active{
+    background-color: rgb(1, 41, 30);
+}
+
+
+.save-btn{
+    background-color: rgb(183, 248, 6);
+    width: 350px;
+    height: 70px;
+    margin: 20px;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    font-size: calc(10px + 0.8vw);
+    transition: .3s all;
+    cursor: pointer;
+}
+
+.save-btn:hover{
+    background-color: rgb(31, 158, 124);
+    color: white;
+}
+
+.save-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}

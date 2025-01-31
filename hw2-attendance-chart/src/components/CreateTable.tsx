@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AddStudents from './AddStudents';  // Импортируем компонент AddStudents
 
 export default function CreateTable() {
   type AttendanceType = {

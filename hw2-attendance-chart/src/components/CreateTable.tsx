@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AddStudents from './AddStudents';  // Импортируем компонент AddStudents
+import AddStudents from './AddStudents';
 
 export default function CreateTable() {
   type AttendanceType = {
@@ -91,7 +91,7 @@ export default function CreateTable() {
       </div>
 
       <div style={{ padding: '20px' }}>
-        <AddStudents dates={dates} setAttendance={setAttendance} />  {/* Используем компонент AddStudents */}
+        <AddStudents dates={dates} setAttendance={setAttendance} /> 
         <button className='btn' onClick={addDate}>Добавить дату</button>
       </div>
       <div style={{ padding: '20px' }}>

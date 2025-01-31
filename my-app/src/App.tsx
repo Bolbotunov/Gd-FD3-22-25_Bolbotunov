@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
 import './App.css';
-import { MyExampleComponent } from './components/MyExampleComponent';
-import { InputComponent } from './components/InputComponent';
-import CounterComponent2 from './components/CounterComponent2';
-import MyWrapper from './components/MyWrapper';
+import { useState } from 'react';
+import HomePage from './pages/HomePage';
+import { BrowserRouter, Routes, Route, Link } from 'react-router'
+import TestPage from './pages/TestPage';
+import DynamicPage from './pages/DynamicPage';
+import ExternalPage from './pages/ExternalPage';
+import { Canvas } from './components/Canvas';
 import CounterComponent1 from './components/counterComponent1';
-import { Canvas, TextCanvas } from './components/Canvas';
-import InputWithSave from './components/InputWithSave';
-import LocalStorageTest from './components/LocalStorageTest';
-import NewTestWrapper from './components/NewTestWrapper';
-
-// type SetStateNumberType = (arg1: number) => void
-// type SetStateNumberType = React.Dispatch<React.SetStateAction<number>>
-// type UseCountLimitReturn = [number, SetStateNumberType]
-
+import { useNavigate } from 'react-router';
 
 export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateAction<number>>] {
   const [count, setCount] = useState(0);
@@ -25,27 +19,35 @@ export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateA
   return [value, setCount]
 }
 
-
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <NewTestWrapper/>
-      <LocalStorageTest/>
-        <InputWithSave/>
-        <br></br>
-        <br></br>
-        <Canvas/>
-        <TextCanvas/>
-        <MyExampleComponent/>
-        <MyWrapper>
-        <CounterComponent1/>
-        <CounterComponent2/>
-        <InputComponent/>
-        </MyWrapper>
-      </header>
-    </div>
-  );
+  // let navigate = useNavigate()
+ return (
+  <>
+   <BrowserRouter>
+        <nav>
+          {/* <a href='/'>Home</a> ||
+          <a href='/test'>Test</a>|| */}
+          <Link to='/'>Home2</Link> ||
+          <Link to='/test'>Test2</Link> ||
+
+          <Link to={`/dynamic/${Math.random()}/courses/new`}>My course</Link> ||
+          <Link to='/external'>External</Link> ||
+          <Link to='/external/canvas'>Canvas</Link> ||
+          <Link to='/external/counter'>Counter</Link> ||
+        </nav>
+      <Routes>
+        <Route path='/' element = {<HomePage/>}/>
+        <Route path='/test' element = {<TestPage/>}/>
+        <Route path='/dynamic/:id/courses/:courseId' element = {<DynamicPage/>}/>
+
+        <Route path='/external' element={<ExternalPage/>}>
+          <Route path='/external/canvas' element = {<Canvas/>}/>
+          <Route path='/external/counterComponent1' element = {<CounterComponent1/>}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </>
+ )
 }
 
 export default App;

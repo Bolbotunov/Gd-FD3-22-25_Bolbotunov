@@ -8,6 +8,7 @@ import ExternalPage from './pages/ExternalPage';
 import { Canvas } from './components/Canvas';
 import CounterComponent1 from './components/counterComponent1';
 import { useNavigate } from 'react-router';
+import MyWrapper from './components/MyWrapper';
 
 export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateAction<number>>] {
   const [count, setCount] = useState(0);
@@ -51,6 +52,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 

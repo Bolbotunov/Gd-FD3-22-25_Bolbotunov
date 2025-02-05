@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, Link, useParams } from 'react-router';
+import { PostPageStyled } from "./PostPageStyled";
 
 export default function PostsPage() {
 
@@ -32,7 +33,8 @@ export default function PostsPage() {
             <ul>
                 {arrId.map((item, index) => (
                     <li key={index}>
-                        <Link to={`/posts/post/${item.toString().split('.')[1]}`}>Post №{index + 1}</Link>
+                        
+                        <PostPageStyled to={`/posts/post/${item.toString().split('.')[1]}`}>Post №{index + 1}</PostPageStyled>
                     </li>
                 ))}
             </ul>

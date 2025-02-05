@@ -1,11 +1,9 @@
 export default function HomePage() {
     return (
      <>
-      <div className="App">
-            <header className="App-header">
+      <div>
         <h1>Hello, dear visitor</h1>
-            </header>
-            </div>
+      </div>
      </>
     )
 }

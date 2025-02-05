@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from "react";
+import { NameContext } from "../contexts/nameContext";
 
 
 export default function ErrorPage () {

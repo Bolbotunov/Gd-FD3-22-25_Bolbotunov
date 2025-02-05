@@ -1,3 +1,6 @@
+import { ContainerStyle } from "../styles/MyContent.styled"
+
+
 export default function ContactTerms() {
     return (
         <>

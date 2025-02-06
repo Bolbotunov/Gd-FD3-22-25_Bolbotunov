@@ -1,10 +1,14 @@
 import { useParams, Navigate } from "react-router";
 
-export default function PostId () {
-    const { id } = useParams();
-    const idCheck = /^[0-9]+$/;
 
-    if (!id || !idCheck.test(id)) {
+type validIdProps = {
+    validId: string[] ;
+}
+
+export default function PostId({ validId }: validIdProps) {
+    const { id } = useParams();
+
+    if (!id || !validId.includes(id)) {
         return <Navigate to="/error" />;
     }
 
@@ -15,3 +19,10 @@ export default function PostId () {
         </div>
     );
 }
+
+
+
+
+
+
+

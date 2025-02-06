@@ -6,11 +6,14 @@ import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import Content from './layouts/Content';
 
+
+
 function App() {
   return (
     <SiteColorsProvider>
         <BrowserRouter>
             <Header />
+
             <Content />
             <Footer />
         </BrowserRouter>

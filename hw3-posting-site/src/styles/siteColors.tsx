@@ -1,7 +1,8 @@
 export const siteColors = {
     colors: {
-        MAIN_COLOR: '#0f636f',
-        SECONDARY_COLOR: '#cd785c',
-        ADDITIONAL_COLOR: '#E2E8E4',
+        MAIN_COLOR: '#237c8a',
+        ADDITIONAL_COLOR: '#d4e726',
+        SECONDARY_COLOR: '#ffffff',
+        HOVER_COLOR: '#e5ff00',
     }
 }

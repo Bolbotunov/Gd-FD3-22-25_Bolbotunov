@@ -1,7 +1,7 @@
 import { styled, css } from "styled-components";
 import { Link } from "react-router";
 
-const commonStyles = css`
+export const commonStyles = css`
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -10,7 +10,7 @@ const commonStyles = css`
 
 export const MyContent = styled('div')`
     background-color: ${props => props.theme.colors.MAIN_COLOR};
-    color: ${props => props.theme.colors.SECONDARY_COLOR};
+    color: ${props => props.theme.colors.ADDITIONAL_COLOR};
     font-size:24px;
     width: 100%;
     min-height: 100vh;
@@ -29,7 +29,7 @@ export const MyLinks = styled(Link)<{ activeColor?: string }>`
 
 
     &:hover {
-        color: ${props => props.theme.colors.ADDITIONAL_COLOR};
+        color: ${props => props.theme.colors.HOVER_COLOR};
     }
 `;
 
@@ -37,7 +37,7 @@ export const MyLinks = styled(Link)<{ activeColor?: string }>`
 export const ContainerStyle = styled('div')`
     font-size: 32px;
     text-align: justify;
-    background-color: ${props => props.theme.colors.ADDITIONAL_COLOR};
+    background-color: ${props => props.theme.colors.SECONDARY_COLOR};
     border-radius:20px;
     padding:20px;
     margin-top:20px;
@@ -62,6 +62,21 @@ export const TitleContacts = styled('h2')`
 
 export const Container = styled('div')`
     ${commonStyles}
-    width: 50%
+    width: 50%;
 `;
+
+
+export const TitleTermsStyles = styled('div')`
+    font-weight:700;
+    color: ${props => props.theme.colors.SECONDARY_COLOR};
+    padding: 25px 0px 0px 15px;
+`;
+
+
+export const TextTermsStyles = styled('div')`
+    font-weight:200;
+    color: ${props => props.theme.colors.ADDITIONAL_COLOR};
+    padding-left:15px;
+`;
+
 

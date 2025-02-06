@@ -1,9 +1,11 @@
-import { ContainerStyle } from "../styles/MyContent.styled"
+import { MyContent } from "../styles/MyContent.styled"
 
 
-export default function ContactTerms() {
+
+export default function AboutPage() {
     return (
         <>
+          <MyContent style={{width:'90%'}}>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis dolorem molestias commodi distinctio quidem minus voluptas quam. Ea dolorum libero optio eligendi, quam, cupiditate ratione eaque, non doloremque reiciendis accusantium.
             Totam laborum nesciunt et. Consequuntur iste quos incidunt dolorem error quas dignissimos sint ratione totam ea eum, et rerum suscipit consequatur soluta nulla sed quam? Eum perspiciatis ab veniam dicta.
             Aliquid corrupti illo esse dolores voluptatibus dolorem ab facere quas fuga accusantium, et tempore sequi porro suscipit a laborum ipsum culpa reprehenderit incidunt! Facere nostrum qui, unde assumenda ipsa omnis?
@@ -15,6 +17,7 @@ export default function ContactTerms() {
             Quaerat architecto iure sit, dolor deleniti facilis! Assumenda ex beatae a quaerat eius quo totam libero labore voluptatibus, tempora aliquid quasi aut molestiae atque pariatur et fuga doloremque aspernatur reiciendis!
             Deserunt molestiae dolor sunt distinctio adipisci laudantium beatae quo minus repellendus sequi? Repellat dolorem doloremque quibusdam sunt. Delectus, rerum omnis quibusdam repudiandae libero tenetur corporis. Omnis soluta hic a sunt?
             </p>
+          </MyContent>
         </>
     )
 }

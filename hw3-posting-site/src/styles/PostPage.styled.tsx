@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Link } from 'react-router'
-import { commonStyles } from './MyContent.styled';
 
 export const PostPageLinksStyled = styled(Link)`
 text-decoration: none;

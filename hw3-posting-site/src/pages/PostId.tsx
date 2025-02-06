@@ -1,6 +1,5 @@
 import { useParams, Navigate } from "react-router";
 
-
 type validIdProps = {
     validId: string[] ;
 }

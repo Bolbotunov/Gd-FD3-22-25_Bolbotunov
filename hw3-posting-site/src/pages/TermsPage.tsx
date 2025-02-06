@@ -1,5 +1,5 @@
-import { TitleTermsStyles } from "../styles/MyContent.styled";
-import { TextTermsStyles } from "../styles/MyContent.styled";
+import { TitleTermsStyles } from "../styles/termsPage.styled";
+import { TextTermsStyles } from "../styles/termsPage.styled";
 
 export default function TermsPage() {
     const terms = {

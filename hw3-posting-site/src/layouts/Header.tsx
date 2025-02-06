@@ -1,11 +1,13 @@
 import React from 'react';
 import { MyLink, MyHeader } from '../styles/MyHeader.styled';
+import { MyHeaderWrapper } from '../styles/MyHeader.styled';
 
 export default function Header() {
 
     
     return (
-        <MyHeader>
+        <MyHeaderWrapper>
+            <MyHeader>
                 <MyLink to='/'>Home</MyLink>
                 <br />
                 <MyLink to='/contact'>Contacts</MyLink>
@@ -15,6 +17,7 @@ export default function Header() {
                 <MyLink to='/contact/terms'>Terms</MyLink>
                 <br />
                 <MyLink to='/posts'>Posts</MyLink>
-        </MyHeader>
+            </MyHeader>
+        </MyHeaderWrapper>
     );
 }

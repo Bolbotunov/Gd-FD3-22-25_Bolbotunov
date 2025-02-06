@@ -1,8 +1,8 @@
 import { Outlet, Link } from 'react-router';
 import { MyLinks } from '../styles/MyContent.styled';
-import { LinkWrapper } from '../styles/MyContent.styled';
-import { TitleContacts } from '../styles/MyContent.styled';
-import { Container } from '../styles/MyContent.styled';
+import { LinkWrapper } from '../styles/ContactPage.styled';
+import { TitleContacts } from '../styles/ContactPage.styled';
+import { Container } from '../styles/ContactPage.styled';
 import { siteColors } from '../styles/siteColors';
 import { useState } from 'react';
 

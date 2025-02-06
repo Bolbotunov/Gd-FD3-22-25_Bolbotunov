@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { PostPageLinksStyled } from "../styles/PostPageStyled";
-import { PostsUlStyled } from "../styles/PostPageStyled";
-import { PostsLiStyled } from "../styles/PostPageStyled";
-import { PostPageWrongLinksStyled } from "../styles/PostPageStyled";
+import { PostPageLinksStyled } from "../styles/PostPage.styled";
+import { PostsUlStyled } from "../styles/PostPage.styled";
+import { PostsLiStyled } from "../styles/PostPage.styled";
+import { PostPageWrongLinksStyled } from "../styles/PostPage.styled";
 
 
 

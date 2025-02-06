@@ -1,9 +1,7 @@
-import { Routes, Route, Link } from "react-router";
-import PostId from "./PostId";
 import React, { useEffect, useState } from "react";
 import { PASS_SESSION_STORAGE } from "../components/CreateIdPost";
 import { QUANTITY_ID } from "../components/CreateIdPost";
-import { MyLink } from "../styles/MyHeader.styled";
+import { MyLink } from "../styles/HomePage.styled";
 
 export default function HomePage() {
   const [postId, setPostId] = useState<string | null>(null);
@@ -22,7 +20,7 @@ export default function HomePage() {
     }
   }, []);
 
-  let myLink = postId ? <MyLink to={`/posts/post/${postId}`} style={{borderBottom:'1px solid white'}}>See any Post</MyLink> : null;
+  let myLink = postId ? <MyLink to={`/posts/post/${postId}`}>See any Post</MyLink> : null;
 
   return (
     <>

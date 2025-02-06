@@ -16,10 +16,20 @@ export const MyLink = styled(Link)`
 
 export const MyHeader = styled('nav')`
     background-color: ${props => props.theme.colors.MAIN_COLOR};
+    width: 80%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid  ${props => props.theme.colors.SECONDARY_COLOR};
+`;
+
+
+export const MyHeaderWrapper = styled('div')`
+background-color: ${props => props.theme.colors.MAIN_COLOR};
     width: 100%;
     height: 100px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border:2px solid  ${props => props.theme.colors.SECONDARY_COLOR};
 `;

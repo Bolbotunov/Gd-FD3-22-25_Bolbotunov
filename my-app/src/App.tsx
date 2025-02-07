@@ -8,7 +8,9 @@ import ExternalPage from './pages/ExternalPage';
 import { Canvas } from './components/Canvas';
 import CounterComponent1 from './components/counterComponent1';
 import { useNavigate } from 'react-router';
-import MyWrapper from './components/MyWrapper';
+import { store } from './redux';
+import Notes from './Notes';
+
 
 export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateAction<number>>] {
   const [count, setCount] = useState(0);
@@ -21,7 +23,6 @@ export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateA
 }
 
 function App() {
-  // let navigate = useNavigate()
  return (
   <>
    <BrowserRouter>
@@ -36,6 +37,7 @@ function App() {
           <Link to='/external/canvas'>Canvas</Link> ||
           <Link to='/external/counter'>Counter</Link> ||
         </nav>
+        <Notes/>
       <Routes>
         <Route path='/' element = {<HomePage/>}/>
         <Route path='/test' element = {<TestPage/>}/>

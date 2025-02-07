@@ -24,6 +24,7 @@ export default function HomePage() {
   <div>
     {tab ==='one' && <header className="App-header">
       <div>
+      <InputComponent/>
         <p className='myWrapper'>text</p>
         <MyExampleComponent/>
           <NewTestWrapper/>
@@ -36,7 +37,6 @@ export default function HomePage() {
           <MyWrapper>
           <CounterComponent1/>
           <CounterComponent2/>
-          <InputComponent/>
           </MyWrapper>
         </div>
       </header>

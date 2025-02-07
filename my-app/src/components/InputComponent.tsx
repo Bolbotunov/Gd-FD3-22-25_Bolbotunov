@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react"
+import { store } from "../redux"
+
+
+
 export function InputComponent(props: any) {
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -13,6 +17,7 @@ export function InputComponent(props: any) {
       console.log('useEffect name')
       let a = name.toUpperCase() + lastName.toUpperCase()
       setFullName(a)
+      // store.dispatch({ type: 'input', name, lastName})
     }, [name, lastName])
   
     return <>

@@ -1,14 +1,23 @@
-import { combineReducers, createStore } from "redux";
-import { messageReducer } from "./messageReducer";
-import { TypedUseSelectorHook, useSelector } from 'react-redux'
-import numberReducer from "./numberReducer";
+import  messageReducer  from "./messageSlice";
+import { TypedUseSelectorHook, useSelector } from "react-redux"
+import { configureStore } from "@reduxjs/toolkit";
+import messageSlice from "./messageSlice";
+import todosSlice from "./todosSlice";
 
-const combined = combineReducers({
-    messageState: messageReducer,
-    numberState: numberReducer,
+export const actions = {
+    todosSlice: todosSlice.actions,
+    messageSlice: messageSlice.actions,
+}
+
+export const store = configureStore({
+    reducer: {
+        todosSlice: todosSlice.reducer,
+        messageSlice: messageSlice.reducer,
+    }
 })
-export const store = createStore<any, any>(combined)
-export type ReduxStore = ReturnType<typeof combined>
-
+export type ReduxStore = ReturnType<typeof store.getState>
 
 export const useTypeSelector: TypedUseSelectorHook<ReduxStore> = useSelector;
+
+
+

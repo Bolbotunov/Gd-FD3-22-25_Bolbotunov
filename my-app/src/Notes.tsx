@@ -1,15 +1,16 @@
-import { actionMessageAdd,actionMessageUpdate, actionMessageDelete } from "./messageReducer";
 import { useDispatch, useSelector } from "react-redux"
+import { useTypeSelector } from "."
+import { actions } from "."
 
 export default function Notes() {
-    const { message: storedMessage } = useSelector((store: any) => store.messageState)
+    const storedMessage = useTypeSelector((store) => store.messageSlice.message)
     const dispatch = useDispatch()
 
     function addHandler() {
         const text = prompt('Enter Message')
 
         if (text) {
-            dispatch(actionMessageAdd(text))
+            dispatch(actions.messageSlice.add(text))
         }
     }
     
@@ -17,7 +18,7 @@ export default function Notes() {
         const text = prompt('Enter Message', storedMessage)
 
         if (text) {
-            dispatch(actionMessageUpdate(text))
+            dispatch(actions.messageSlice.update(text))
         }
     }
     
@@ -25,7 +26,7 @@ export default function Notes() {
         const confirmed = window.confirm('delete message?')
 
         if (confirmed) {
-            dispatch(actionMessageDelete())
+            dispatch(actions.messageSlice.remove())
         }
     }
 

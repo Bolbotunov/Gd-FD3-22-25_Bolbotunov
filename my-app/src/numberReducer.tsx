@@ -1,5 +1,4 @@
 
-
 export const ACTION_MINUS = '-'
 export const ACTION_PLUS = '+'
 
@@ -19,12 +18,12 @@ export default function numberReducer(state = initState, action: ReduxAction) {
     switch (action?.type) {
         case '+':
             return {
-                showCommand: action.showCommand,
+                showCommand: '+',
                 count: action.count + 1,
             }
         case '-':
             return {
-                showCommand: action.showCommand,
+                showCommand: '-',
                 count: action.count - 1,
             }
             default:

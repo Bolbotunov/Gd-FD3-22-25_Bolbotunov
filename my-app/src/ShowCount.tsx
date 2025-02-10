@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ACTION_PLUS } from './numberReducer';
-import { ACTION_MINUS } from './numberReducer';
+import { ACTION_PLUS, ACTION_MINUS } from './numberReducer';
 
 export default function ShowCount() {
   const { count: storedCount } = useSelector((store: any) => store.numberState)
@@ -31,6 +30,7 @@ export default function ShowCount() {
     <>
       <button onClick = {addOne}>+</button>
       <button onClick = {minusOne}>-</button>
+      <p>{storedCount}</p>
       <p>{storedCount}</p>
     </>
   );

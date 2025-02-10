@@ -9,9 +9,8 @@ import InputWithSave from '../components/InputWithSave';
 import LocalStorageTest from '../components/LocalStorageTest';
 import NewTestWrapper from '../components/NewTestWrapper';
 import Notes from '../Notes';
-// type SetStateNumberType = (arg1: number) => void
-// type SetStateNumberType = React.Dispatch<React.SetStateAction<number>>
-// type UseCountLimitReturn = [number, SetStateNumberType]
+import ShowCount from '../ShowCount';
+
 
 export default function HomePage() {
     const [tab, setTab] = useState('one')
@@ -26,6 +25,7 @@ export default function HomePage() {
     {tab ==='one' && <header className="App-header">
       <div>
       <InputComponent/>
+        <ShowCount/>
       <Notes/>
         <p className='myWrapper'>text</p>
         <MyExampleComponent/>

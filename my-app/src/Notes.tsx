@@ -1,31 +1,23 @@
-import { useState } from "react";
-import { store } from ".";
 import { actionMessageAdd,actionMessageUpdate, actionMessageDelete } from "./messageReducer";
-
+import { useDispatch, useSelector } from "react-redux"
 
 export default function Notes() {
-    const [storedMessage, setStoredMessage] = useState()
-    const unsubscribe =  store.subscribe(() => {
-        const state = store.getState()
-        setStoredMessage(state.messageState.message)
-    })
+    const { message: storedMessage } = useSelector((store: any) => store.messageState)
+    const dispatch = useDispatch()
 
-
-   
     function addHandler() {
         const text = prompt('Enter Message')
 
         if (text) {
-            store.dispatch(actionMessageAdd(text))
+            dispatch(actionMessageAdd(text))
         }
     }
     
     function updateHandler() {
-        const { message } = store.getState()
-        const text = prompt('Enter Message', message)
+        const text = prompt('Enter Message', storedMessage)
 
         if (text) {
-            store.dispatch(actionMessageUpdate(text))
+            dispatch(actionMessageUpdate(text))
         }
     }
     
@@ -33,7 +25,7 @@ export default function Notes() {
         const confirmed = window.confirm('delete message?')
 
         if (confirmed) {
-            store.dispatch(actionMessageDelete())
+            dispatch(actionMessageDelete())
         }
     }
 

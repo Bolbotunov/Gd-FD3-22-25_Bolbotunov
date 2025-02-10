@@ -8,6 +8,7 @@ import { Canvas, TextCanvas } from '../components/Canvas';
 import InputWithSave from '../components/InputWithSave';
 import LocalStorageTest from '../components/LocalStorageTest';
 import NewTestWrapper from '../components/NewTestWrapper';
+import Notes from '../Notes';
 // type SetStateNumberType = (arg1: number) => void
 // type SetStateNumberType = React.Dispatch<React.SetStateAction<number>>
 // type UseCountLimitReturn = [number, SetStateNumberType]
@@ -25,6 +26,7 @@ export default function HomePage() {
     {tab ==='one' && <header className="App-header">
       <div>
       <InputComponent/>
+      <Notes/>
         <p className='myWrapper'>text</p>
         <MyExampleComponent/>
           <NewTestWrapper/>

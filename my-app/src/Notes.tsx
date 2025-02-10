@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { store } from "./redux";
+import { useState } from "react";
+import { store } from ".";
+import { actionMessageAdd,actionMessageUpdate, actionMessageDelete } from "./messageReducer";
+
 
 export default function Notes() {
     const [storedMessage, setStoredMessage] = useState()
-// useEffect(() => {
     const unsubscribe =  store.subscribe(() => {
         const state = store.getState()
-        setStoredMessage(state.message)
+        setStoredMessage(state.messageState.message)
     })
-//     return unsubscribe()
-// }, [])
 
 
    
@@ -17,7 +16,7 @@ export default function Notes() {
         const text = prompt('Enter Message')
 
         if (text) {
-            store.dispatch({ type: 'add' , message: text})
+            store.dispatch(actionMessageAdd(text))
         }
     }
     
@@ -26,15 +25,15 @@ export default function Notes() {
         const text = prompt('Enter Message', message)
 
         if (text) {
-            store.dispatch({ type: 'update' , message: text})
+            store.dispatch(actionMessageUpdate(text))
         }
     }
     
     function deleteHandler() {
-        const text = window.confirm()
+        const confirmed = window.confirm('delete message?')
 
-        if (text) {
-            store.dispatch({ type: 'delete' , message: text})
+        if (confirmed) {
+            store.dispatch(actionMessageDelete())
         }
     }
 

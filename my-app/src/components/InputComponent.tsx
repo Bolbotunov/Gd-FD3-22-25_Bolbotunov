@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { store } from "../redux"
+import { store } from ".."
+
 
 
 
@@ -17,7 +18,7 @@ export function InputComponent(props: any) {
       console.log('useEffect name')
       let a = name.toUpperCase() + lastName.toUpperCase()
       setFullName(a)
-      // store.dispatch({ type: 'input', name, lastName})
+      store.dispatch({ type: 'input', name, lastName})
     }, [name, lastName])
   
     return <>

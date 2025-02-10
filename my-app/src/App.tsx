@@ -7,9 +7,8 @@ import DynamicPage from './pages/DynamicPage';
 import ExternalPage from './pages/ExternalPage';
 import { Canvas } from './components/Canvas';
 import CounterComponent1 from './components/counterComponent1';
-import { useNavigate } from 'react-router';
-import { store } from './redux';
-import Notes from './Notes';
+import { Provider } from 'react-redux';
+import { store } from '.';
 
 
 export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateAction<number>>] {
@@ -25,7 +24,8 @@ export function SetLimit(limit: number): [number, React.Dispatch<React.SetStateA
 function App() {
  return (
   <>
-   <BrowserRouter>
+    <Provider store = { store }>
+      <BrowserRouter>
         <nav>
           {/* <a href='/'>Home</a> ||
           <a href='/test'>Test</a>|| */}
@@ -37,18 +37,19 @@ function App() {
           <Link to='/external/canvas'>Canvas</Link> ||
           <Link to='/external/counter'>Counter</Link> ||
         </nav>
-        <Notes/>
-      <Routes>
-        <Route path='/' element = {<HomePage/>}/>
-        <Route path='/test' element = {<TestPage/>}/>
-        <Route path='/dynamic/:id/courses/:courseId' element = {<DynamicPage/>}/>
 
-        <Route path='/external' element={<ExternalPage/>}>
-          <Route path='/external/canvas' element = {<Canvas/>}/>
-          <Route path='/external/counterComponent1' element = {<CounterComponent1/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+       <Routes>
+          <Route path='/' element = {<HomePage/>}/>
+          <Route path='/test' element = {<TestPage/>}/>
+          <Route path='/dynamic/:id/courses/:courseId' element = {<DynamicPage/>}/>
+
+          <Route path='/external' element={<ExternalPage/>}>
+            <Route path='/external/canvas' element = {<Canvas/>}/>
+            <Route path='/external/counterComponent1' element = {<CounterComponent1/>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </>
  )
 }

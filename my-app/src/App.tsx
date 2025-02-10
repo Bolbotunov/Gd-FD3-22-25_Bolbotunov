@@ -5,6 +5,10 @@ import { nameContext } from './nameContext';
 import { BrowserRouter } from 'react-router';
 import TestComponentContext from './TestComponentContext';
 import { NameProvider } from './nameContext';
+import Notes from './Notes';
+import { store } from '.';
+import { Provider } from 'react-redux';
+import ShowCount from './ShowCount';
 
 
 export type TypeRandomProps = {
@@ -22,16 +26,22 @@ function App() {
 
   return (
     <>
-  <NameProvider>
-    <BrowserRouter>
-    <div className="App">
-      <header className="App-header">
-        <CreateRandom/>
-      </header>
-      <TestComponentContext/>
-    </div>
-    </BrowserRouter>
-  </NameProvider>
+     <Provider store = { store }>
+      <NameProvider>
+        <BrowserRouter>
+          <div className="App">
+            <header className="App-header">
+              <CreateRandom/>
+              <div style={{display:'flex', gap:'20px'}}>
+                <Notes/>
+              </div>
+              <ShowCount/>
+            </header>
+            <TestComponentContext/>
+          </div>
+        </BrowserRouter>
+      </NameProvider>
+    </Provider>
   </>
   );
 }

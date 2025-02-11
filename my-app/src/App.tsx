@@ -1,7 +1,6 @@
 import './App.css';
 import CreateRandom from './CreateRandom';
 import { useState } from 'react';
-import { nameContext } from './nameContext';
 import { BrowserRouter } from 'react-router';
 import TestComponentContext from './TestComponentContext';
 import { NameProvider } from './nameContext';

@@ -1,36 +1,28 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ACTION_PLUS, ACTION_MINUS } from './numberReducer';
+import { useDispatch } from 'react-redux';
+import { increment, decrement } from './numberSlice';
+import { useTypeSelector } from './';
 
 export default function ShowCount() {
-  const { count: storedCount } = useSelector((store: any) => store.numberState)
-  const dispatch = useDispatch()
-
+  const storedCount = useTypeSelector((store) => store.numberState.count);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log('Stored Count:', storedCount);
   }, [storedCount]);
 
+  function addOne() {
+    dispatch(increment());
+  }
 
-    function addOne(count: any) {
-      if(count) {
-        dispatch({type: ACTION_PLUS, count: storedCount })
-      }
-    }
-
-    function minusOne(count: any) {
-      if(count) {
-        dispatch({type: ACTION_MINUS, count: storedCount})
-      }
-     
-    }
-  
+  function minusOne() {
+    dispatch(decrement());
+  }
 
   return (
     <>
-      <button onClick = {addOne}>+</button>
-      <button onClick = {minusOne}>-</button>
-      <p>{storedCount}</p>
+      <button onClick={addOne}>+</button>
+      <button onClick={minusOne}>-</button>
       <p>{storedCount}</p>
     </>
   );

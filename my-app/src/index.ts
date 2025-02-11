@@ -1,21 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit';
 import messageSlice from './messageSlice';
-import numberSlice from './numberSlice';
+import numberReducer from './numberSlice';
 import todosSlice from './todosSlice';
 import { TypedUseSelectorHook, useSelector } from "react-redux";
+import { increment, decrement } from './numberSlice';
 
 
 export const actions = {
     todosSlice: todosSlice.actions,
     messageSlice: messageSlice.actions,
-    numberSlice: numberSlice.actions,
+    numberSlice: { increment, decrement },
 }
 
 export const store = configureStore({
     reducer: {
         todosSlice: todosSlice.reducer,
         messageSlice: messageSlice.reducer,
-        numberState: numberSlice.reducer,
+        numberState: numberReducer,
     }
 });
 

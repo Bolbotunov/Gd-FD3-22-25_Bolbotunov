@@ -3,13 +3,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export const ACTION_MINUS = '-';
 export const ACTION_PLUS = '+';
 
+
 const initialState = {
   showCommand: '',
   count: 0,
 };
 
 const numberSlice = createSlice({
-  name: 'number',
+  name: 'count',
   initialState,
   reducers: {
     increment(state) {
@@ -24,4 +25,4 @@ const numberSlice = createSlice({
 });
 
 export const { increment, decrement } = numberSlice.actions;
-export default numberSlice;
+export default numberSlice.reducer;

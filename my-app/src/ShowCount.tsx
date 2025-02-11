@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { increment, decrement } from './numberSlice';
 import { useTypeSelector } from './';
+import { actions } from './';
 
 export default function ShowCount() {
   const storedCount = useTypeSelector((store) => store.numberState.count);
@@ -12,7 +13,7 @@ export default function ShowCount() {
   }, [storedCount]);
 
   function addOne() {
-    dispatch(increment());
+    dispatch(increment())
   }
 
   function minusOne() {

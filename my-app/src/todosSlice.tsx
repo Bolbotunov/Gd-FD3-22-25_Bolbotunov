@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { v4 } from 'uuid'
 
 type Todo = {
-    id: string;
-    text: string;
+    id: number | string;
+    title: string;
     completed: boolean;
 }
 
@@ -32,11 +32,11 @@ export const todoSlice = createSlice( {
             state.todos = action.payload
         },
         add(state, action: AddPayload) {
-           const { text } = action.payload
+           const { title } = action.payload
 
            state.todos.push( {
-            id: v4(),
-            text,
+            id: v4().slice(0, 4),
+            title,
             completed: false,
            })
         },

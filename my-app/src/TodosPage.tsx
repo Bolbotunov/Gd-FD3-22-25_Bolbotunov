@@ -8,32 +8,42 @@ export default function TodosPage() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(actions.todoSlice.load([
-            {
-                id: v4(),
-                text:'1 Text',
-                completed: false,
-            },
-            {
-                id: v4(),
-                text:'2 Text',
-                completed: true,
-            },
-            {
-                id: v4(),
-                text:'3 Text',
-                completed: false,
-            },
-            
-        ]))
+        type JSONServerTodo = {
+            userId: number,
+            id: number,
+            title: string,
+            completed: boolean,
+        }
+
+        fetch('https://jsonplaceholder.typicode.com/todos')
+            .then(response => response.json())
+            .then((json: JSONServerTodo[]) => dispatch(actions.todoSlice.load(json)))
+
+        // dispatch(actions.todoSlice.load([
+        //     {
+        //         id: v4(),
+        //         text:'1 Text',
+        //         completed: false,
+        //     },
+        //     {
+        //         id: v4(),
+        //         text:'2 Text',
+        //         completed: true,
+        //     },
+        //     {
+        //         id: v4(),
+        //         text:'3 Text',
+        //         completed: false,
+        //     },
+        // ]))
     }, [])
 
     function addTodoHandler() {
-        const text = prompt('create todo')
+        const title = prompt('create todo')
 
-        if (text) {
+        if (title) {
             dispatch(actions.todoSlice.add({
-                text,
+                title,
             }))
         }
     }
@@ -55,7 +65,7 @@ export default function TodosPage() {
                                 checked={todo.completed}
                                 onChange={() => dispatch(actions.todoSlice.toggle(todo.id))}
                             />
-                            #{todo.id.slice(0, 4)} {todo.text}
+                            #{todo.id} {todo.title}
                         </label>
                     </div>
                 ))

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from 'react';
 import { actions } from "./stores/store";
+import { v4 } from "uuid";
 
 export default function TodosPage() {
     const todos = useSelector((store: any) => store.todoSlice.todos)
@@ -9,40 +10,52 @@ export default function TodosPage() {
     useEffect(() => {
         dispatch(actions.todoSlice.load([
             {
-                id:'1',
+                id: v4(),
                 text:'1 Text',
                 completed: false,
             },
             {
-                id:'2',
+                id: v4(),
                 text:'2 Text',
-                completed: false,
+                completed: true,
             },
             {
-                id:'3',
+                id: v4(),
                 text:'3 Text',
                 completed: false,
             },
             
         ]))
-    }, [dispatch])
+    }, [])
 
+    function addTodoHandler() {
+        const text = prompt('create todo')
 
+        if (text) {
+            dispatch(actions.todoSlice.add({
+                text,
+            }))
+        }
+    }
 
 
     return (
         <>
             <h4>TODOSPAGE</h4>
+            <div>
+                <button onClick={addTodoHandler}>Add Todo: </button>
+            </div>
+            
             {Array.isArray(todos) && todos.length > 0 ? (
                 todos.map((todo: any) => (
                     <div key={todo.id}>
-                        <label>
+                        <label style={{textDecoration: todo.completed ?  'none' : "line-through" }}>
                             <input
                                 type="checkbox" 
                                 checked={todo.completed}
-                                onChange={() => console.log(`Toggle complete for ${todo.id}`)}
+                                onChange={() => dispatch(actions.todoSlice.toggle(todo.id))}
                             />
-                            #{todo.id} {todo.text}
+                            #{todo.id.slice(0, 4)} {todo.text}
                         </label>
                     </div>
                 ))

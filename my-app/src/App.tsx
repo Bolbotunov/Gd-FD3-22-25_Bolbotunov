@@ -1,24 +1,23 @@
 import './App.css';
-
+import ShowResult from './ShowResult';
+import { Provider } from 'react-redux';
+import { store } from './stores/store';
+import TodosPage from './TodosPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Provider store = { store }>
+        <div className="App">
+          <header className="App-header">
+            <ShowResult/>
+            <br></br>
+            <TodosPage/>
+          </header>
+        </div>
+      </Provider>
+    </>
   );
 }
 
 export default App;
-
-
-

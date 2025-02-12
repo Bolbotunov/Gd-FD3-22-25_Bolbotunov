@@ -1,13 +1,31 @@
-import { MyHeader, HeaderContainer, MySite } from "./MyHeader.styled"
+import { MyHeader } from "../styles/MyHeader.styled"
+import { CommonStylesTitlesHeader } from "../styles/CommonStyles.styled"
+import { CommonButtonStyles } from "../styles/CommonStyles.styled"
 
-export default function Header() {
+
+type PropsTitleType = {
+    title: string;
+}
+
+export default function Header({ title } : PropsTitleType) {
+
+    function addNewTask() {
+      let task = prompt('task...')
+      if(task) {
+        console.log(task)
+      }
+    }
+
     return (
-        <MySite>
-            <MyHeader>
-                <HeaderContainer>
-                    TEXT
-                </HeaderContainer>
-            </MyHeader>
-        </MySite>
+      <>
+        <MyHeader>
+          <CommonStylesTitlesHeader>
+            {title}
+          </CommonStylesTitlesHeader>
+          <CommonButtonStyles onClick={addNewTask}>
+            ADD TASK
+          </CommonButtonStyles>
+        </MyHeader>
+      </>
     )
 }

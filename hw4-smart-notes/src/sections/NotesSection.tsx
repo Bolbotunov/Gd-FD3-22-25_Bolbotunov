@@ -1,11 +1,15 @@
 import { CommonStylesText, NotesListStyles, CommonButtonStyles, CommonButtonGroup, CommonStylesTitles } from "../styles/CommonStyles.styled"
+import { useSelector } from 'react-redux';
 
 export default function NotesSection() {
+
+    const storedTitle = useSelector((store:any) => store.componentsSlice.title)
+
     return (
         <>
             <NotesListStyles>
                     <CommonStylesTitles>
-                    Note title 1
+                        {storedTitle}
                     </CommonStylesTitles>
                     <CommonStylesText>
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit.

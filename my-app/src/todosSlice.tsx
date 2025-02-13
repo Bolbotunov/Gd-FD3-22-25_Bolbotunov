@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { v4 } from 'uuid'
 
-type Todo = {
+export type Todo = {
     id: number | string;
     title: string;
     completed: boolean;
 }
 
-type State = {
+export type State = {
     todos: Todo[];
 }
 

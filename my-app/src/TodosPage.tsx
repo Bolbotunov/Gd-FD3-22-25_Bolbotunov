@@ -1,11 +1,21 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { actions } from "./stores/store";
+import { Todo } from "./todosSlice";
 import { v4 } from "uuid";
+import { todoSlice } from "./todosSlice";
 
 export default function TodosPage() {
-    const todos = useSelector((store: any) => store.todoSlice.todos)
+    
+    const { todos } = useSelector((store: any) => store.todoSlice)
+    const [filtered, setFiltered] = useState<Todo[]>([])
     const dispatch = useDispatch()
+
+
+useEffect(() => {
+    setFiltered(todos)
+}, [todos])
+
 
     useEffect(() => {
         type JSONServerTodo = {
@@ -17,8 +27,10 @@ export default function TodosPage() {
 
         fetch('https://jsonplaceholder.typicode.com/todos')
             .then(response => response.json())
-            .then((json: JSONServerTodo[]) => dispatch(actions.todoSlice.load(json)))
-
+            .then((json: JSONServerTodo[]) => {
+                dispatch(actions.todoSlice.load(json)
+                )}
+            )
         // dispatch(actions.todoSlice.load([
         //     {
         //         id: v4(),
@@ -48,16 +60,29 @@ export default function TodosPage() {
         }
     }
 
+function searchHandler(value:string) {
+    if(!value) {
+        setFiltered(todos)
+        return
+    }
+    const filteredNew = todos.filter((todo:any) => todo.title.includes(value))
+    setFiltered(filteredNew)
+    }
+
+
 
     return (
         <>
             <h4>TODOSPAGE</h4>
             <div>
                 <button onClick={addTodoHandler}>Add Todo: </button>
+                <input onChange={(e) => searchHandler(e.target.value)}/>
             </div>
             
+
+
             {Array.isArray(todos) && todos.length > 0 ? (
-                todos.map((todo: any) => (
+                filtered.map((todo: any) => (
                     <div key={todo.id}>
                         <label style={{textDecoration: todo.completed ?  'none' : "line-through" }}>
                             <input
@@ -74,6 +99,5 @@ export default function TodosPage() {
             )}
         </>
     );
-    
-}
 
+}

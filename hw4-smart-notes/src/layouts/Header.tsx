@@ -3,20 +3,25 @@ import { CommonStylesTitlesHeader } from "../styles/CommonStyles.styled"
 import { CommonButtonStyles } from "../styles/CommonStyles.styled"
 import { useDispatch, useSelector } from "react-redux"
 import { actions } from "../stores/store"
+import { showNewNote } from "../slices/componentsSlice"
 
 
 type PropsTitleType = {
-    title: string;
+  title: string;
 }
 
 export default function Header({ title } : PropsTitleType) {
-  const storedTitle = useSelector((store:any) => store.componentsSlice.title)
   const dispatch = useDispatch()
 
     function addNewTask() {
       let task = prompt('task...')
       if(task) {
-        dispatch(actions.componentsSlice.addNote(task))
+        dispatch(showNewNote(true))
+        dispatch( actions.componentsSlice.addNote( {
+          id: 555,
+          title: task,
+        }))
+      
       }
     }
 

@@ -1,15 +1,18 @@
 import { CommonStylesText, NotesListStyles, CommonButtonStyles, CommonButtonGroup, CommonStylesTitles } from "../styles/CommonStyles.styled"
 import { useSelector } from 'react-redux';
+import NavigationSection from "./NavigationSection";
 
 export default function NotesSection() {
-
-    const storedTitle = useSelector((store:any) => store.componentsSlice.title)
+    const storedData = useSelector((store: any) => store.componentsSlice.notes)
 
     return (
         <>
-            <NotesListStyles>
+        <NavigationSection/>
+              {storedData.map((note:any) => (
+                 <NotesListStyles>
+                <div key={note.id}>
                     <CommonStylesTitles>
-                        {storedTitle}
+                        {note.title} - ID:{note.id}
                     </CommonStylesTitles>
                     <CommonStylesText>
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -24,8 +27,11 @@ export default function NotesSection() {
                     <CommonButtonStyles>Edit</CommonButtonStyles>
                     <CommonButtonStyles>Delete</CommonButtonStyles>
                   </CommonButtonGroup>
+                  </div>
                 </div>
-            </NotesListStyles>
+                </NotesListStyles>
+                ))}
+            
         </>
     )
 }

@@ -1,33 +1,34 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-type NoteSectionType = {
+type NoteType = {
     id: number;
     title: string;
 }
 
-type ComponentStateType = {
-    title: string;
-    notesSections: NoteSectionType[];
+type NoteStateType = {
+  notes: NoteType[];
+  showNotes: boolean;
 }
 
 
-const initialState: ComponentStateType = {
-  title: '',
-  notesSections: [],
+const initialState: NoteStateType = {
+  notes: [],
+  showNotes: false,
 };
 
 export const componentsSlice = createSlice({
   name: 'components',
   initialState,
   reducers: {
-    addNote: (state, action: PayloadAction<string>) => {
-        state.title = action.payload;
+    addNote: (state, action: PayloadAction<NoteType>) => {
+        state.notes.push(action.payload)
+        console.log(JSON.parse(JSON.stringify(state)))
     },
-    addNotesSection: (state, action: PayloadAction<string>) => {
-        state.notesSections.push({ id: Date.now(), title: action.payload });
-      },
+    showNewNote: (state, action: PayloadAction<boolean>) => {
+      state.showNotes = action.payload
+    }
   },
 });
 
-export const { addNote, addNotesSection } = componentsSlice.actions;
+export const { addNote, showNewNote } = componentsSlice.actions;
 export default componentsSlice.reducer;

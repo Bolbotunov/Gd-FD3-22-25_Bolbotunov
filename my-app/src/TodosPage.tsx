@@ -6,35 +6,8 @@ import { v4 } from "uuid";
 import { todoSlice } from "./todosSlice";
 
 export default function TodosPage() {
-   
-    const { todos } = useSelector((store: any) => store.todoSlice)
-    const [filtered, setFiltered] = useState<Todo[]>([])
-    const [search, setSearch] = useState('')
+    const { filteredTodos } = useSelector((store: any) => store.todoSlice)
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        if (!search) {
-            setFiltered(todos)
-            return;
-        }
-
-    const filteredNew = todos
-    .filter((todo: Todo) => todo.title.toLowerCase().includes(search.toLowerCase()))
-    .map((todo: Todo) => {
-        let title = todo.title;
-        // const startIndex = title.indexOf(search);
-        // title = title.slice(0, startIndex) + '<mark>' + title.slice(startIndex);
-        // title = title.slice(0, startIndex + '<mark>'.length + search.length)
-        //  + '<mark>'
-        //  + title.slice(startIndex + '<mark>'.length + search.length);
-
-        const parts = title.split(search)
-        title = parts.join('<mark>' + search + '</mark>')
-        return { ...todo, title, };
-    });
-
-        setFiltered(filteredNew);
-}, [todos, search])
 
     useEffect(() => {
         type JSONServerTodo = {
@@ -49,23 +22,6 @@ export default function TodosPage() {
             .then((json: JSONServerTodo[]) => {
                 dispatch(actions.todoSlice.load(json))
             })
-        // dispatch(actions.todoSlice.load([
-        //     {
-        //         id: v4(),
-        //         text:'1 Text',
-        //         completed: false,
-        //     },
-        //     {
-        //         id: v4(),
-        //         text:'2 Text',
-        //         completed: true,
-        //     },
-        //     {
-        //         id: v4(),
-        //         text:'3 Text',
-        //         completed: false,
-        //     },
-        // ]))
     }, [])
 
     function addTodoHandler() {
@@ -78,13 +34,9 @@ export default function TodosPage() {
         }
     }
 
-function searchHandler(search?: string) {
-    setSearch(search ?? '')
+function searchHandler(value?: string) {
+    dispatch(actions.todoSlice.filter( { search: value ?? '' }))
 }
-
-
-
-
 
     return <>
             <h4>TODOSPAGE</h4>
@@ -93,7 +45,7 @@ function searchHandler(search?: string) {
                 <input onChange={(e) => searchHandler(e.target.value)}/>
             </div>
 
-            <div>{filtered.map((todo: any) =>  <>
+            <div>{filteredTodos.map((todo: any) =>  <>
                         <label style={{textDecoration: todo.completed ?  'none' : "line-through" }}>
                             <input
                                 type="checkbox"

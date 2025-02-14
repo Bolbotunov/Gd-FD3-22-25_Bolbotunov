@@ -1,42 +1,47 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { actions } from "./stores/store";
+import { getTodos, getPosts, getTodoById } from "./api/jsonplaceholder";
+import { Todo } from "./todosSlice";
 import { v4 } from "uuid";
+import { todoSlice } from "./todosSlice";
+
+// type CallbackFunction = (error: Error | null, data? any | null) => void
+
+// function getTodos(callback: CallbackFunction) {
+//     fetch('https://jsonplaceholder.typicode.com/todos')
+//             .then(response => response.json())
+//             .then((json: JSONServerTodo[]) => {
+//                 callback(null, json);
+//             })
+//             .catch((error) => callback(error))
+//             return Promise
+// }
+
 
 export default function TodosPage() {
-    const todos = useSelector((store: any) => store.todoSlice.todos)
+    const { filteredTodos } = useSelector((store: any) => store.todoSlice)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        type JSONServerTodo = {
-            userId: number,
-            id: number,
-            title: string,
-            completed: boolean,
+        async function load() {
+            const data = await getTodos()
+            const dataPosts = await getPosts()
+            dispatch(actions.todoSlice.load(data))
         }
+        load()
+        }, [])
 
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(response => response.json())
-            .then((json: JSONServerTodo[]) => dispatch(actions.todoSlice.load(json)))
+        // getTodos()
+        // .then((data) =>  dispatch(actions.todoSlice.load(data)))
+        // .catch((error) => console.error(error))
 
-        // dispatch(actions.todoSlice.load([
-        //     {
-        //         id: v4(),
-        //         text:'1 Text',
-        //         completed: false,
-        //     },
-        //     {
-        //         id: v4(),
-        //         text:'2 Text',
-        //         completed: true,
-        //     },
-        //     {
-        //         id: v4(),
-        //         text:'3 Text',
-        //         completed: false,
-        //     },
-        // ]))
-    }, [])
+                // fetch('https://jsonplaceholder.typicode.com/todos')
+        //     .then(response => response.json())
+        //     .then((json: JSONServerTodo[]) => {
+        //     })
+
+
 
     function addTodoHandler() {
         const title = prompt('create todo')
@@ -48,32 +53,27 @@ export default function TodosPage() {
         }
     }
 
+function searchHandler(value?: string) {
+    dispatch(actions.todoSlice.filter( { search: value ?? '' }))
+}
 
-    return (
-        <>
+    return <>
             <h4>TODOSPAGE</h4>
             <div>
                 <button onClick={addTodoHandler}>Add Todo: </button>
+                <input onChange={(e) => searchHandler(e.target.value)}/>
             </div>
-            
-            {Array.isArray(todos) && todos.length > 0 ? (
-                todos.map((todo: any) => (
-                    <div key={todo.id}>
+
+            <div>{filteredTodos.map((todo: any) =>  <>
                         <label style={{textDecoration: todo.completed ?  'none' : "line-through" }}>
                             <input
-                                type="checkbox" 
+                                type="checkbox"
                                 checked={todo.completed}
                                 onChange={() => dispatch(actions.todoSlice.toggle(todo.id))}
                             />
-                            #{todo.id} {todo.title}
-                        </label>
-                    </div>
-                ))
-            ) : (
-                <p>No todos available</p>
-            )}
+                            #{todo.id} <span dangerouslySetInnerHTML = {{__html: todo.title}}></span>
+                        </label><br/>
+        </>)}
+        </div>
         </>
-    );
-    
 }
-

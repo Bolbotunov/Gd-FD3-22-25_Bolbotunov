@@ -6,16 +6,35 @@ import { v4 } from "uuid";
 import { todoSlice } from "./todosSlice";
 
 export default function TodosPage() {
-    
+   
     const { todos } = useSelector((store: any) => store.todoSlice)
     const [filtered, setFiltered] = useState<Todo[]>([])
+    const [search, setSearch] = useState('')
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        if (!search) {
+            setFiltered(todos)
+            return;
+        }
 
-useEffect(() => {
-    setFiltered(todos)
-}, [todos])
+    const filteredNew = todos
+    .filter((todo: Todo) => todo.title.toLowerCase().includes(search.toLowerCase()))
+    .map((todo: Todo) => {
+        let title = todo.title;
+        // const startIndex = title.indexOf(search);
+        // title = title.slice(0, startIndex) + '<mark>' + title.slice(startIndex);
+        // title = title.slice(0, startIndex + '<mark>'.length + search.length)
+        //  + '<mark>'
+        //  + title.slice(startIndex + '<mark>'.length + search.length);
 
+        const parts = title.split(search)
+        title = parts.join('<mark>' + search + '</mark>')
+        return { ...todo, title, };
+    });
+
+        setFiltered(filteredNew);
+}, [todos, search])
 
     useEffect(() => {
         type JSONServerTodo = {
@@ -28,9 +47,8 @@ useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/todos')
             .then(response => response.json())
             .then((json: JSONServerTodo[]) => {
-                dispatch(actions.todoSlice.load(json)
-                )}
-            )
+                dispatch(actions.todoSlice.load(json))
+            })
         // dispatch(actions.todoSlice.load([
         //     {
         //         id: v4(),
@@ -60,44 +78,31 @@ useEffect(() => {
         }
     }
 
-function searchHandler(value:string) {
-    if(!value) {
-        setFiltered(todos)
-        return
-    }
-    const filteredNew = todos.filter((todo:any) => todo.title.includes(value))
-    setFiltered(filteredNew)
-    }
+function searchHandler(search?: string) {
+    setSearch(search ?? '')
+}
 
 
 
-    return (
-        <>
+
+
+    return <>
             <h4>TODOSPAGE</h4>
             <div>
                 <button onClick={addTodoHandler}>Add Todo: </button>
                 <input onChange={(e) => searchHandler(e.target.value)}/>
             </div>
-            
 
-
-            {Array.isArray(todos) && todos.length > 0 ? (
-                filtered.map((todo: any) => (
-                    <div key={todo.id}>
+            <div>{filtered.map((todo: any) =>  <>
                         <label style={{textDecoration: todo.completed ?  'none' : "line-through" }}>
                             <input
-                                type="checkbox" 
+                                type="checkbox"
                                 checked={todo.completed}
                                 onChange={() => dispatch(actions.todoSlice.toggle(todo.id))}
                             />
-                            #{todo.id} {todo.title}
-                        </label>
-                    </div>
-                ))
-            ) : (
-                <p>No todos available</p>
-            )}
+                            #{todo.id} <span dangerouslySetInnerHTML = {{__html: todo.title}}></span>
+                        </label><br/>
+        </>)}
+        </div>
         </>
-    );
-
 }

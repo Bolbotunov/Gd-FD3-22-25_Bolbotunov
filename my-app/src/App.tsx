@@ -6,16 +6,17 @@ import TodosPage from './TodosPage';
 import MyTestPage from './MyTestPage';
 import { testStore } from './stores/testStore';
 
+
 function App() {
   return (
     <>
-      <Provider store = { store }>
+      <Provider store = { testStore }>
         <div className="App">
           <header className="App-header">
-            {/* <MyTestPage/> */}
-            <ShowResult/>
+            <MyTestPage/>
+            {/* <ShowResult/> */}
             <br></br>
-            <TodosPage/>
+            {/* <TodosPage/> */}
           </header>
         </div>
       </Provider>

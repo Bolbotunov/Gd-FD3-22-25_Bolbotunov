@@ -5,9 +5,11 @@ export default function NavigationSection() {
         <CommonStylesFlexDiv>
             <CommonStylesInput placeholder="Search..."/>
             <CommonStylesSelect>
-                <CommonStylesOption value="option1">Option 1</CommonStylesOption>
-                <CommonStylesOption value="option2">Option 2</CommonStylesOption>
-                <CommonStylesOption value="option3">Option 3</CommonStylesOption>
+                <CommonStylesOption value="work">Work</CommonStylesOption>
+                <CommonStylesOption value="shop">Shop</CommonStylesOption>
+                <CommonStylesOption value="health">Health</CommonStylesOption>
+                <CommonStylesOption value="family">Family</CommonStylesOption>
+                <CommonStylesOption value="friends">Friends</CommonStylesOption>
             </CommonStylesSelect>
         </CommonStylesFlexDiv>
     )

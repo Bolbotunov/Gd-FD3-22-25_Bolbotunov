@@ -1,9 +1,28 @@
-import { CommonStylesText, NotesListStyles, CommonButtonStyles, CommonButtonGroup, CommonStylesTitles } from "../styles/CommonStyles.styled"
-import { useSelector } from 'react-redux';
+import { CommonStylesText, NotesListStyles, CommonStylesTitles } from "../styles/CommonStyles.styled"
+import { CommonBasicButtonStyles, CommonDeleteButtonStyles, CommonButtonGroup } from "../styles/MyButtonStyles.styled";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteNote, editNote }  from "../slices/componentsSlice";
 import NavigationSection from "./NavigationSection";
+import store from "../stores/store";
+import { v4 } from 'uuid'
+import Modal from 'react-modal'
+import MyModal from "../components/MyModal";
+import { useState } from "react";
 
 export default function NotesSection() {
+    const [noteToEdit, setNoteToEdit] = useState(null);
     const storedData = useSelector((store: any) => store.componentsSlice.notes)
+    const dispatch = useDispatch()
+
+
+    function deleteNoteHandler(title: string) {
+        dispatch(deleteNote(title))
+    }
+
+
+    function editNoteHandler(note: any) {
+        setNoteToEdit(note);
+    }
 
     return (
         <>
@@ -12,26 +31,24 @@ export default function NotesSection() {
                  <NotesListStyles>
                 <div key={note.id}>
                     <CommonStylesTitles>
-                        {note.title} - ID:{note.id}
+                        {note.title}
                     </CommonStylesTitles>
+                    <p style={{textDecoration:'underline', fontWeight:'600'}}>{note.tagId}</p>
                     <CommonStylesText>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        Deserunt odio dolore fuga a debitis,
-                        nostrum natus illum harum nam atque
-                        veniam aperiam minima ad ut autem hic rem vero. Sapiente.
+                       <br></br>
+                       {note.text}
                     </CommonStylesText>
-               <div>{Date()}</div>
+               <div>{note.created.toLocaleString()}</div>
                <div>
                   <CommonButtonGroup>
-                    <CommonButtonStyles>View</CommonButtonStyles>
-                    <CommonButtonStyles>Edit</CommonButtonStyles>
-                    <CommonButtonStyles>Delete</CommonButtonStyles>
+                    <CommonBasicButtonStyles>View</CommonBasicButtonStyles>
+                    <CommonBasicButtonStyles onClick={() => editNoteHandler(note)}>Edit</CommonBasicButtonStyles>
+                    <CommonDeleteButtonStyles onClick={() => deleteNoteHandler(note.title)}>Delete</CommonDeleteButtonStyles>
                   </CommonButtonGroup>
                   </div>
                 </div>
                 </NotesListStyles>
                 ))}
-            
         </>
     )
 }

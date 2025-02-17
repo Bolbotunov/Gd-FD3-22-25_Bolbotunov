@@ -1,8 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { v4 } from "uuid";
 
 type NoteType = {
-    id: number;
+    id: string;
+    tagId: string | null;
     title: string;
+    text: string;
+    created: Date;
+    // updated: Date;
 }
 
 type NoteStateType = {
@@ -26,9 +31,19 @@ export const componentsSlice = createSlice({
     },
     showNewNote: (state, action: PayloadAction<boolean>) => {
       state.showNotes = action.payload
-    }
-  },
+    },
+    deleteNote: (state, action: PayloadAction<string>) => {
+      state.notes = state.notes.filter(item => item.title !== action.payload)
+    },
+    editNote: (state, action: PayloadAction<NoteType>) => {
+      const num = state.notes.findIndex((item) => item.id === action.payload.id)
+      if (num !== -1) {
+        state.notes[num] = action.payload
+      }
+    },
+  }
 });
 
-export const { addNote, showNewNote } = componentsSlice.actions;
+
+export const { addNote, showNewNote, deleteNote, editNote } = componentsSlice.actions;
 export default componentsSlice.reducer;

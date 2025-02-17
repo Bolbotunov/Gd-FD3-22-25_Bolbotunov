@@ -1,5 +1,5 @@
 import './App.css';
-import Header from './layouts/Header';
+import { Header } from './layouts/Header';
 import NotesContent from './layouts/NotesContent';
 import TagsContent from './layouts/TagsContent';
 import { MyWrapper, MySection} from "./styles/CommonStyles.styled"

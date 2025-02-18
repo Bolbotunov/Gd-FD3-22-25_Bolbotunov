@@ -27,7 +27,6 @@ export const componentsSlice = createSlice({
   reducers: {
     addNote: (state, action: PayloadAction<NoteType>) => {
         state.notes.push(action.payload)
-        console.log(JSON.parse(JSON.stringify(state)))
     },
     showNewNote: (state, action: PayloadAction<boolean>) => {
       state.showNotes = action.payload
@@ -36,10 +35,11 @@ export const componentsSlice = createSlice({
       state.notes = state.notes.filter(item => item.title !== action.payload)
     },
     editNote: (state, action: PayloadAction<NoteType>) => {
-      const num = state.notes.findIndex((item) => item.id === action.payload.id)
-      if (num !== -1) {
-        state.notes[num] = action.payload
-      }
+        const index = state.notes.findIndex((item) => item.id === action.payload.id);
+        if (index !== -1) {
+          state.notes[index] = action.payload;
+        }
+      
     },
   }
 });

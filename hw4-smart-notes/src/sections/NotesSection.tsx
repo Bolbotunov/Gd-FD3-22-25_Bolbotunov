@@ -9,10 +9,33 @@ import Modal from 'react-modal'
 import MyModal from "../components/MyModal";
 import { useState } from "react";
 
-export default function NotesSection() {
-    const [noteToEdit, setNoteToEdit] = useState(null);
-    const storedData = useSelector((store: any) => store.componentsSlice.notes)
+export type NoteType = {
+  id: string;
+  title: string;
+  text: string;
+  tagId: string;
+  created: Date;
+};
+
+type NotesSectionProps = {
+  notes: NoteType[];
+};
+ 
+export default function NotesSection( { notes }: NotesSectionProps ) {
+    const [noteToEdit, setNoteToEdit] = useState< NoteType | null>(null);
+    const [isOpen, setIsOpen] = useState(false)
     const dispatch = useDispatch()
+
+   function openModal(note:  NoteType) {
+    setNoteToEdit(note)
+    setIsOpen(true);
+   
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+    setNoteToEdit(null)
+  }
 
 
     function deleteNoteHandler(title: string) {
@@ -20,14 +43,14 @@ export default function NotesSection() {
     }
 
 
-    function editNoteHandler(note: any) {
-        setNoteToEdit(note);
-    }
+    // function editNoteHandler(note: any) {
+    //     openModal(dispatch(editNote(note)))
+    // }
 
     return (
         <>
         <NavigationSection/>
-              {storedData.map((note:any) => (
+              {notes.map((note:any) => (
                  <NotesListStyles>
                 <div key={note.id}>
                     <CommonStylesTitles>
@@ -42,13 +65,14 @@ export default function NotesSection() {
                <div>
                   <CommonButtonGroup>
                     <CommonBasicButtonStyles>View</CommonBasicButtonStyles>
-                    <CommonBasicButtonStyles onClick={() => editNoteHandler(note)}>Edit</CommonBasicButtonStyles>
+                    <CommonBasicButtonStyles onClick={() => openModal(note)}>Edit</CommonBasicButtonStyles>
                     <CommonDeleteButtonStyles onClick={() => deleteNoteHandler(note.title)}>Delete</CommonDeleteButtonStyles>
                   </CommonButtonGroup>
                   </div>
                 </div>
                 </NotesListStyles>
                 ))}
+                <MyModal isOpen={isOpen} onClose={closeModal} noteToEdit={noteToEdit}/>
         </>
     )
 }

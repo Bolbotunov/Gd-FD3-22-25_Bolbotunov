@@ -4,22 +4,18 @@ import NotesSection from "../sections/NotesSection";
 import { showNewNote } from "../slices/componentsSlice";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { NoteType } from "../sections/NotesSection";
 
 
 
 
 
 export default function NotesContent() {
-  const show = useSelector((store: any) => store.componentsSlice.showNewNote)
-
-  // useEffect(() => {
-  //   console.log("showNewNote value updated:", show); 
-  // }, [show]);
-
+    const notes = useSelector((store: any) => store.componentsSlice.notes)
     return (
       <>
         <MyContent>
-            <NotesSection/>
+            <NotesSection notes={notes}/>
         </MyContent>
       </>
     )

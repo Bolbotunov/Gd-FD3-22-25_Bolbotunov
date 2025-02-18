@@ -1,7 +1,6 @@
 import { MyContent } from "../styles/MyContent.styled";
 import NavigationSection from "../sections/NavigationSection";
 import NotesSection from "../sections/NotesSection";
-import { showNewNote } from "../slices/componentsSlice";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { NoteType } from "../sections/NotesSection";

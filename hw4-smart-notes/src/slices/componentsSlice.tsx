@@ -16,6 +16,8 @@ type NoteStateType = {
 }
 
 
+type FilterPayload = PayloadAction<{search:string}>
+
 const initialState: NoteStateType = {
   notes: [],
   showNotes: false,
@@ -28,9 +30,6 @@ export const componentsSlice = createSlice({
     addNote: (state, action: PayloadAction<NoteType>) => {
         state.notes.push(action.payload)
     },
-    showNewNote: (state, action: PayloadAction<boolean>) => {
-      state.showNotes = action.payload
-    },
     deleteNote: (state, action: PayloadAction<string>) => {
       state.notes = state.notes.filter(item => item.title !== action.payload)
     },
@@ -39,11 +38,17 @@ export const componentsSlice = createSlice({
         if (index !== -1) {
           state.notes[index] = action.payload;
         }
-      
     },
+    // filterNote: (state, action: FilterPayload) {
+    //   if (!action.payload.search) {
+    //     state.search = ''
+    //     state.filteredTodos = state.todos
+    //     return;
+    //   }
+    // }
   }
 });
 
 
-export const { addNote, showNewNote, deleteNote, editNote } = componentsSlice.actions;
+export const { addNote, deleteNote, editNote } = componentsSlice.actions;
 export default componentsSlice.reducer;

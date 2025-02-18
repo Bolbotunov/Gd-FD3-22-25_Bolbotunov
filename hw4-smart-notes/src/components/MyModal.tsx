@@ -5,7 +5,7 @@ import { CommonStylesTitles } from '../styles/CommonStyles.styled';
 import { CommonStylesInput, CommonStylesOption, CommonStylesSelect } from '../styles/CommonStyles.styled';
 import { v4 } from 'uuid'
 import { useDispatch, useSelector } from "react-redux"
-import { showNewNote, addNote, editNote } from "../slices/componentsSlice"
+import { addNote, editNote } from "../slices/componentsSlice"
 import { NoteType } from '../sections/NotesSection';
 
 const customStyles:  Modal.Styles = {
@@ -52,7 +52,7 @@ useEffect(() => {
     setText('')
     setTagId('')
   }
-}, [noteToEdit])
+}, [noteToEdit, isOpen])
 
    function addNewTask() {
       if(text) {
@@ -67,7 +67,6 @@ useEffect(() => {
               text: text,
             }))
           } else {
-            // dispatch(showNewNote(true))
             dispatch(addNote( {
             id: v4().slice(0, 4),
             tagId: tagId,

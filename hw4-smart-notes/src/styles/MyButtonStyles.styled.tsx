@@ -40,6 +40,7 @@ ${CommonButtonStyles}
 `;
 
 export const CommonButtonGroup = styled('div')`
+    width: 75%;
     display: flex;
     justify-content: space-around;
 `;

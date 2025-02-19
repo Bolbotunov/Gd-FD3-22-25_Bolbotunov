@@ -57,7 +57,8 @@ export const CommonStylesTitles = styled('div')`
 `
 
 export const CommonStylesText = styled('p')`
-    font-size: 22px;
+    font-size: 16px;
+    padding: 10px;
     background-color:#e9ebf0;
 `
 

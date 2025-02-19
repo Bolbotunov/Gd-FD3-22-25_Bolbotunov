@@ -4,7 +4,6 @@ import MyModal from "../components/MyModal"
 import { useState } from "react";
 import { CommonBasicButtonStyles } from "../styles/MyButtonStyles.styled";
 
-
 type PropsTitleType = {
   title: string;
 }

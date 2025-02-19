@@ -2,11 +2,6 @@ import { MyContent } from "../styles/MyContent.styled";
 import NavigationSection from "../sections/NavigationSection";
 import NotesSection from "../sections/NotesSection";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { NoteType } from "../sections/NotesSection";
-
-
-
 
 
 export default function NotesContent() {
@@ -14,6 +9,7 @@ export default function NotesContent() {
     return (
       <>
         <MyContent>
+            <NavigationSection/>
             <NotesSection notes={notes}/>
         </MyContent>
       </>

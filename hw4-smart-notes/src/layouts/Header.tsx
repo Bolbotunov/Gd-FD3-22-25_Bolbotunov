@@ -10,7 +10,9 @@ type PropsTitleType = {
 
 export function Header({ title } : PropsTitleType) {
    const [isOpen, setIsOpen] = useState(false)
+   const [isView, setIsView] = useState(false)
 
+   
    function openModal() {
     setIsOpen(true);
   }
@@ -29,7 +31,7 @@ export function Header({ title } : PropsTitleType) {
             Add Task
           </CommonBasicButtonStyles>
         </MyHeader>
-        <MyModal isOpen={isOpen} onClose={closeModal}/>
+        <MyModal isOpen={isOpen} onClose={closeModal} viewing={isView}/>
       </>
     )
 }

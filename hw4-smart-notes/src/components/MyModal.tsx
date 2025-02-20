@@ -27,7 +27,6 @@ const customStyles:  Modal.Styles = {
 Modal.setAppElement('#root');
 
 
-
 type ModalPropsType = {
   isOpen: boolean;
   onClose: () => void;

@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { useSelector } from "react-redux";
 import { v4 } from "uuid";
-import { TagType, initialTagsState } from "./TagsData";
+import { TagType } from "./TagsData";
+import { initialTagsState } from "./tagsSlice";
 
 export type NoteType = {
     id: string;

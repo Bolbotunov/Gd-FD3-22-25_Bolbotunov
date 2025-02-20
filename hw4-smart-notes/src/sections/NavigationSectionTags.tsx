@@ -6,7 +6,7 @@ import { choseSelectedTag } from "../slices/componentsSlice";
 
 
 
-export default function NavigationSection() {
+export default function NavigationSectionTags() {
     const [myInput, setMyInput] = useState('');
     const [selectedTag, setSelectedTag] = useState('');
     const dispatch = useDispatch();
@@ -28,15 +28,6 @@ export default function NavigationSection() {
         <CommonStylesFlexDiv>
           <CommonStylesInput placeholder="Search..." value = {myInput}
              onChange={(e) => handleInputChange(e.target.value)}/>
-            <CommonStylesSelect value={selectedTag}
-            onChange={(e) => handleTagChange(e.target.value)}>
-                 <CommonStylesOption value="">All tags</CommonStylesOption>
-            {tags.map((item:any) => (
-                <CommonStylesOption value={item.title}>
-                    {item.title}
-                </CommonStylesOption>
-            ))}
-          </CommonStylesSelect>
         </CommonStylesFlexDiv>
     )
 }

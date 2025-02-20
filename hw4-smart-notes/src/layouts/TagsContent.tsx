@@ -1,6 +1,6 @@
 import { CommonStylesTitles } from "../styles/CommonStyles.styled"
 import { MyContent } from "../styles/MyContent.styled";
-import NavigationSection from "../sections/NavigationSection";
+import NavigationSectionTags from "../sections/NavigationSectionTags";
 import TagsSection from "../sections/TagsSection";
 import { useSelector } from "react-redux";
 
@@ -11,7 +11,7 @@ export default function TagsContent() {
     return (
       <>
         <MyContent>
-            <NavigationSection/>
+            <NavigationSectionTags/>
             <TagsSection tags = {tags}/>
         </MyContent>
       </>

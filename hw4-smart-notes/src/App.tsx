@@ -6,22 +6,27 @@ import { MyWrapper, MySection} from "./styles/CommonStyles.styled"
 import { ThemeProvider } from 'styled-components';
 import { siteColors } from './SiteColors';
 import { Provider } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import store from './stores/store';
+import { useEffect } from 'react';
+import { setTags } from './slices/tagsSlice';
+
 
 
 function App() {
   return (
     <Provider store = {store}>
       <ThemeProvider theme = {siteColors}>
-        <MyWrapper>
-          <MySection>
-            <Header title = 'Notes'/>
-                <NotesContent/>
-          </MySection>
-          <MySection>
-            <Header title = 'Tags'/>
+        <MyWrapper >
+          <Header title = 'Notes'/>
+          <div style={{display:'flex'}}>
+            <MySection>
+              <NotesContent/>
+            </MySection>
+            <MySection>
                 <TagsContent/>
-          </MySection>
+            </MySection>
+            </div>
         </MyWrapper>
       </ThemeProvider>
     </Provider>

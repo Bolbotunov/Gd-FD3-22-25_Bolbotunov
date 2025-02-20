@@ -28,7 +28,8 @@ export const NotesListStyles = styled('div')`
 export const MyWrapper = styled('div') `
      ${CommonStylesFlex}
     background-color: ${(props) => props.theme.colors.MAIN_COLOR};
-    height: 100vh;
+    height: 100%;
+    flex-direction: column;
 `
 
 export const MySection = styled('div') `

@@ -28,7 +28,8 @@ export const NotesListStyles = styled('div')`
 export const MyWrapper = styled('div') `
      ${CommonStylesFlex}
     background-color: ${(props) => props.theme.colors.MAIN_COLOR};
-    height: 100vh;
+    height: 100%;
+    flex-direction: column;
 `
 
 export const MySection = styled('div') `
@@ -57,7 +58,8 @@ export const CommonStylesTitles = styled('div')`
 `
 
 export const CommonStylesText = styled('p')`
-    font-size: 22px;
+    font-size: 16px;
+    padding: 10px;
     background-color:#e9ebf0;
 `
 

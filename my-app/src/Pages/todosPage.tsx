@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
-import { actions } from "./stores/store";
-import { getTodos, getPosts, getTodoById } from "./api/jsonplaceholder";
-import { Todo } from "./todosSlice";
+import { actions } from "../stores/store";
+import { getTodos, getPosts, getComments } from "../api/jsonplaceholder";
+import { Todo } from "../todosSlice";
 import { v4 } from "uuid";
-import { todoSlice } from "./todosSlice";
+import { todoSlice } from "../todosSlice";
 
 // type CallbackFunction = (error: Error | null, data? any | null) => void
 
@@ -25,10 +25,14 @@ export default function TodosPage() {
 
     useEffect(() => {
         async function load() {
+            // const [data, dataPosts, dataComments] = await Promise.all([getTodos(), getPosts(), getComments()])
+            // const data = await getTodos()
+            // const dataPosts = await getPosts()
+            // const dataComments = await getComments()
             const data = await getTodos()
-            const dataPosts = await getPosts()
             dispatch(actions.todoSlice.load(data))
         }
+      
         load()
         }, [])
 
@@ -72,7 +76,7 @@ function searchHandler(value?: string) {
                                 onChange={() => dispatch(actions.todoSlice.toggle(todo.id))}
                             />
                             #{todo.id} <span dangerouslySetInnerHTML = {{__html: todo.title}}></span>
-                        </label><br/>
+                 </label><br/>
         </>)}
         </div>
         </>

@@ -14,6 +14,7 @@ import { setTags } from './slices/tagsSlice';
 
 
 function App() {
+  
   return (
     <Provider store = {store}>
       <ThemeProvider theme = {siteColors}>

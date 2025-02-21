@@ -9,9 +9,6 @@ export const initialTagsState: TagType[] = [
     { id: v4(), title: 'health', count: 1, toEdit: false },
   ];
 
-  // const savedTags = localStorage.getItem('tags');
-  // const initialState = savedTags ? JSON.parse(savedTags) : [];
-  
 export const tagsSlice = createSlice({
     name: 'tags',
     initialState: initialTagsState,
@@ -31,8 +28,14 @@ export const tagsSlice = createSlice({
         setTags: (state, action) => {
           return action.payload;
         },
+        addNumCounter: (state, action) => {
+          const tag = state.find(tag => tag.id === action.payload);
+          if (tag) {
+            tag.count += 1;
+          }
+        },
     }
   });
 
-  export const { addTag, editTag, deleteTag, setTags } = tagsSlice.actions;
+  export const { addTag, editTag, deleteTag, setTags, addNumCounter } = tagsSlice.actions;
   export default tagsSlice.reducer;

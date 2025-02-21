@@ -1,10 +1,9 @@
 import { CommonStylesText, NotesListStyles, CommonStylesTitles } from "../styles/CommonStyles.styled"
 import { CommonBasicButtonStyles, CommonDeleteButtonStyles, CommonButtonGroup } from "../styles/MyButtonStyles.styled";
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteNote }  from "../slices/componentsSlice";
-import NavigationSection from "./NavigationSection";
+import { addNote, deleteNote }  from "../slices/componentsSlice";
 import MyModal from "../components/MyModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export type NoteType = {
   id: string;
@@ -24,13 +23,13 @@ const VISIBLE_LENGTH_TEXT = 245
 export default function NotesSection( { notes: any }: NotesSectionProps ) {
 
     const [noteToEdit, setNoteToEdit] = useState< NoteType | null>(null);
+    const [myTag, setMyTag] = useState(noteToEdit || '');
     const [isOpen, setIsOpen] = useState(false)
     const [isView, setIsView] = useState(false)
     const dispatch = useDispatch()
 
     const notes = useSelector((store: any) => store.componentsSlice.notes);
     const filterWord = useSelector((store: any) => store.componentsSlice.filterWord);
-    // const selectedTag = useSelector((store: any) => store.components.tagsSlice);
     const tags = useSelector((store: any) => store.tagsSlice);
 
     const filteredNotes = notes.filter((note: NoteType) =>
@@ -39,7 +38,40 @@ export default function NotesSection( { notes: any }: NotesSectionProps ) {
     note.tagId.includes(tags.title)
   );
 
+
+    
+  // function countMatches() {
+  //   const allTags: { [key: string]: number } = {};
+
+  //   tags.forEach((tag: any) => {
+  //     allTags[tag.title] = 0;
+  //   });
+
+  //   notes.forEach((note: any) => {
+  //     if (allTags[note.tagId] !== undefined) {
+  //       allTags[note.tagId] += 1;
+  //     }
+  //   });
+  //   console.log("Количество заметок по тегам:", allTags);
+  // }
+
+
+
+  // function countMatches() {
+  //   if (!noteToEdit) {
+  //     dispatch(addNote({tagId:MyTag || null, title: title || null, text: text}))
+  //     if (myTag) {
+  //       dispatch(addNumCounter(myTag))
+  //     }
+  //   } 
+  // }
+
+ 
+
+
+
    function openModal(note:  NoteType) {
+    // countMatches()
     setNoteToEdit(note)
     setIsOpen(true);
     setIsView(false)

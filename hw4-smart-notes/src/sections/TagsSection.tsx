@@ -1,8 +1,5 @@
-import { CommonStylesText, NotesListStyles, CommonStylesTitles } from "../styles/CommonStyles.styled"
-import { CommonBasicButtonStyles, CommonDeleteButtonStyles, CommonButtonGroup } from "../styles/MyButtonStyles.styled";
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteNote }  from "../slices/componentsSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TagsStyles, TagsContainerStyles, TagsButtonStyles } from "../styles/MyTagsStyles.styled";
 import MyTagModal from "../components/MyTagModal";
 
@@ -25,6 +22,7 @@ export default function TagsSection({ tags }: TagsSectionProps) {
   const [isOpenTagModal, setIsOpenTagModal] = useState(false)
   const [tagToEdit, setTagToEdit] = useState<TagType | null>(null);
   const dispatch = useDispatch()
+  const notes = useSelector((state: any) => state.componentsSlice.notes)
 
 
   function openTagModal(tag: TagType) {

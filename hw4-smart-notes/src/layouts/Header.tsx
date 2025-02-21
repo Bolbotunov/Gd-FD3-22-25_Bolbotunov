@@ -39,7 +39,7 @@ export function Header({ title } : PropsTitleType) {
       <>
         <MyHeader>
           <CommonStylesTitlesHeader>
-            {title}
+            Notes
           </CommonStylesTitlesHeader>
         <div style={{ display: 'flex', gap: '10px' }}>
           <CommonBasicButtonStyles onClick={openModal}>
@@ -51,7 +51,7 @@ export function Header({ title } : PropsTitleType) {
 
 
           <CommonStylesTitlesHeader>
-            {title}
+           Tags
           </CommonStylesTitlesHeader>
 
         <div style={{ display: 'flex', gap: '10px' }}>

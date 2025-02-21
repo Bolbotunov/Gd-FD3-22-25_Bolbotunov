@@ -161,5 +161,5 @@ export const componentsSlice = createSlice({
 });
 
 
-export const { addNote, deleteNote, editNote, setFilter,choseSelectedTag } = componentsSlice.actions;
+export const { addNote, deleteNote, editNote, setFilter, choseSelectedTag } = componentsSlice.actions;
 export default componentsSlice.reducer;

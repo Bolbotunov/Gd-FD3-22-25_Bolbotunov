@@ -6,7 +6,7 @@ export function loadState() {
     return undefined;
   }
   const parsedData = JSON.parse(data)
-  return {
+   return {
     componentsSlice: parsedData.componentsSlice,
     tagsSlice: parsedData.tagsSlice,
   };

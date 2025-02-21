@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { componentsSlice } from '../slices/componentsSlice';
 import { tagsSlice } from '../slices/tagsSlice';
-import { loadState, saveState } from '../styles/utils/localStorage';
+import { loadState, saveState } from '../utils/localStorage';
 
 const savedState = loadState();
 export const actions = {

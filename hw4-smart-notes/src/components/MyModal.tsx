@@ -7,6 +7,7 @@ import { v4 } from 'uuid'
 import { useDispatch, useSelector } from "react-redux"
 import { addNote, editNote } from "../slices/componentsSlice"
 import { NoteType } from '../sections/NotesSection';
+import { addNumCounter } from '../slices/tagsSlice';
 
 const customStyles:  Modal.Styles = {
   content: {
@@ -27,7 +28,7 @@ const customStyles:  Modal.Styles = {
 Modal.setAppElement('#root');
 
 
-type ModalPropsType = {
+export type ModalPropsType = {
   isOpen: boolean;
   onClose: () => void;
   noteToEdit?: NoteType | null;
@@ -36,6 +37,8 @@ type ModalPropsType = {
 
 export default function MyModal( { isOpen, onClose, noteToEdit, viewing }: ModalPropsType ) {
   const dispatch = useDispatch()
+  const notes = useSelector((state: any) => state.componentsSlice.notes)
+  const tags = useSelector((state: any) => state.tagsSlice);
     // const [id, setId] = useState(v4().slice(0, 4))
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
@@ -46,19 +49,26 @@ useEffect(() => {
   if (noteToEdit) {
     setTitle(noteToEdit.title)
     setText(noteToEdit.text)
-    setTagId(noteToEdit.tagId)
+    setTagId(noteToEdit.tagId || '')
   } else {
     setTitle('')
     setText('')
     setTagId('')
   }
-}, [noteToEdit, isOpen])
+}, [noteToEdit, isOpen, tags, notes])
 
    function addNewTask() {
       if(text) {
           const noteTitle = title || (text.length > 10 ? text.slice(0, 10) + '...' : text)
-
           if (noteToEdit) {
+            if (noteToEdit.tagId !== tagId) {
+             if (noteToEdit.tagId) {
+              // dispatch()
+             }
+             if (tagId) {
+              dispatch(addNumCounter(tagId))
+             }
+            }
             dispatch(editNote({
               id: noteToEdit.id,
               tagId: tagId,
@@ -74,6 +84,9 @@ useEffect(() => {
             created: new Date(),
             text: text,
           }))
+          if (tagId) {
+            dispatch(addNumCounter(tagId))
+          }
           }
       onClose()
       }
@@ -100,13 +113,14 @@ useEffect(() => {
            <CommonStylesTitles>Add new Note</CommonStylesTitles>
            <form style={{display:'flex', flexDirection:'column', gap:'20px', width:'100%'}}>
            <CommonStylesInput placeholder="Add title..." value = {title}  onChange={(e) => setTitle(e.target.value)}/>
-               <CommonStylesSelect value={tagId} onChange={(e) => setTagId(e.target.value)}>
-                   <CommonStylesOption value="work">Work</CommonStylesOption>
-                   <CommonStylesOption value="shop">Shop</CommonStylesOption>
-                   <CommonStylesOption value="health">Health</CommonStylesOption>
-                   <CommonStylesOption value="family">Family</CommonStylesOption>
-                   <CommonStylesOption value="friends">Friends</CommonStylesOption>
-               </CommonStylesSelect>
+             <CommonStylesSelect>
+                 <CommonStylesOption value="">All tags</CommonStylesOption>
+                   {tags.map((item:any) => (
+                <CommonStylesOption value={item.id} key={item.id}>
+                   {item.title}
+                </CommonStylesOption>
+            ))}
+          </CommonStylesSelect>
                <textarea style={{width:'90%', height: '100px',}} placeholder="Add text" value={text}  onChange={(e) => setText(e.target.value)}></textarea>
              <CommonButtonGroup>
                <CommonDeleteButtonStyles onClick={onClose}>

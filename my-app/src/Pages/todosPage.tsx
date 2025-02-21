@@ -5,6 +5,8 @@ import { getTodos, getPosts, getComments } from "../api/jsonplaceholder";
 import { Todo } from "../todosSlice";
 import { v4 } from "uuid";
 import { todoSlice } from "../todosSlice";
+import { read } from "../api/ajaxStringStorage2";
+
 
 // type CallbackFunction = (error: Error | null, data? any | null) => void
 
@@ -20,6 +22,8 @@ import { todoSlice } from "../todosSlice";
 
 
 export default function TodosPage() {
+
+
     const { filteredTodos } = useSelector((store: any) => store.todoSlice)
     const dispatch = useDispatch()
 
@@ -62,6 +66,10 @@ function searchHandler(value?: string) {
 }
 
     return <>
+            <div>
+                <input>
+                </input>
+            </div>
             <h4>TODOSPAGE</h4>
             <div>
                 <button onClick={addTodoHandler}>Add Todo: </button>
@@ -79,5 +87,6 @@ function searchHandler(value?: string) {
                  </label><br/>
         </>)}
         </div>
+        
         </>
 }

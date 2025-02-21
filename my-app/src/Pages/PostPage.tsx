@@ -1,11 +1,11 @@
     import React, { useState, useEffect } from 'react';
     import { getPostsById, JSONServerPost, JSONServerComment, getComments } from "../api/jsonplaceholder"
     import { useParams } from 'react-router-dom';
+    import { Link, useSearchParams } from 'react-router'
 
 
     export default function PostPage() {
         const { postId } = useParams()
-
         const [loading, setLoading] = useState<boolean>(false)
         const [post, setPost] = useState<JSONServerPost | null>(null)
         const [comments, setComments] = useState<JSONServerComment[]>([])
@@ -25,13 +25,13 @@
         }, [])
         return <>
                 {loading || !post
-                 ? <h4>loading...</h4>
+                 ? <h4 style={{fontSize:'40px'}}>loading...</h4>
                     : <>
-                    <h4>{post?.title}</h4>
-                    <div>{post.body}</div>
+                    <h4 style={{fontSize:'30px', color:'green'}}>{post?.title}</h4>
+                    <div style={{backgroundColor:'#a5d48f', color:'black'}}>{post.body}</div>
                         {comments.map(comment => <div>
                             <link>{comment.name}</link>
-                            <div> {comment.id} {comment.body}</div>
+                            <div style={{backgroundColor:'#444644', color:'#ffffff', marginBottom:'20px'}}> {comment.id} {comment.body}</div>
                      </div>
                             )}
                            

@@ -8,6 +8,7 @@ import { Link } from 'react-router'
 import PostsPage from './Pages/PostsPage';
 import { BrowserRouter } from 'react-router';
 import PostPage from './Pages/PostPage';
+import MyModal from './Pages/MyModal';
 
 // import MyTestPage from './MyTestPage';
 import { testStore } from './stores/testStore';
@@ -24,6 +25,7 @@ function App() {
               <Link to='/posts' style={{color:'white'}}>Posts</Link>
               <br></br>
               <Link to='/todos'  style={{color:'white'}}>Todos</Link>
+              <MyModal/>
             </nav>
             {/* <MyTestPage/> */}
             {/* <ShowResult/> */}

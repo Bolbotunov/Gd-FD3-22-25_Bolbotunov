@@ -1,6 +1,6 @@
     import React, { useState, useEffect } from 'react';
     import { getPostsById, JSONServerPost, JSONServerComment, getComments } from "../api/jsonplaceholder"
-    import { useParams } from 'react-router-dom';
+    import { useParams } from 'react-router';
     import { Link, useSearchParams } from 'react-router'
 
 

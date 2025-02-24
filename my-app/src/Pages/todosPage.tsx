@@ -6,6 +6,7 @@ import { Todo } from "../todosSlice";
 import { v4 } from "uuid";
 import { todoSlice } from "../todosSlice";
 import { read } from "../api/ajaxStringStorage2";
+import Modal from 'react-modal';
 
 
 // type CallbackFunction = (error: Error | null, data? any | null) => void

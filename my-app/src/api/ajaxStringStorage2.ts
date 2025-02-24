@@ -6,8 +6,7 @@ async function doFetch(formData: FormData) {
     method:'POST',
   })
 const data = await response.json()
-const result = JSON.parse(data.result)
-return result
+return data.result
 }
 
 
@@ -32,7 +31,7 @@ export async function insert(name: string, value: string) {
   return doFetch(formData)
 }
 
-export async function locakGet(name: string, password: string) {
+export async function lockGet(name: string, password: string) {
   const formData = new FormData()
 
   formData.append('f', 'LOCKGET')

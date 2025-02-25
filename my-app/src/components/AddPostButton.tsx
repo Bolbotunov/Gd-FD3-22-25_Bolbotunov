@@ -21,7 +21,7 @@ export function AddPostButton(props: AddPostButtonProps) {
 
     useEffect(() => {
         const post = props.postId
-        ? posts.find(item => item.id === props.postId) 
+        ? posts.find(item => item.id === props.postId)
         : null;
 
         setAddPostMode(Boolean(post));

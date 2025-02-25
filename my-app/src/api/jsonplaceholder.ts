@@ -1,25 +1,25 @@
 const BASE_URL = 'https://jsonplaceholder.typicode.com'
 
-export type JSONServerTodo = {
-    userId: number,
-    id: number,
-    title: string,
-    completed: boolean,
+export type JPTodo = {
+    userId: number;
+    id: number;
+    title: string;
+    completed: boolean
+};
+
+export type JPComment = {
+    body: string;
+    email: string;
+    id: number;
+    name: string;
+    postId: number;
 }
 
-export type JSONServerComment = {
-    postId: number,
-    id: number,
-    name: string,
-    email: string,
-    body: string,
-}
-
-export type JSONServerPost = {
-    userId: number,
-    id: number,
-    title: string,
-    body: string,
+export type JPPost = {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
 }
 
 async function doFetch<T>(path: string, queryObject?: Record<string, string | undefined>) {
@@ -41,13 +41,13 @@ async function doFetch<T>(path: string, queryObject?: Record<string, string | un
 }
 
 export async function getTodos(userId?: string) {
-    return await doFetch<JSONServerTodo[]>('/todos', {
+    return await doFetch<JPTodo[]>('/todos', {
         userId,
     });
 }
 
 export async function getTodoById( id: string) {
-    return await doFetch<JSONServerTodo[]>(`/todos/${id}`);
+    return await doFetch<JPTodo[]>(`/todos/${id}`);
 }
 
 export async function getPosts(userId? : string) {
@@ -55,13 +55,13 @@ export async function getPosts(userId? : string) {
     if(userId) {
         query.append('userId', userId)
     }
-    return await doFetch<JSONServerPost[]>(`/posts`, {
+    return await doFetch<JPPost[]>(`/posts`, {
         userId,
     });
 }
 
 export async function getPostsById( id: string) {
-    return await doFetch<JSONServerPost>(`/posts/${id}`);
+    return await doFetch<JPPost>(`/posts/${id}`);
 }
 
 
@@ -71,12 +71,12 @@ export async function getComments(postId?: string) {
     if(postId) {
         query.append('postId', postId)
     }
-    return await doFetch<JSONServerComment[]>(`/posts`, {
+    return await doFetch<JPComment[]>(`/posts`, {
         postId,
     });
 }
 
 
 export async function getCommentsById( id: string) {
-    return await doFetch<JSONServerComment>(`/comments/${id}`);
+    return await doFetch<JPComment>(`/comments/${id}`);
 }

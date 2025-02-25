@@ -1,0 +1,81 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "1212",
+      "views": 100,
+      "body": "text 1"
+    },
+    {
+      "id": "2",
+      "title": "2",
+      "views": 200,
+      "body": "saDzvfxbg"
+    },
+    {
+      "id": "c3e4",
+      "title": "0",
+      "body": "000"
+    },
+    {
+      "id": "4d1e",
+      "title": "33",
+      "body": "333"
+    },
+    {
+      "id": "086e",
+      "title": "3",
+      "body": "333"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "fab3",
+      "postId": "2",
+      "name": "eeee",
+      "email": "wedwd@",
+      "body": "wedwedwd"
+    },
+    {
+      "id": "50b4",
+      "postId": "1",
+      "name": "ya",
+      "email": "@mail",
+      "body": "wdwetext"
+    },
+    {
+      "id": "d4c2",
+      "postId": "4d1e",
+      "name": "23",
+      "email": "2323",
+      "body": "2323"
+    },
+    {
+      "id": "1ac9",
+      "postId": "086e",
+      "name": "oleg",
+      "email": "@mail.ru",
+      "body": "11111"
+    },
+    {
+      "id": "d688",
+      "postId": "c3e4",
+      "name": "sdc",
+      "email": "wcw",
+      "body": "wcwcec"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

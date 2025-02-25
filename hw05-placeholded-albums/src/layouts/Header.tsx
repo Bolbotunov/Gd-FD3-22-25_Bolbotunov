@@ -10,13 +10,9 @@ export default function Header() {
             <MyHeader>
                 <MyLink to='/'>Home</MyLink>
                 <br />
-                <MyLink to='/contact'>Contacts</MyLink>
+                <MyLink to='/users'>Users</MyLink>
                 <br />
-                <MyLink to='/contact/about'>About</MyLink>
-                <br />
-                <MyLink to='/contact/terms'>Terms</MyLink>
-                <br />
-                <MyLink to='/posts'>Posts</MyLink>
+                <MyLink to='/albums'>Albums</MyLink>
             </MyHeader>
         </MyHeaderWrapper>
     );

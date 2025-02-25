@@ -1,6 +1,6 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { siteColors } from '../styles/siteColors';
+import { siteColors } from '../siteColors';
 
 const SiteColorsContext = createContext(siteColors);
 

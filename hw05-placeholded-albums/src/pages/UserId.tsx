@@ -4,7 +4,7 @@ type validIdProps = {
     validId: string[] ;
 }
 
-export default function PostId({ validId }: validIdProps) {
+export default function UsersId({ validId }: validIdProps) {
     const { id } = useParams();
 
     if (!id || !validId.includes(id)) {
@@ -13,8 +13,8 @@ export default function PostId({ validId }: validIdProps) {
 
     return (
         <div>
-            <h1>Post with number: {id}</h1>
-            <p>This is the content for post with number: {id}</p>
+            <h1>User with number: {id}</h1>
+            <p>This is the content from user#: {id}</p>
         </div>
     );
 }

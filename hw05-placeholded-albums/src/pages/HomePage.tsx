@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { PASS_SESSION_STORAGE } from "../components/CreateIdPost";
-import { QUANTITY_ID } from "../components/CreateIdPost";
+import { PASS_SESSION_STORAGE } from "../components/CreateId";
+import { QUANTITY_ID } from "../components/CreateId";
 import { MyLink } from "../styles/HomePage.styled";
 
 export default function HomePage() {
-  const [postId, setPostId] = useState<string | null>(null);
-  const [randomPost, setRandomPost] = useState<number | null>(null)
+  const [albumId, setAlbumId] = useState<string | null>(null);
+  const [randomAlbum, setRandomAlbum] = useState<number | null>(null)
 
   useEffect(() => {
     const receivedData = sessionStorage.getItem(PASS_SESSION_STORAGE);
@@ -14,13 +14,13 @@ export default function HomePage() {
       const arrId = Object.values(parsedData);
       if (arrId.length > 0) {
         let randomId = Math.floor(Math.random() * (QUANTITY_ID) + 1)
-        setRandomPost(randomId);
-        setPostId(arrId[randomId].toString());
+        setRandomAlbum(randomId);
+        setAlbumId(arrId[randomId].toString());
       }
     }
   }, []);
 
-  let myLink = postId ? <MyLink to={`/posts/post/${postId}`}>See any Post</MyLink> : null;
+  let myLink = albumId ? <MyLink to={`/albums/album/${albumId}`}>See any album</MyLink> : null;
 
   return (
     <>

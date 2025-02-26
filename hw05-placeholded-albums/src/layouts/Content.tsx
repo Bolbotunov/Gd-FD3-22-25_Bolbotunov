@@ -22,8 +22,8 @@ export default function Content () {
                 <Route path='/' element={<HomePage/>} />
                 <Route path='/albums' element={<AlbumsPage/>} />
                 <Route path='/albums/:id' element = {<AlbumPage/>}/>
-                <Route path='/users' element={<UsersPage setValidId = { setValidId } />} />
-                <Route path='/users/:id' element = {<UserId validId = { validId }/>}/>
+                <Route path='/users' element={<UsersPage/>} />
+                <Route path='/users/:id' element = {<UserId/>}/>
                 <Route path='/error' element = {<ErrorPage/>}/>
                 <Route path='*' element = {<NotFoundPage/>}/>
           </Routes>

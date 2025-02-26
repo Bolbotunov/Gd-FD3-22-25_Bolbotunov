@@ -44,4 +44,17 @@ export const ContainerStyle = styled('div')`
     height: auto;
 `;
 
+export const ButtonsStyle = styled('button')`
+     border-radius: 5px;
+     height:30px;
+     background-color: ${props => props.theme.colors.ADDITIONAL_COLOR};
+    color: ${props => props.theme.colors.MAIN_COLOR};
+    transition: .3s;
+
+    &:hover {
+        background-color: ${props => props.theme.colors.SECONDARY_COLOR};
+        color: ${props => props.theme.colors.MAIN_COLOR};
+        cursor:pointer;
+    }
+`
 

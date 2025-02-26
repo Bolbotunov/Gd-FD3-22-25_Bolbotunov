@@ -7,9 +7,10 @@ import { PostsUlStyled } from "../styles/PostPage.styled";
 import { PostsLiStyled } from "../styles/PostPage.styled";
 
 
+
 export function AlbumsPage() {
     const [myAlbums, setMyAlbums] = useState<AlbumsType[]>([])
-
+    
     useEffect(() => {
         async function load() {
             try {
@@ -25,13 +26,12 @@ export function AlbumsPage() {
         }, [])
 
     return (
-
         <PostsUlStyled>
             {myAlbums.length > 0 && (
                 myAlbums.map((item, index) => (
                      <PostsLiStyled key={index}>
                         <AlbumLinkStyled to={`/albums/${item.id}`}>
-                            <img src={item.thumbnailUrl} />
+                            {/* <img src={item.thumbnailUrl} /> */}
                             </AlbumLinkStyled>
                         <h4 style={{fontSize:'14px'}}>{item.title}</h4>
                     </PostsLiStyled>

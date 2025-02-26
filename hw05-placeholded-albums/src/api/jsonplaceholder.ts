@@ -3,14 +3,53 @@ const BASE_URL = 'https://jsonplaceholder.typicode.com'
 
 
 export type AlbumsType = {
+    userId: number;
+    id: number;
+    title: string;
+};
+
+export type PhotoType = {
     albumId: number;
     id: number;
     title: string;
     url: string;
     thumbnailUrl: string;
-};
+  };
 
-type dataType =  AlbumsType[]
+type DataType =  AlbumsType[]
+
+
+type GeoType = {
+    lat: string;
+    lng: string;
+  };
+
+type AddressType = {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: GeoType;
+  };
+
+ type CompanyType = {
+    name: string;
+    catchPhrase: string;
+    bs: string;
+  };
+
+  export type UserType = {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    address: AddressType;
+    phone: string;
+    website: string;
+    company: CompanyType;
+  };
+
+
 
 export async function doFetch<T>(path: string) {
     const response = await fetch(BASE_URL + path);
@@ -19,12 +58,22 @@ export async function doFetch<T>(path: string) {
 }
 
 export async function getAlbums() {
-    return await doFetch<dataType>('/photos?_limit=20')
+    return await doFetch<DataType>('/albums?_limit=30')
 }
 
-export async function getAlbumById(id: string) {
-    return await doFetch<AlbumsType>(`/photos/${id}`)
+export async function getPhotosOfAlbums(albumId: string) {
+    return await doFetch<PhotoType[]>(`/photos?albumId=${albumId}&_limit=50`)
 }
+
+
+export async function getAlbumById(id: string) {
+    return await doFetch<AlbumsType>(`/albums/${id}`)
+}
+
+export async function getUsers() {
+    return await doFetch<UserType[]>('/users')
+}
+
 
 // export type JPTodo = {
 //     userId: number;

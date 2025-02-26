@@ -4,12 +4,8 @@ type validIdProps = {
     validId: string[] ;
 }
 
-export default function UsersId({ validId }: validIdProps) {
+export default function UsersId() {
     const { id } = useParams();
-
-    if (!id || !validId.includes(id)) {
-        return <Navigate to="/error" />;
-    }
 
     return (
         <div>

@@ -1,46 +1,67 @@
+import { BrowserRouter, Routes, Route } from "react-router";
+import HomePage from "./Pages/HomePage";
+import { Bounce, ToastContainer } from "react-toastify";
 import './App.css';
-import ShowResult from './ShowResult';
-import { Provider } from 'react-redux';
-import { store } from './stores/store';
-import TodosPage from './Pages/todosPage';
-import { Routes, Route } from 'react-router'
-import { Link } from 'react-router'
-import PostsPage from './Pages/PostsPage';
-import { BrowserRouter } from 'react-router';
-import PostPage from './Pages/PostPage';
-import MyModal from './Pages/MyModal';
-
-// import MyTestPage from './MyTestPage';
-import { testStore } from './stores/testStore';
+import TestPage from "./Pages/TestPage";
+import DynamicPage from "./Pages/DynamicPage";
+import ExternalPage from "./Pages/ExternalPage";
+import Canvas from './components/Canvas';
+import CounterComponent from './components/CounterComponent';
+import { NameProvider } from "./contexts/nameContext";
+import { ColorThemeProvider } from "./contexts/themeContext";
+import { Header } from "./components/layout/Header";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import Notes from "./components/Notes";
+import TodosPage from "./Pages/TodosPage";
+import TodosPageFilterVariant2 from "./Pages/TodosPageFilterVariant2";
+import PostsPage from "./Pages/PostsPage";
+import PostPage from "./Pages/PostPage";
 
 
 function App() {
+  // const [name, setName] = useState('');
+
   return (
-    <>
-    <Provider store = { store }>
-       <BrowserRouter>
-        <div className="App">
-          <header className="App-header">
-          <nav>
-              <Link to='/posts' style={{color:'white'}}>Posts</Link>
-              <br></br>
-              <Link to='/todos'  style={{color:'white'}}>Todos</Link>
-              <MyModal/>
-            </nav>
-            {/* <MyTestPage/> */}
-            {/* <ShowResult/> */}
-            {/* <TodosPage/> */}
-            <Routes>
-            <Route path='/posts' element={<PostsPage />} />
-              <Route path='/posts/:postId' element={<PostPage />} />
-            <Route path='/todos' element={<TodosPage />} />
+    <NameProvider>
+      <ColorThemeProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/test" element={<TestPage />} />
+            <Route path="/todos" element={<TodosPage />} />
+
+            <Route path="/posts" element={<PostsPage />} />
+            <Route path="/posts/:postId" element={<PostPage />} />
+
+            <Route path="/todosFilterVariant2" element={<TodosPageFilterVariant2 />} />
+            <Route path="/dynamic/:id/courses/:courseId" element={<DynamicPage />} />
+            <Route path="/external" element={<ExternalPage />}>
+              <Route path="canvas" element={<Canvas />} />
+              <Route path="notes" element={<Notes/>} />
+              <Route path="counter" element={<CounterComponent />} />
+            </Route>
           </Routes>
-          </header>
-         
-        </div>
+
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick={true}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Bounce}
+          />
         </BrowserRouter>
       </Provider>
-    </>
+      </ColorThemeProvider>
+    </NameProvider>
   );
 }
 

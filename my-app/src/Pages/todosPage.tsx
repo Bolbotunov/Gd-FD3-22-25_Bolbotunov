@@ -1,93 +1,122 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect, useState } from 'react';
-import { actions } from "../stores/store";
-import { getTodos, getPosts, getComments } from "../api/jsonplaceholder";
-import { Todo } from "../todosSlice";
-import { v4 } from "uuid";
-import { todoSlice } from "../todosSlice";
-import { read } from "../api/ajaxStringStorage2";
-import Modal from 'react-modal';
-
-
-// type CallbackFunction = (error: Error | null, data? any | null) => void
-
-// function getTodos(callback: CallbackFunction) {
-//     fetch('https://jsonplaceholder.typicode.com/todos')
-//             .then(response => response.json())
-//             .then((json: JSONServerTodo[]) => {
-//                 callback(null, json);
-//             })
-//             .catch((error) => callback(error))
-//             return Promise
-// }
-
+import { useEffect, useState } from "react";
+import { action, useTypedSelector } from "../store/store";
+import { useDispatch } from "react-redux";
+import { v4 } from 'uuid';
+import { ToDo } from "../store/toDoSlice";
+import { start } from "repl";
 
 export default function TodosPage() {
+    const [filtered, setFiltered] = useState<ToDo[]>([]);
+    const [search, setSearch] = useState('');
+    // const [filtered, setFiltered] = useState<typeof todos[number]>();
+    const { todos } = useTypedSelector((store) => store.todosSlice);
 
-
-    const { filteredTodos } = useSelector((store: any) => store.todoSlice)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    // console.log("#TodosPage", todos);
 
     useEffect(() => {
-        async function load() {
-            // const [data, dataPosts, dataComments] = await Promise.all([getTodos(), getPosts(), getComments()])
-            // const data = await getTodos()
-            // const dataPosts = await getPosts()
-            // const dataComments = await getComments()
-            const data = await getTodos()
-            dispatch(actions.todoSlice.load(data))
+        // setFiltered(todos);
+        if (!search) {
+            setFiltered(todos);
+            //search не нужен - вернуть все элементы
+            return;
         }
-      
-        load()
-        }, [])
 
-        // getTodos()
-        // .then((data) =>  dispatch(actions.todoSlice.load(data)))
-        // .catch((error) => console.error(error))
+        const filteredNew = todos
+            .filter(todo => todo.title.toLowerCase().includes(search.toLowerCase()))
+            .map(todo => {
 
-                // fetch('https://jsonplaceholder.typicode.com/todos')
-        //     .then(response => response.json())
-        //     .then((json: JSONServerTodo[]) => {
-        //     })
+                let title = todo.title;
+                // const startIndex = title.indexOf(value);
+                // title = title.slice(0, startIndex) + '<mark>' + title.slice(startIndex);
 
+                // title = title.slice(0, startIndex + '<mark>'.length + value.length) 
+                //     + '</mark>' 
+                //     + title.slice(startIndex + '<mark>'.length + value.length);
 
+                const parts = title.split(search);
+                title = parts.join('<mark>' + search + '</mark>');
+
+                return {
+                    ...todo,
+                    title
+                }
+
+                //eval('1+3') - result 4. выполнение скрипта из строки
+            });
+
+        setFiltered(filteredNew);
+    }, [todos, search])
+
+    useEffect(() => {
+        // dispatch(action.todosSlice.load([
+        //     {
+        //         id: v4(),
+        //         text: 'Some Text',
+        //         completed: false
+        //     },
+        //     {
+        //         id: v4(),
+        //         text: 'Another',
+        //         completed: true
+        //     },
+        //     {
+        //         id: v4(),
+        //         text: 'Doe John',
+        //         completed: false
+        //     }
+        // ]));
+
+        type JSONServerTodo = {
+            userId: number;
+            id: number;
+            title: string;
+            completed: boolean
+        };
+    
+        fetch('https://jsonplaceholder.typicode.com/todos')
+            .then(response => response.json())
+            .then((json: JSONServerTodo[]) => dispatch(action.todosSlice.load(json)));
+
+    }, [])
 
     function addTodoHandler() {
-        const title = prompt('create todo')
-
+        const title = prompt('Введите todo title:');
         if (title) {
-            dispatch(actions.todoSlice.add({
+            dispatch(action.todosSlice.add({
                 title,
-            }))
+            }));
         }
     }
 
-function searchHandler(value?: string) {
-    dispatch(actions.todoSlice.filter( { search: value ?? '' }))
-}
+    // function searchHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    function searchHandler(value?: string) {
+        setSearch(value ?? '');
+    }
+
+
 
     return <>
-            <div>
-                <input>
-                </input>
-            </div>
-            <h4>TODOSPAGE</h4>
-            <div>
-                <button onClick={addTodoHandler}>Add Todo: </button>
-                <input onChange={(e) => searchHandler(e.target.value)}/>
-            </div>
+        <h4>TodosPage</h4>
 
-            <div>{filteredTodos.map((todo: any) =>  <>
-                        <label style={{textDecoration: todo.completed ?  'none' : "line-through" }}>
-                            <input
-                                type="checkbox"
-                                checked={todo.completed}
-                                onChange={() => dispatch(actions.todoSlice.toggle(todo.id))}
-                            />
-                            #{todo.id} <span dangerouslySetInnerHTML = {{__html: todo.title}}></span>
-                 </label><br/>
-        </>)}
+
+
+        <div>
+            <button onClick={addTodoHandler}>Add TODO:</button>
+            {/* чтобы проверить тип, навести на e - вписать потом у event*/}
+            {/* <input type="text" onChange={(e) => searchHandler} /> */}
+
+            <input type="text" onChange={(e) => searchHandler(e.target.value)} />
         </div>
-        
-        </>
+
+        <div>{filtered.map((todo) => <>
+        <label style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+            <input 
+                type="checkbox" 
+                checked={todo.completed} 
+                onChange={() => dispatch(action.todosSlice.toggle(todo.id))}/>
+            #{todo.id} <div dangerouslySetInnerHTML={{ __html: todo.title}}></div>
+        </label><br />
+        </>)}</div>
+    </>;
 }

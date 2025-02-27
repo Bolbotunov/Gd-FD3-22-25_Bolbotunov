@@ -7,24 +7,13 @@
       "body": "text 1"
     },
     {
-      "id": "2",
-      "title": "2",
-      "views": 200,
-      "body": "saDzvfxbg"
-    },
-    {
       "id": "c3e4",
       "title": "0",
       "body": "000"
     },
     {
       "id": "4d1e",
-      "title": "33",
-      "body": "333"
-    },
-    {
-      "id": "086e",
-      "title": "3",
+      "title": "33555",
       "body": "333"
     }
   ],
@@ -41,7 +30,7 @@
     },
     {
       "id": "fab3",
-      "postId": "2",
+      "postId": null,
       "name": "eeee",
       "email": "wedwd@",
       "body": "wedwedwd"
@@ -62,7 +51,7 @@
     },
     {
       "id": "1ac9",
-      "postId": "086e",
+      "postId": null,
       "name": "oleg",
       "email": "@mail.ru",
       "body": "11111"

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { JSONServerPost } from '../api/jsonServer';
+import { deletePost, JSONServerPost } from '../api/jsonServer';
 
 type PostState = {
   posts: JSONServerPost[];
@@ -22,12 +22,20 @@ const postSlice = createSlice({
         state.posts.push(action.payload);
       },
       editPost(state, action: PayloadAction<
+        // { postId: JSONServerPost['id'], data: JSONServerPost}
         JSONServerPost>) {
           const postIndex = state.posts.findIndex(post => post.id === action.payload.id);
           if (postIndex !== -1) {
             state.posts[postIndex] = action.payload;
           }
       },
+      deletePost(state, action: PayloadAction<JSONServerPost['id']>) {
+        const postIndex = state.posts.findIndex(post => post.id === action.payload);
+        if (postIndex !== -1) {
+          state.posts.splice(postIndex, 1);
+        }
+      },
+      
       initPost(state, action: PayloadAction<JSONServerPost>) {
         state.selectedPost = action.payload;
       },

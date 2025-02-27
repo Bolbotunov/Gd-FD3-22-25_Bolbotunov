@@ -1,27 +1,32 @@
 import { FormMethod } from "react-router";
 import { queryObjects } from "v8";
 
+console.log('#REACT_APP_JSON_SERVER_BASE_URL', process.env.REACT_APP_JSON_SERVER_BASE_URL);
+
+console.log('#NODE_ENV', process.env.NODE_ENV);
+
 const BASE_URL = 'http://localhost:3001';
 
 export type JSONServerComment = {
-    postId: JSONServerPost['id'];
     body: string;
     email: string;
     id: string;
     name: string;
+    postId: JSONServerPost['id'];
 }
 
 export type JSONServerPost = {
+    // userId: number;
     id: string;
     title: string;
     body: string;
 }
 
+//Record<string, string> - ключ и значение - строки
 async function doFetch<T, R = unknown>(
     path: string, 
     queryObject?: Record<string, string | undefined> | null,
     method?: FormMethod,
-
     body?: R,
 ) {
     const query = new URLSearchParams();
@@ -47,6 +52,13 @@ async function doFetch<T, R = unknown>(
              body: JSON.stringify(body)
             } : {}),
         });
+    
+    if (response.status >= 400) {
+        //error 
+        const errorText = await response.text();
+
+        throw new Error(`Request error: ${errorText}`);
+    }
     const json = await response.json();
     
     return json as T;
@@ -59,14 +71,18 @@ export async function getPosts(userId?: string) {
 }
 
 export async function createPost(data: Omit<JSONServerPost, 'id'>) {
-   return await doFetch<JSONServerPost>('/posts', null, 'POST', data)
+   return await doFetch<JSONServerPost>('/post', null, 'POST', data)
 }
 
 export async function updatePost(postId: JSONServerPost['id'], data: Partial<Omit<JSONServerPost, 'id'>>) {
     return await doFetch<JSONServerPost>(`/posts/${postId}`, null, 'PATCH', data)
  }
 
-export async function getPostById(id: string) {
+ export async function deletePost(postId: JSONServerPost['id']) {
+    return await doFetch<JSONServerPost>(`/posts/${postId}`, null, 'DELETE')
+ }
+
+export async function getPostById(id: JSONServerPost['id']) {
     return await doFetch<JSONServerPost>(`/posts/${id}`);
 }
 

@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { createComment, JSONServerComment } from "../api/jsonServer";
-import { useDispatch } from "react-redux";
-import { actions } from "../stores/store";
-import postSlice from "../stores/postSlice";
 
 type AddCommentButtonProps = {
     postId: JSONServerComment['id'];
@@ -27,7 +24,7 @@ export function AddCommentButton(props: AddCommentButtonProps) {
             });
             console.log('#returnedComment', returnedComment);
 
-            // dispatch(actions.postSlice.addComment(returnedComment));
+            // dispatch(action.postSlice.addComment(returnedComment));
             props.commentAddedCallback(returnedComment)
                 
             setAddCommentMode(false);
@@ -35,7 +32,7 @@ export function AddCommentButton(props: AddCommentButtonProps) {
             setEmail('');
             setCommentBody('');
         } catch(error){
-            console.error('error:', error);
+            console.error(error);
         } finally {
             setLoading(false);
         }

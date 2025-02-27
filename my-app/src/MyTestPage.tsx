@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { actions } from "./stores/testStore"
+import { actions } from "./store/testStore"
 
 export default function MyTestPage() {
     const storedText = useSelector((testStore: any) => testStore.TestSlice.title)

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createPost, JSONServerComment, updatePost } from "../api/jsonServer";
-import { useTypedSelector, actions } from "../stores/store";
+import { action, useTypedSelector } from "../store/store";
+import style from '../pages/PostsPage.module.css'
+import { toast } from "react-toastify";
 
 type AddPostButtonProps = {
     postId: JSONServerComment['id'] | null;
     onCancel?: () => void
 }
 
-
+//props для функционала апдейта
 export function AddPostButton(props: AddPostButtonProps) {
     const { posts } = useTypedSelector((store) => store.postSlice);
 
@@ -21,7 +23,7 @@ export function AddPostButton(props: AddPostButtonProps) {
 
     useEffect(() => {
         const post = props.postId
-        ? posts.find(item => item.id === props.postId)
+        ? posts.find(item => item.id === props.postId) 
         : null;
 
         setAddPostMode(Boolean(post));
@@ -39,8 +41,9 @@ export function AddPostButton(props: AddPostButtonProps) {
                 })
                 console.log('#returnedPost', returnedPost);
     
-                dispatch(actions.postSlice.editPost(returnedPost));
+                dispatch(action.postSlice.editPost(returnedPost));
                 props?.onCancel?.();
+                toast.info('🦄 Wow so easy! (Post updated)');
             } else {
                 const returnedPost = await createPost({
                     title: postTitle,
@@ -48,7 +51,8 @@ export function AddPostButton(props: AddPostButtonProps) {
                 })
                 console.log('#returnedPost', returnedPost);
     
-                dispatch(actions.postSlice.addPost(returnedPost));
+                dispatch(action.postSlice.addPost(returnedPost));
+                toast.success('🦄 Wow so easy! (Post created)');
             }
             setAddPostMode(false);
             setPostTitle('');
@@ -73,8 +77,8 @@ export function AddPostButton(props: AddPostButtonProps) {
 
         { addPostMode ?
         <div>
-            <input
-                placeholder="Post Title"
+            <input 
+                placeholder="Post Title" 
                 value={postTitle}
                 onChange={(event) => setPostTitle(event.target.value)}/> <br />
             <textarea 
@@ -82,11 +86,11 @@ export function AddPostButton(props: AddPostButtonProps) {
                 onChange={(event) => setPostBody(event.target.value)}
             />
             <br />
-            <button
+            <button   
                 onClick={createPostHandler} 
                 disabled = {loading}>
                 { loading 
-                    ? 'Loading...'
+                    ? 'Loading...' 
                     : props.postId
                         ? 'Edit'
                         : 'Add'

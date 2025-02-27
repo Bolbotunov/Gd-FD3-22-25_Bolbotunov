@@ -50,12 +50,20 @@ type AddressType = {
   };
 
 
-
-export async function doFetch<T>(path: string) {
+export async function doFetch<T>(path: string): Promise<T> {
+  try {
     const response = await fetch(BASE_URL + path);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
     const json = await response.json();
     return json as T;
+  } catch (error) {
+    alert(`Ошибка: ${(error as Error).message} - Сервер JSONPlaceholder не отвечает`);
+    throw error;
+  }
 }
+
 
 export async function getAlbums() {
     return await doFetch<DataType>('/albums?_limit=30')

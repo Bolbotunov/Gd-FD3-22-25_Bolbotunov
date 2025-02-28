@@ -1,4 +1,3 @@
-import { styled } from "styled-components";
 import { MyFooter } from "../styles/MyFooter.styled";
 
 export default function Footer () {

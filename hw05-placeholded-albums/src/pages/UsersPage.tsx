@@ -24,12 +24,12 @@ export function UsersPage() {
 
     return (
         <>
-         <PostsUlStyled style={{flexDirection:'column'}}>
+        <p>All Users</p>
+         <PostsUlStyled>
          {myUsers.length > 0 && (
                 myUsers.map((item, index) => (
                      <PostsLiStyled key={index}>
                         <AlbumLinkStyled to={`/users/${item.id}`}>
-                            {/* <img src={item.thumbnailUrl} /> */}
                             </AlbumLinkStyled>
                         <h4 style={{fontSize:'14px'}}>{item.name}</h4>
                     </PostsLiStyled>

@@ -28,6 +28,7 @@ export function AlbumPage() {
         try {
           const album = await getAlbumById(id);
           const photos = await getPhotosOfAlbums(id)
+          const user = await getPhotosOfAlbums(id)
           setMyAlbum(album);
           setMyPhotos(photos);
           console.log(photos)
@@ -48,8 +49,11 @@ export function AlbumPage() {
       {myAlbum ? (
         <>
           <h3>Album name: <TitlesStyled>{myAlbum.title}</TitlesStyled></h3>
-          <AuthorLinkStyle  to= {'/albums'}> == Open author page == </AuthorLinkStyle >
+          <AuthorLinkStyle  to= {`/albums?userId=${myAlbum.userId}`}> == Open author page == </AuthorLinkStyle >
           <AlbumLinkStyled to={'/albums'} style={{width:'50%'}}>
+          <AlbumLinkStyled to={`/photos?albumId=${myAlbum.id}`}>
+            View Photos
+          </AlbumLinkStyled>
           </AlbumLinkStyled>
          
           <p>Link of album: {myPhotos[myAlbum.id - 1].url}</p>
@@ -84,32 +88,3 @@ export function AlbumPage() {
   );
 }
 
-
-// альбомы: 
-// {
-//   userId: 1,
-//   id: 1, -----------
-//   title: "quidem molestiae enim"
-//   },
-//   {
-//     userId: 2,
-//     id: 11,
-//     title: "quam nostrum impedit mollitia quod et dolor"
-//     },
-
-//     фотографии: 
-//     {
-//       albumId: 1, --------------
-//       id: 1,
-//       title: "accusamus beatae ad facilis cum similique qui sunt",
-//       url: "https://via.placeholder.com/600/92c952",
-//       thumbnailUrl: "https://via.placeholder.com/150/92c952"
-//       },
-
-//       {
-//         albumId: 2,
-//         id: 51,
-//         title: "non sunt voluptatem placeat consequuntur rem incidunt",
-//         url: "https://via.placeholder.com/600/8e973b",
-//         thumbnailUrl: "https://via.placeholder.com/150/8e973b"
-//         },

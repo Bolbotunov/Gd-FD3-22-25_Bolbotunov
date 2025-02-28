@@ -1,23 +1,23 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router';
 import './App.css';
-import { SiteColorsProvider } from './contexts/SiteColorsContext';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import Content from './layouts/Content';
-
+import { ThemeProvider } from 'styled-components';
+import { siteColors } from './siteColors';
 
 
 function App() {
   return (
-    <SiteColorsProvider>
+    <ThemeProvider theme={siteColors}>
         <BrowserRouter>
             <Header />
 
             <Content />
             <Footer />
         </BrowserRouter>
-    </SiteColorsProvider>
+    </ThemeProvider>
   );
 }
 

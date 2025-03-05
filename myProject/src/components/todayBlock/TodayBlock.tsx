@@ -1,22 +1,34 @@
 import { BlurContainer } from "../../styles/Common.styled";
-import { CategoryTitle } from "../../styles/Fonts.styled";
-import { CurrentDateType } from "../CurrentDate";
-import { useContext } from 'react'
-import { DateContext } from "../../contexts/DateContext";
+import { CategoryTitleStyle } from "../../styles/Fonts.styled";
 import Chart from "../charts/Chart";
-
+import useCurrentDate from "../../hooks/useCurrentDate";
+import { appColors } from "../../styles/AppColors";
 
 export default function TodayBlock() {
-  const dateContext: any = useContext(DateContext);
+  // const dateContext: any = useContext(DateContext);
+  //   const { currentDate } = dateContext
+  const currentDate = useCurrentDate();
 
-    const { currentDate } = dateContext
+  const proteinPercent = '85%';
+  const fatsPercent = '22%';
+  const carbsPercent = '25%';
+
+
     return (
         <>
+        
         <BlurContainer>
-          <CategoryTitle>
-            Today, {currentDate.toLocaleDateString}
-          </CategoryTitle>
-          <Chart/>
+          <CategoryTitleStyle>
+            Today: {currentDate}
+          </CategoryTitleStyle>
+          <Chart
+          proteinPercent = {proteinPercent}
+          fatsPercent= {fatsPercent}
+          carbsPercent = {carbsPercent}
+          proteinColor = {appColors.colors.PROTEIN_COLOR}
+          fatsColor = {appColors.colors.FATS_COLOR}
+          carbsColor = {appColors.colors.CARBS_COLOR}
+          />
         </BlurContainer>
         </>
       );

@@ -1,8 +1,9 @@
 export const appColors = {
     colors: {
         MAIN_COLOR: '#F8FC9E',
-        // ADDITIONAL_COLOR: '#d4e726',
+        PROTEIN_COLOR: '#23C6E6',
+        FATS_COLOR:'#F2D12A',
+        CARBS_COLOR: '#DC191C',
         WHITE_COLOR: '#ffffff',
-        // HOVER_COLOR: '#e5ff00',
     }
 }

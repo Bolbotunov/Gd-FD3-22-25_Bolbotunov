@@ -20,9 +20,15 @@ export const FontsHeaderStyle = styled(Link)`
 `
 
 
-export const CategoryTitle = styled('h2')`
+export const CategoryTitleStyle = styled('h2')`
    ${FontsFamily};
     /* font-size: 1.2rem; */
     font-weight: 500;
     color: ${props => props.theme.colors.MAIN_COLOR};
+`;
+
+
+export const ChartLineTitle = styled('p')`
+	 color: ${props => props.theme.colors.WHITE_COLOR};
+     text-align:left;
 `;

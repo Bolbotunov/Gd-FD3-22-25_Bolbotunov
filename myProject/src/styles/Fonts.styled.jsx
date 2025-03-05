@@ -8,6 +8,17 @@ export const FontsFamily = css`
 `;
 
 
+export const MainTitle = styled('h1')`
+     ${FontsFamily};
+     color: ${props => props.theme.colors.WHITE_COLOR};
+`
+
+export const MainSubTitle = styled('h4')`
+     ${FontsFamily};
+     color: ${props => props.theme.colors.MAIN_COLOR};
+     font-weight: 400;
+`
+
 export const FontsHeaderStyle = styled(Link)`
     ${FontsFamily};
     font-size: 1.2rem;
@@ -32,3 +43,12 @@ export const ChartLineTitle = styled('p')`
 	 color: ${props => props.theme.colors.WHITE_COLOR};
      text-align:left;
 `;
+
+
+export const DailyKCalStyle = styled('p')`
+    ${FontsFamily};
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: ${props => props.theme.colors.MAIN_COLOR};
+
+`

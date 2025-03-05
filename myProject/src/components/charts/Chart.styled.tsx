@@ -6,16 +6,6 @@ type ChartsFillingProps = {
     fillColor: string;
   }
 
-export const ChartLineStyle = styled('div')`
-	${FlexDiv}
-	padding: 20px;
-	border-radius: 10px;
-    border: 1px solid white;
-    width: 100%;
-    height: 35px;
-    overflow:hidden;
-    position: relative;
-`;
 
 export const ChartLineBlock = styled('div')`
 	${FlexDiv}
@@ -41,5 +31,27 @@ export const ChartsFilling = styled('span')<ChartsFillingProps>`
     left: 0;
     top: 0;
     border-radius: 10px;
+    box-sizing: border-box;
     transition: width 0.5s ease;
+
+    &:hover {
+        opacity: 1;
+    }
 `
+export const ChartLineStyle = styled('div')`
+	${FlexDiv}
+	padding: 20px;
+	border-radius: 10px;
+    border: 1px solid white;
+    width: 100%;
+    height: 35px;
+    overflow:hidden;
+    position: relative;
+    box-sizing: border-box;
+    &:hover {
+        & > ${ChartsFilling} {
+      opacity: 1;
+    }
+    }
+   
+`;

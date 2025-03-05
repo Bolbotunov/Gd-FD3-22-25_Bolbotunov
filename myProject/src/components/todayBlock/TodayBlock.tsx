@@ -3,6 +3,9 @@ import { CategoryTitleStyle } from "../../styles/Fonts.styled";
 import Chart from "../charts/Chart";
 import useCurrentDate from "../../hooks/useCurrentDate";
 import { appColors } from "../../styles/AppColors";
+import DailyKCal from "../DailyKCal/DailyKCal";
+import { BtnStyle } from "../../styles/Buttons.styled";
+import { FontsHeaderStyle } from "../../styles/Fonts.styled";
 
 export default function TodayBlock() {
   // const dateContext: any = useContext(DateContext);
@@ -29,6 +32,10 @@ export default function TodayBlock() {
           fatsColor = {appColors.colors.FATS_COLOR}
           carbsColor = {appColors.colors.CARBS_COLOR}
           />
+        <DailyKCal/>
+        <FontsHeaderStyle to="/diary">
+        <BtnStyle>go to diary</BtnStyle>
+        </FontsHeaderStyle>
         </BlurContainer>
         </>
       );

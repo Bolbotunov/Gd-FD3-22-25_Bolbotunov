@@ -30,6 +30,14 @@ export const FontsHeaderStyle = styled(Link)`
     }
 `
 
+export const ErrorText = styled('div')`
+  color: ${props => props.theme.colors.ERROR_COLOR};
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-weight: bold;
+`;
+
+
 
 export const CategoryTitleStyle = styled('h2')`
    ${FontsFamily};
@@ -42,6 +50,11 @@ export const CategoryTitleStyle = styled('h2')`
 export const ChartLineTitle = styled('p')`
 	 color: ${props => props.theme.colors.WHITE_COLOR};
      text-align:left;
+`;
+
+export const InputLabelStyle = styled('label')`
+	 color: ${props => props.theme.colors.MAIN_COLOR};
+     text-align: left;
 `;
 
 

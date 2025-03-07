@@ -2,20 +2,37 @@ import { styled, css } from 'styled-components'
 
 
 export const FlexDiv = css`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 
 
 export const AppContainer = styled('div') `
-    ${FlexDiv};
-    flex-direction: column;
-    margin: 0 auto;
-    max-width: 1440px;
-    padding: 0px 82px;
-    overflow: hidden;
+  ${FlexDiv};
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0px 82px;
+  overflow: hidden;
+  margin: 10px;
+`
+
+
+export const InputStyle = styled('input') `
+  text-align: left;
+  max-width: 100%;
+  width: 350px;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  padding: 10px;
+
+  &::placeholder {
+    color: ${props => props.theme.colors.MAIN_COLOR};
+    opacity: 0.8;
+  }
 `
 
 export const BlurContainer = styled('div')`

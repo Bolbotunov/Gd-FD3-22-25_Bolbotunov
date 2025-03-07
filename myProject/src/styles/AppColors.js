@@ -5,5 +5,7 @@ export const appColors = {
         FATS_COLOR:'#F2D12A',
         CARBS_COLOR: '#DC191C',
         WHITE_COLOR: '#ffffff',
+        BLACK_COLOR: '#000000',
+        ERROR_COLOR: '#821c00',
     }
 }

@@ -6,6 +6,6 @@ export const appColors = {
         CARBS_COLOR: '#DC191C',
         WHITE_COLOR: '#ffffff',
         BLACK_COLOR: '#000000',
-        ERROR_COLOR: '#821c00',
+        ERROR_COLOR: '#e21414',
     }
 }

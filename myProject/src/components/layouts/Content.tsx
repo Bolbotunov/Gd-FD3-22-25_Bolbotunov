@@ -7,6 +7,7 @@ import StatisticsPage from '../../pages/StatisticsPage';
 import SettingsPage from '../../pages/SettingsPage';
 import { ContentStyle } from './Content.styled';
 import LoginPage from '../../pages/LoginPage';
+import RegisterPage from '../../pages/RegisterPage';
 
 
 export default function Content() {
@@ -15,6 +16,7 @@ export default function Content() {
       <ContentStyle>
         <Routes>
           <Route path='/' element={<LoginPage/>} />
+          <Route path='/register' element={<RegisterPage/>} />
           <Route path='/home' element={<HomePage/>} />
           <Route path='/profile' element={<ProfilePage/>} />
           <Route path='/products' element = {<ProductsPage/>}/>

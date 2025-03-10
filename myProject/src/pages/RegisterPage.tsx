@@ -1,10 +1,10 @@
-import UserValidateForm from "../components/authorization/UserValidateForm"
+import UserRegistrationForm from "../components/authorization/UserRegistrationForm"
 import { BlurContainer } from "../styles/Common.styled"
 
 export default function RegisterPage() {
   return <>
     <BlurContainer style={{justifyContent:'center'}}>
-      <UserValidateForm/>
+      <UserRegistrationForm/>
     </BlurContainer>
   </>
 }

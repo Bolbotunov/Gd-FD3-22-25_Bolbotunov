@@ -8,12 +8,17 @@ import { ThemeProvider } from 'styled-components';
 import { appColors } from './styles/AppColors';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { DateProvider } from './contexts/DateContext';
+import { Provider } from 'react-redux'
+import './config/firebase'
+import store from './store/store';
+import { config } from 'process';
 
 
 function App() {
   return (
     <DateProvider>
-      <ThemeProvider theme={ appColors }>
+      <Provider store={ store }>
+        <ThemeProvider theme={ appColors }>
           <GlobalStyle />
           <AppContainer>
             <BrowserRouter>
@@ -22,7 +27,8 @@ function App() {
               <Footer />
             </BrowserRouter>
           </AppContainer>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Provider>
     </DateProvider>
   );
 }

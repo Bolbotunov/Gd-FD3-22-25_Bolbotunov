@@ -1,5 +1,5 @@
 import { styled, css } from 'styled-components'
-import { Link } from 'react-router'
+import { NavLink } from 'react-router'
 
 export const FontsFamily = css`
     font-family: 'Montserrat Alternates', sans-serif;
@@ -32,14 +32,18 @@ export const InformationTextOk = styled('h4')`
 `
 
 
-export const FontsHeaderStyle = styled(Link)`
+export const FontsHeaderStyle = styled(NavLink)`
     ${FontsFamily};
     font-size: 1.2rem;
     font-weight: 500;
     color: ${props => props.theme.colors.MAIN_COLOR};
 
+
     &:hover {
     color: ${props => props.theme.colors.WHITE_COLOR};
+    }
+    &.active {
+     color: ${props => props.theme.colors.WHITE_COLOR};
     }
 `
 

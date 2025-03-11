@@ -11,11 +11,12 @@ export default function UserInfo() {
   return (
     <div>
       {currentUser ? (
-        <SmallBlurContainer>
-           <LogoutButton/>
-          <DeleteUserBtn/>
+        <SmallBlurContainer to={'/settings'}>
+           
+          {/* <DeleteUserBtn/> */}
           <UserInfoText>Welcome, {currentUser.userName}!</UserInfoText>
-          <UserInfoText >{currentUser.userEmail}</UserInfoText>
+          {/* <UserInfoText >{currentUser.userEmail}</UserInfoText> */}
+          <LogoutButton/>
          
         </SmallBlurContainer>
       ) : (

@@ -41,7 +41,7 @@ export const BtnAuth = styled('button') `
    &:hover {
     color: ${props => props.theme.colors.MAIN_COLOR};
     background-color:${props => props.theme.colors.ERROR_COLOR};
-    cursor: pointer;
+    cursor: alias;
     }
 `
 

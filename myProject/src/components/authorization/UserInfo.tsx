@@ -11,7 +11,7 @@ export default function UserInfo() {
   return (
     <div>
       {currentUser ? (
-        <SmallBlurContainer to={'/settings'}>
+        <SmallBlurContainer to={'/profile'}>
            
           {/* <DeleteUserBtn/> */}
           <UserInfoText>Welcome, {currentUser.userName}!</UserInfoText>

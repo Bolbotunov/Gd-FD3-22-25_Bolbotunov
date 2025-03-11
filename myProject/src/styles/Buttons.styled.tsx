@@ -28,3 +28,20 @@ export const BtnStyle = styled('button') `
   font-size: 1.2rem;
   font-weight: 500;
 `
+
+export const BtnAuth = styled('button') `
+   ${FontsFamily};
+   max-width: 100%;
+   width: 60px;
+   border-radius: 5px;
+   text-align: center;
+   background-color:${props => props.theme.colors.MAIN_COLOR};
+   color:${props => props.theme.colors.BLACK_COLOR};
+
+   &:hover {
+    color: ${props => props.theme.colors.MAIN_COLOR};
+    background-color:${props => props.theme.colors.ERROR_COLOR};
+    cursor: pointer;
+    }
+`
+

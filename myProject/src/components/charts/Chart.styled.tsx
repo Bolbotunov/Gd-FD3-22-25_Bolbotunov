@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { FlexDiv } from '../../styles/Common.styled';
 
 type ChartsFillingProps = {
-    fillPercent: string;
-    fillColor: string;
+    fillpercent: string;
+    fillcolor: string;
   }
 
 
@@ -23,8 +23,8 @@ export const ChartsContainer = styled('div')`
 
 export const ChartsFilling = styled('span')<ChartsFillingProps>`
     ${FlexDiv};
-    width: ${({ fillPercent }) => fillPercent || '0%'};
-    background-color: ${({ fillColor }) => fillColor };
+    width: ${({ fillpercent }) => fillpercent || '0%'};
+    background-color: ${({ fillcolor }) => fillcolor };
     opacity: 0.7;
     height: 100%;
     position: absolute;

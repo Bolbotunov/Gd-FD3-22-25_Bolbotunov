@@ -11,7 +11,7 @@ import { DateProvider } from './contexts/DateContext';
 import { Provider } from 'react-redux'
 import './config/firebase'
 import store from './store/store';
-import { config } from 'process';
+import AuthCheck from './components/authorization/AuthCheck';
 
 
 function App() {
@@ -23,7 +23,9 @@ function App() {
           <AppContainer>
             <BrowserRouter>
               <MyHeader />
+              <AuthCheck>
               <Content />
+              </AuthCheck>
               <Footer />
             </BrowserRouter>
           </AppContainer>

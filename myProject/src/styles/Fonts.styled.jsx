@@ -25,6 +25,12 @@ export const InformationText = styled('h4')`
      font-weight: 500;
 `
 
+export const InformationTextOk = styled('h4')`
+     ${FontsFamily};
+     color: ${props => props.theme.colors.OK_COLOR};
+     font-weight: 500;
+`
+
 
 export const FontsHeaderStyle = styled(Link)`
     ${FontsFamily};
@@ -46,6 +52,12 @@ export const ErrorText = styled('div')`
   font-weight: bold;
 `;
 
+
+
+export const UserInfoText = styled('p')`
+  font-size: 0.9rem;
+  font-weight: 400;
+`;
 
 
 export const CategoryTitleStyle = styled('h2')`

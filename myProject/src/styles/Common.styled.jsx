@@ -52,3 +52,25 @@ export const BlurContainer = styled('div')`
 `;
 
 
+export const SmallBlurContainer = styled('div')`
+  margin: 0px;
+  ${FlexDiv};
+  color: ${props => props.theme.colors.WHITE_COLOR};
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  height: 65px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  transition: .5s all;
+
+  &:hover {
+    color: ${props => props.theme.colors.BLACK_COLOR};
+    background-color: ${props => props.theme.colors.MAIN_COLOR_30};
+    cursor: pointer;
+    }
+`;
+

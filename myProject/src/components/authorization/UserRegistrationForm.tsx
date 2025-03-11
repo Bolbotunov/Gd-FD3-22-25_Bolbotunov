@@ -3,13 +3,16 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { BtnStyle } from '../../styles/Buttons.styled';
 import { AppContainer, InputStyle } from '../../styles/Common.styled';
-import { InputLabelStyle, MainTitle, ErrorText, InformationText, FontsHeaderStyle } from '../../styles/Fonts.styled';
+import { InputLabelStyle, MainTitle, ErrorText, InformationText, FontsHeaderStyle, InformationTextOk } from '../../styles/Fonts.styled';
 import { auth } from '../../config/firebase';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useDispatch, UseDispatch } from 'react-redux';
 import { updateProfile } from 'firebase/auth'
 import { setUser } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router'
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux'
+import { useEffect } from "react";
 
 
 type RegisterType = {
@@ -19,14 +22,13 @@ type RegisterType = {
 }
 
 
-
 export default function UserRegistrationForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const userName = useSelector((state: RootState) => state.authSlice.userName);
 
 
   function registerUser({userName, email, password} : RegisterType) {
-    
     console.log(auth);
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -36,7 +38,7 @@ export default function UserRegistrationForm() {
   .then(() => {
     dispatch(setUser({ userName, userEmail: email }))
     console.log('User registered and profile updated', userName)
-    navigate("/reg");
+    navigate("/home");
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -45,7 +47,12 @@ export default function UserRegistrationForm() {
     });
   }
 
-
+  useEffect(() => {
+    if (userName) {
+      navigate('/home')
+    }
+  }, [userName, navigate])
+  
   return (
     <Formik
       initialValues={{ userName: '', email: '' , password:''}}
@@ -86,9 +93,7 @@ export default function UserRegistrationForm() {
           <AppContainer>
             <BtnStyle type="submit">Sign up</BtnStyle>
           </AppContainer>
-          {/* <AppContainer>
-            <InformationText>Don't have an account?  <FontsHeaderStyle to={'/register'}> Please, register</FontsHeaderStyle></InformationText>
-          </AppContainer> */}
+          <InformationTextOk>Already have an account? <FontsHeaderStyle to={'/'}> Please, log in</FontsHeaderStyle></InformationTextOk>
         </AppContainer>
       </Form>
     </Formik>

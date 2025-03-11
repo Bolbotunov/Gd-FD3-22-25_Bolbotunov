@@ -22,7 +22,6 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
         );
       } else {
         dispatch(clearUser());
-        navigate('/login')
       }
       setLoading(false)
     });

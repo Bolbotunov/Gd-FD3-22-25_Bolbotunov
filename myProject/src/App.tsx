@@ -23,9 +23,9 @@ function App() {
           <AppContainer>
             <BrowserRouter>
               <MyHeader />
-              <AuthCheck>
+              {/* <AuthCheck> */}
               <Content />
-              </AuthCheck>
+              {/* </AuthCheck> */}
               <Footer />
             </BrowserRouter>
           </AppContainer>

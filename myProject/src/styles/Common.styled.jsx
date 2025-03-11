@@ -53,9 +53,9 @@ export const BlurContainer = styled('div')`
 
 
 export const SmallBlurContainer = styled(Link)`
+${FlexDiv};
   margin: 0px;
   text-decoration: none;
-  ${FlexDiv};
   color: ${props => props.theme.colors.WHITE_COLOR};
   justify-content: space-around;
   flex-direction: column;

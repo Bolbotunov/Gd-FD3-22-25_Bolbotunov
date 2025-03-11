@@ -9,6 +9,7 @@ export default function MyHeader() {
   const userName = useSelector((state: RootState) => state.authSlice.userName);
 
   if (!userName) return null;
+  
   return (
     <>
       <NavStyle>

@@ -27,7 +27,7 @@ export const authSlice = createSlice({
     clearUser(state) {
       state.userName = null;
       state.userEmail = null;
-      state.status = 'idle';
+      state.status = '';
     }
   }
 })

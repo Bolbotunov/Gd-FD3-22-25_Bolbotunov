@@ -1,8 +1,14 @@
 import { FontsHeaderStyle } from "../../styles/Fonts.styled";
 import { NavStyle } from './Header.styled';
 import UserInfo from "../authorization/UserInfo";
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 export default function MyHeader() {
+
+  const userName = useSelector((state: RootState) => state.authSlice.userName);
+
+  if (!userName) return null;
   return (
     <>
       <NavStyle>

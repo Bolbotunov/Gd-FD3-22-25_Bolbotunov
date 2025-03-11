@@ -21,21 +21,21 @@ export default function Chart(props: ChartPercentProps) {
             <ChartLineTitle>Proteins</ChartLineTitle>
           </ChartLineBlock>
           <ChartLineStyle>
-            <ChartsFilling fillPercent = {props.proteinPercent} fillColor = {props.proteinColor}/>
+            <ChartsFilling fillpercent = {props.proteinPercent} fillcolor = {props.proteinColor}/>
           </ChartLineStyle>
 
           <ChartLineBlock>
             <ChartLineTitle>Fats</ChartLineTitle>
           </ChartLineBlock>
           <ChartLineStyle>
-            <ChartsFilling fillPercent = {props.fatsPercent}  fillColor = {props.fatsColor}/>
+            <ChartsFilling fillpercent = {props.fatsPercent}  fillcolor = {props.fatsColor}/>
           </ChartLineStyle>
 
           <ChartLineBlock>
             <ChartLineTitle>Proteins</ChartLineTitle>
           </ChartLineBlock>
           <ChartLineStyle>
-            <ChartsFilling fillPercent = {props.carbsPercent}  fillColor = {props.carbsColor}/>
+            <ChartsFilling fillpercent = {props.carbsPercent}  fillcolor = {props.carbsColor}/>
           </ChartLineStyle>
 
 

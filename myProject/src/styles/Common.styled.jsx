@@ -1,5 +1,5 @@
 import { styled, css } from 'styled-components'
-
+import { Link } from 'react-router'
 
 export const FlexDiv = css`
   display: flex;
@@ -51,4 +51,25 @@ export const BlurContainer = styled('div')`
   backdrop-filter: blur(5px); 
 `;
 
+
+export const SmallBlurContainer = styled(Link)`
+  margin: 0px;
+  text-decoration: none;
+  ${FlexDiv};
+  color: ${props => props.theme.colors.WHITE_COLOR};
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+  height: 65px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  transition: .5s all;
+
+  &:hover {
+    cursor: pointer;
+    }
+`;
 

@@ -10,6 +10,7 @@ import { useDispatch, UseDispatch } from 'react-redux';
 import { updateProfile } from 'firebase/auth'
 import { setUser } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router'
+import { useState } from 'react';
 
 
 type LoginType = {
@@ -17,12 +18,10 @@ type LoginType = {
   password: string;
 }
 
-
-
 export default function UserLoginForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
-
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   function loginUser({ email, password } : LoginType) {
     console.log(auth);
@@ -40,7 +39,8 @@ export default function UserLoginForm() {
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.error('Firebase error:', error);
+    setLoginError('User or password incorrect! Try again!')
+    console.error('Error', error);
     });
   }
 
@@ -61,7 +61,9 @@ export default function UserLoginForm() {
           <MainTitle style={{ marginBottom: '50px' }}>
             Please, Log in!
           </MainTitle>
-
+          {loginError && (
+              <ErrorText>{loginError}</ErrorText>
+            )}
           <AppContainer>
             <InputLabelStyle htmlFor="email">Email Address</InputLabelStyle>
             <Field name="email" type="email" as={InputStyle} />
@@ -77,6 +79,7 @@ export default function UserLoginForm() {
           <AppContainer>
             <BtnStyle type="submit">Log In</BtnStyle>
           </AppContainer>
+          
           <AppContainer>
             <InformationText>Don't have an account?  <FontsHeaderStyle to={'/register'}> Please, register</FontsHeaderStyle></InformationText>
           </AppContainer>

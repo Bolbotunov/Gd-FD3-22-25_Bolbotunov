@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-
-
+import LogoutButton from './LogoutBtn';
+import DeleteUserBtn from './DeleteUserBtn';
+import { SmallBlurContainer } from '../../styles/Common.styled';
+import { UserInfoText } from '../../styles/Fonts.styled';
 
 export default function UserInfo() {
   const currentUser = useSelector((state: RootState) => state.authSlice);
@@ -9,11 +11,14 @@ export default function UserInfo() {
   return (
     <div>
       {currentUser ? (
-        <div style={{color: 'white'}}>
-          <h2>Welcome, {currentUser.userName}!</h2>
-          <div>{currentUser.userEmail}</div>
-          <button>logout</button>
-        </div>
+        <SmallBlurContainer to={'/settings'}>
+           
+          {/* <DeleteUserBtn/> */}
+          <UserInfoText>Welcome, {currentUser.userName}!</UserInfoText>
+          {/* <UserInfoText >{currentUser.userEmail}</UserInfoText> */}
+          <LogoutButton/>
+         
+        </SmallBlurContainer>
       ) : (
         <p>No user logged in.</p>
       )}

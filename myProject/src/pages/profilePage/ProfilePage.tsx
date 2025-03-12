@@ -1,8 +1,15 @@
 import { BlurContainer } from "../../styles/Common.styled"
 import { InformationBlock, WhiteBlock, WrapperSections } from "./ProfilePage.styled"
 import { MainTitle, MainSubTitle } from "../../styles/Fonts.styled"
+import ProfileForm from "./ProfileForm";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { UserMail } from "./ProfilePage.styled";
+import DeleteUserBtn from "../../components/authorization/DeleteUserBtn";
+
 
 export default function ProfilePage() {
+	const currentUser = useSelector((state: RootState) => state.authSlice);
     return <>
     	<BlurContainer>
 				<MainTitle>
@@ -10,12 +17,7 @@ export default function ProfilePage() {
 				</MainTitle>
 				<WrapperSections>
 
-					<InformationBlock>
-						<MainSubTitle> Weight </MainSubTitle>
-					</InformationBlock>
-					<InformationBlock>
-					<MainSubTitle> 72 kg</MainSubTitle>
-					</InformationBlock>
+					<ProfileForm/>
 
 				</ WrapperSections>
 			</BlurContainer>
@@ -23,6 +25,15 @@ export default function ProfilePage() {
 				<WhiteBlock>
 					2200 kCal
 				</WhiteBlock>
+				<MainSubTitle>
+				Recommended daily calorie intake
+				Everybody is unique. 
+				Try different calorie intake and seek what best fits you
+				</MainSubTitle>
+				<UserMail>
+					{currentUser.userEmail}
+				</UserMail>
+				<DeleteUserBtn/>
 			</InformationBlock>
     </>
 }

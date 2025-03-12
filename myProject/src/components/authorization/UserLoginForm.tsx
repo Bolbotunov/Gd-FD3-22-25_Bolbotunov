@@ -28,8 +28,9 @@ export default function UserLoginForm() {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      const uid = user.uid;
       const displayName = user.displayName ? user.displayName : user.email ?? '';
-      dispatch(setUser({ userName: displayName, userEmail: email || '' }))
+      dispatch(setUser({ uid, userName: displayName, userEmail: email || '' }))
       console.log('User login', displayName)
       // updateProfile(user, { displayName: userName })
   })

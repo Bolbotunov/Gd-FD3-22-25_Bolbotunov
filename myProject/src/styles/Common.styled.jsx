@@ -34,6 +34,15 @@ export const InputStyle = styled('input') `
     opacity: 0.8;
   }
 `
+export const SelectStyle = styled('select') `
+  text-align: left;
+  max-width: 100%;
+  width: 350px;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 1rem;
+  padding: 5px;
+`
 
 export const BlurContainer = styled('div')`
   flex: 1;
@@ -56,6 +65,7 @@ export const SmallBlurContainer = styled(Link)`
 ${FlexDiv};
   margin: 0px;
   text-decoration: none;
+
   color: ${props => props.theme.colors.WHITE_COLOR};
   justify-content: space-around;
   flex-direction: column;

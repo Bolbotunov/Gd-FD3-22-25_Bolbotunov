@@ -26,19 +26,17 @@ export default function UserRegistrationForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const userName = useSelector((state: RootState) => state.authSlice.userName);
-
-
+  
   function registerUser({userName, email, password} : RegisterType) {
     console.log(auth);
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      const uid = user.uid;
       updateProfile(user, { displayName: userName })
-  })
-  .then(() => {
-    dispatch(setUser({ userName, userEmail: email }))
-    console.log('User registered and profile updated', userName)
-    navigate("/home");
+      dispatch(setUser({ uid, userName, userEmail: email }))
+      console.log('User registered and profile updated', uid)
+      navigate("/home");
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -49,7 +47,7 @@ export default function UserRegistrationForm() {
 
   useEffect(() => {
     if (userName) {
-      navigate('/home')
+      navigate('/profile')
     }
   }, [userName, navigate])
   

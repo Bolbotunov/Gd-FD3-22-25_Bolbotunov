@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import LogoutButton from './LogoutBtn';
-import DeleteUserBtn from './DeleteUserBtn';
 import { SmallBlurContainer } from '../../styles/Common.styled';
 import { UserInfoText } from '../../styles/Fonts.styled';
 
@@ -12,8 +11,6 @@ export default function UserInfo() {
     <div>
       {currentUser ? (
         <SmallBlurContainer to={'/profile'}>
-           
-          {/* <DeleteUserBtn/> */}
           <UserInfoText>Welcome, {currentUser.userName}!</UserInfoText>
           {/* <UserInfoText >{currentUser.userEmail}</UserInfoText> */}
           <LogoutButton/>

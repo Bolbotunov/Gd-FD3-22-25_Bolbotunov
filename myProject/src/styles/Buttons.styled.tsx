@@ -32,7 +32,7 @@ export const BtnStyle = styled('button') `
 export const BtnAuth = styled('button') `
    ${FontsFamily};
    max-width: 100%;
-   width: 60px;
+   width: 250px;
    border-radius: 5px;
    text-align: center;
    background-color:${props => props.theme.colors.MAIN_COLOR};

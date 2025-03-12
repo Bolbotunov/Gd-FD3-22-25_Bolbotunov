@@ -39,3 +39,9 @@ export const WhiteBlock = styled('div')`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
 `;
+
+
+export const UserMail = styled('p')`
+  ${FontsFamily};
+  color: ${props => props.theme.colors.WHITE_COLOR};
+`

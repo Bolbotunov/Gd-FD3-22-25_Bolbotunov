@@ -26,7 +26,7 @@ export default function UserRegistrationForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const userName = useSelector((state: RootState) => state.authSlice.userName);
-
+  
   function registerUser({userName, email, password} : RegisterType) {
     console.log(auth);
   createUserWithEmailAndPassword(auth, email, password)

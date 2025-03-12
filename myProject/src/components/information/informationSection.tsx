@@ -5,13 +5,13 @@ import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
 
 export default function InformationSection() {
-    const currentUser = useSelector((state: RootState) => state.authSlice.userName);
+    const currentUser = useSelector((state: RootState) => state.authSlice);
 
     return (
         <>
         <InformationWrapper>
             <MainTitle>
-                Welcome to our Application, {currentUser}!
+                Welcome to our Application, {currentUser.userName}!
                 </MainTitle>
             <MainSubTitle>
                 This app will help you control your diet and properly monitor your nutrients

@@ -1,16 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'firebase/auth';
+
+
+type ProfileType = {
+  weight?: number;
+  height?: number;
+  age?: number;
+  goal?: string;
+  activity?: string;
+  gender?: string;
+};
+
+
 
 type AuthStateType = {
+  uid: string | null;
   userName: string | null;
   userEmail: string | null;
+  profile: ProfileType | null;
   status: string;
   error: string | null;
 }
 
 const initialState: AuthStateType = {
+  uid: null,
   userName: null,
   userEmail: null,
+  profile: null,
   status: '',
   error: null,
 };
@@ -19,18 +34,25 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<{ userName: string; userEmail: string }>) {
+    setUser(state, action: PayloadAction<{ uid: string; userName: string; userEmail: string; profile?: ProfileType }>) {
+      state.uid = action.payload.uid;
       state.userName = action.payload.userName;
       state.userEmail = action.payload.userEmail;
+      state.profile = action.payload.profile || null;
       state.status = 'succeeded';
     },
+    setUserProfile(state, action: PayloadAction<ProfileType>) {
+      state.profile = action.payload;
+    },
     clearUser(state) {
+      state.uid = null;
       state.userName = null;
       state.userEmail = null;
+      state.profile = null;
       state.status = '';
     }
   }
 })
 
-export const { setUser, clearUser } = authSlice.actions;
+export const { setUser,  setUserProfile, clearUser } = authSlice.actions;
 export default authSlice.reducer;

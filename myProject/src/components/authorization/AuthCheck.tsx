@@ -1,4 +1,4 @@
-import { JSX, useEffect, useState } from 'react';
+import { JSX, useEffect, useId, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../config/firebase';
@@ -16,6 +16,7 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
         const displayName = user.displayName || user.email || '';
         dispatch(
           setUser({
+            uid: user.uid,
             userName: displayName,
             userEmail: user.email || '',
           })

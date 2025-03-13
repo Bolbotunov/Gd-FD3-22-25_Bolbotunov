@@ -5,4 +5,5 @@ export const NavStyle = styled('nav')`
     ${FlexDiv};
     width: 100%;
     height: 80px;
+    justify-content: space-between;
 `

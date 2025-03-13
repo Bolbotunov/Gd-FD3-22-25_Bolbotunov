@@ -1,7 +1,7 @@
 import HomePage from '../../pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import ProfilePage from '../../pages/profilePage/ProfilePage';
-import ProductsPage from '../../pages/ProductsPage';
+import ProductsPage from '../../pages/productsPage/ProductsPage';
 import DiaryPage from '../../pages/DiaryPage';
 import StatisticsPage from '../../pages/StatisticsPage';
 import SettingsPage from '../../pages/SettingsPage';

@@ -1,5 +1,5 @@
 import { BlurContainer } from "../../styles/Common.styled"
-import { InformationBlock, WhiteBlock, WrapperSections } from "./ProfilePage.styled"
+import { InformationBlock, RecommendedkCalBlock, WrapperSections } from "./ProfilePage.styled"
 import { MainTitle, MainSubTitle } from "../../styles/Fonts.styled"
 import ProfileForm from "./ProfileForm";
 import { useSelector } from 'react-redux';
@@ -22,9 +22,9 @@ export default function ProfilePage() {
 				</ WrapperSections>
 			</BlurContainer>
 			<InformationBlock>
-				<WhiteBlock>
+				<RecommendedkCalBlock>
 					2200 kCal
-				</WhiteBlock>
+				</RecommendedkCalBlock>
 				<MainSubTitle>
 				Recommended daily calorie intake
 				Everybody is unique. 

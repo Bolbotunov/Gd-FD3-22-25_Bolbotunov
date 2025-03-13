@@ -8,7 +8,7 @@ export const BtnCommonStyle = css`
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  width: 350px;
+  width: 320px;
   height: 50px;
   border-radius: 10px;
   background-color: transparent;
@@ -27,12 +27,13 @@ export const BtnStyle = styled('button') `
   color:${props => props.theme.colors.MAIN_COLOR};
   font-size: 1.2rem;
   font-weight: 500;
+  margin-top: 20px;
 `
 
 export const BtnAuth = styled('button') `
    ${FontsFamily};
    max-width: 100%;
-   width: 250px;
+   width: 70px;
    border-radius: 5px;
    text-align: center;
    background-color:${props => props.theme.colors.MAIN_COLOR};
@@ -44,4 +45,22 @@ export const BtnAuth = styled('button') `
     cursor: alias;
     }
 `
+
+export const BtnDelete = styled('button') `
+   ${FontsFamily};
+   max-width: 100%;
+   width: 150px;
+   height: 5vh;
+   border-radius: 5px;
+   text-align: center;
+   background-color:${props => props.theme.colors.ERROR_COLOR};
+   color:${props => props.theme.colors.WHITE_COLOR};
+
+   &:hover {
+    color: ${props => props.theme.colors.ERROR_COLOR};
+    background-color:${props => props.theme.colors.MAIN_COLOR};
+    cursor: pointer;
+    }
+`
+
 

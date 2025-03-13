@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FlexDiv} from '../../styles/Common.styled';
+import { FlexDiv, WhiteBlock} from '../../styles/Common.styled';
 import { FontsFamily } from '../../styles/Fonts.styled';
 
 
@@ -21,23 +21,15 @@ export const WrapperSections = styled('div')`
 
 
 
-export const WhiteBlock = styled('div')`
+export const RecommendedkCalBlock = styled('div')`
+  ${WhiteBlock};
   ${FontsFamily};
-	${FlexDiv};
   font-weight: 600;
   font-size: calc(24px + 10%);
-  width: 90%;
-	margin: 0px;
+  background-color: ${props => props.theme.colors.MAIN_COLOR_30};
   color: ${props => props.theme.colors.WHITE_COLOR};
   justify-content: space-around;
-  flex-direction: column;
-  gap: 10px;
-  background-color: ${props => props.theme.colors.MAIN_COLOR_30};
-  padding: 10px;
   height: 65px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
 `;
 
 

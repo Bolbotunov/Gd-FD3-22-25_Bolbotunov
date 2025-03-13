@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 export const FlexDiv = css`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 
@@ -22,8 +22,8 @@ export const AppContainer = styled('div') `
 
 export const InputStyle = styled('input') `
   text-align: left;
-  max-width: 100%;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   height: 35px;
   border-radius: 10px;
   font-size: 1.2rem;
@@ -83,3 +83,14 @@ ${FlexDiv};
     }
 `;
 
+export const WhiteBlock = css`
+	${FlexDiv};
+  width: 90%;
+	margin: 0px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+`;

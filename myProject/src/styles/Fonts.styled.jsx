@@ -10,7 +10,7 @@ export const FontsFamily = css`
 
 export const MainTitle = styled('h1')`
      ${FontsFamily};
-     color: ${props => props.theme.colors.WHITE_COLOR};
+     color: ${props => props.theme.colors.MAIN_COLOR};
 `
 
 export const MainSubTitle = styled('h4')`

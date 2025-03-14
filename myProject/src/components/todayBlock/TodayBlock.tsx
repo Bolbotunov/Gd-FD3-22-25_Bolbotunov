@@ -13,13 +13,12 @@ export default function TodayBlock() {
   const currentDate = useCurrentDate();
 
   const proteinPercent = '85%';
-  const fatsPercent = '22%';
+  const fatsPercent = '65%';
   const carbsPercent = '25%';
 
 
     return (
         <>
-        
         <BlurContainer>
           <CategoryTitleStyle>
             Today: {currentDate}

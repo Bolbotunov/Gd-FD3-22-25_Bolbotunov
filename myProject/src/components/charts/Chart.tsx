@@ -1,7 +1,9 @@
 import { ChartsContainer, ChartsFilling } from "./Chart.styled";
-import { ChartLineStyle } from "./Chart.styled";
-import { ChartLineTitle } from "../../styles/Fonts.styled";
+import { ChartLineStyle, ExtraBlock } from "./Chart.styled";
+import { ChartLineTitle} from "../../styles/Fonts.styled";
 import { ChartLineBlock } from "./Chart.styled";
+import { Flex } from "../../styles/Common.styled";
+
 
   type ChartPercentProps =  {
     proteinPercent: string;
@@ -10,6 +12,7 @@ import { ChartLineBlock } from "./Chart.styled";
     proteinColor: string;
     fatsColor: string;
     carbsColor: string;
+    extraTitle?: React.ReactNode;
   }
 
 export default function Chart(props: ChartPercentProps) {
@@ -20,25 +23,32 @@ export default function Chart(props: ChartPercentProps) {
           <ChartLineBlock>
             <ChartLineTitle>Proteins</ChartLineTitle>
           </ChartLineBlock>
-          <ChartLineStyle>
-            <ChartsFilling fillpercent = {props.proteinPercent} fillcolor = {props.proteinColor}/>
-          </ChartLineStyle>
+          <Flex>
+            <ChartLineStyle>
+              <ChartsFilling fillpercent = {props.proteinPercent} fillcolor = {props.proteinColor}/>
+            </ChartLineStyle>
+            {props.extraTitle && <ExtraBlock>{props.extraTitle}</ExtraBlock>}
+          </Flex>
 
           <ChartLineBlock>
             <ChartLineTitle>Fats</ChartLineTitle>
           </ChartLineBlock>
-          <ChartLineStyle>
-            <ChartsFilling fillpercent = {props.fatsPercent}  fillcolor = {props.fatsColor}/>
-          </ChartLineStyle>
+          <Flex>
+            <ChartLineStyle>
+              <ChartsFilling fillpercent = {props.fatsPercent}  fillcolor = {props.fatsColor}/>
+            </ChartLineStyle>
+            {props.extraTitle && <ExtraBlock>{props.extraTitle}</ExtraBlock>}
+          </Flex>
 
           <ChartLineBlock>
             <ChartLineTitle>Proteins</ChartLineTitle>
           </ChartLineBlock>
-          <ChartLineStyle>
-            <ChartsFilling fillpercent = {props.carbsPercent}  fillcolor = {props.carbsColor}/>
-          </ChartLineStyle>
-
-
+          <Flex>
+            <ChartLineStyle>
+              <ChartsFilling fillpercent = {props.carbsPercent}  fillcolor = {props.carbsColor}/>
+            </ChartLineStyle>
+            {props.extraTitle && <ExtraBlock>{props.extraTitle}</ExtraBlock>}
+          </Flex>
          </ChartsContainer>
         </>
       );

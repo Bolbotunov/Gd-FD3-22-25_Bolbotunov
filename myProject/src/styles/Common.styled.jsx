@@ -48,7 +48,7 @@ export const BlurContainer = styled('div')`
   flex: 1;
   margin: 0px;
   ${FlexDiv};
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-direction: column;
   gap: 10px;
   background-color: rgba(0, 0, 0, 0.3);
@@ -93,4 +93,9 @@ export const WhiteBlock = css`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
+`;
+
+export const Flex = styled('div')`
+	${FlexDiv};
+  align-items: center;
 `;

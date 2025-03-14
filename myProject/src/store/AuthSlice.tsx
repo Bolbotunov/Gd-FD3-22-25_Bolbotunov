@@ -10,13 +10,20 @@ type ProfileType = {
   gender?: string;
 };
 
-
+type UserProductsType = {
+  productId: number;
+  name?: string;
+  proteins: number;
+  fats: number;
+  carbs: number;
+};
 
 type AuthStateType = {
   uid: string | null;
   userName: string | null;
   userEmail: string | null;
   profile: ProfileType | null;
+  products:  UserProductsType[];
   status: string;
   error: string | null;
 }
@@ -26,6 +33,7 @@ const initialState: AuthStateType = {
   userName: null,
   userEmail: null,
   profile: null,
+  products: [],
   status: '',
   error: null,
 };
@@ -44,15 +52,19 @@ export const authSlice = createSlice({
     setUserProfile(state, action: PayloadAction<ProfileType>) {
       state.profile = action.payload;
     },
+    addUserProduct(state, action: PayloadAction<UserProductsType>) {
+      state.products.push(action.payload);
+    },
     clearUser(state) {
       state.uid = null;
       state.userName = null;
       state.userEmail = null;
       state.profile = null;
+      state.products = [];
       state.status = '';
     }
   }
 })
 
-export const { setUser,  setUserProfile, clearUser } = authSlice.actions;
+export const { setUser,  setUserProfile, addUserProduct, clearUser } = authSlice.actions;
 export default authSlice.reducer;

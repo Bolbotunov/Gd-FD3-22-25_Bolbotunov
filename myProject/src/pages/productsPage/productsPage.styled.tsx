@@ -59,7 +59,7 @@ export const HeaderItem = styled('div')`
 `;
 
 export const ProductRow = styled('div')`
-  background-color: ${props => props.theme.colors.BLACK_COLOR};
+  background-color: ${props => props.theme.colors.MAIN_COLOR};
   display: flex;
   align-items: center;
   padding: 10px; 
@@ -84,15 +84,15 @@ export const ProductColumn =  styled('div')`
 
 export const AddBtn = styled('button')`
   ${BtnCommonStyle}
-  background-color:${props => props.theme.colors.MAIN_COLOR};
-  color:${props => props.theme.colors.BLACK_COLOR};
+  background-color: transparent;
+  color:${props => props.theme.colors.MAIN_COLOR};
   font-size: calc(4px + 1vw);
   font-weight: 600;
   margin: 20px auto;
 
   &:hover {
-    color: ${props => props.theme.colors.MAIN_COLOR};
-    background-color: transparent;
+    color: ${props => props.theme.colors.BLACK_COLOR};
+    background-color:${props => props.theme.colors.MAIN_COLOR};
     cursor: pointer;
     }
 `

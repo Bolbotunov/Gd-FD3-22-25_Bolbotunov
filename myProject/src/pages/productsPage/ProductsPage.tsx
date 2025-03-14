@@ -1,5 +1,6 @@
-import { ProductsBlock } from "./productsPage.styled"
-import { useEffect, useState } from "react";
+import { BlurContainer } from "../../styles/Common.styled";
+import { useEffect, useState, useCallback } from "react";
+import { debounce } from "../../utils/debounce";
 import {
   ContentContainer,
   SearchInput,
@@ -12,51 +13,48 @@ import {
 } from "./productsPage.styled"
 import { searchFood } from "../../components/api/ApiTest";
 
+
+
+type ProductType = {
+  food_name: string;
+  nf_protein: number;
+  nf_total_fat: number;
+  nf_total_carbohydrate: number;
+  nf_calories: number;
+};
+
+
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-
-	const handleSearch = async () => {
-    try {
-			console.log('query', query)
-      const data = await searchFood(query);
-      setResults(data.foods);
-			console.log('results', data.foods)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
+  const [results, setResults] = useState<ProductType[]>([]);
+	const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null)
+	
+  const debouncedSearch = useCallback(
+    debounce(async (query: string) => {
+      try {
+        const data = await searchFood(query);
+        setResults(data.foods);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }, 1000),
+    []
+  );
 
 	useEffect(() => {
 		if(query) {
-			handleSearch()
+			debouncedSearch(query)
 		}
-	}, [query])
+	}, [query, debouncedSearch])
 
-	// const products = [
-  //   {
-  //     id: 1,
-  //     name: 'Banana',
-  //     proteins: 1.2,
-  //     fats: 0.3,
-  //     carbs: 27,
-  //     calories: 89,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Apple',
-  //     proteins: 0.3,
-  //     fats: 0.2,
-  //     carbs: 14,
-  //     calories: 52,
-  //   },
-  // ];
-			
+function handleSelectedProduct(product: ProductType) {
+	setSelectedProduct(product)
+}
+
 
   return (
 		<>
-		<ProductsBlock>
+		 <BlurContainer>
     <ContentContainer>
       <SearchInput type='text'
 			value={query}
@@ -73,7 +71,12 @@ export default function ProductsPage() {
 
 			<ProductRowWrapper>
           {results.map((product: any) => (
-            <ProductRow key={product.food_name}>
+            <ProductRow 
+						key={product.food_name}
+						onClick={() => handleSelectedProduct(product)}
+						style={{
+							backgroundColor: selectedProduct && selectedProduct.food_name === product.food_name ? '#955120' : 'white',
+							cursor: 'pointer'}}>
               <ProductColumn>{product.food_name}</ProductColumn>
               <ProductColumn>{product.nf_protein || 'N/A'}g</ProductColumn>
               <ProductColumn>{product.nf_total_fat || 'N/A'}g</ProductColumn>
@@ -83,9 +86,9 @@ export default function ProductsPage() {
           ))}
         </ProductRowWrapper>
 
-      <AddBtn>Add Product</AddBtn>
+      <AddBtn>Add Product to diary</AddBtn>
 			</ContentContainer>
-			</ProductsBlock>
+			</BlurContainer>
    
     </>
 	)

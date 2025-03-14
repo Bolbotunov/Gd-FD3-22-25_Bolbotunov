@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { ProductType } from '../store/AuthSlice';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -15,6 +17,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app)
+
+
+export async function addProductToUser(uid: string, product: ProductType) {
+  const userDocRef = doc(db, "users", uid);
+  await updateDoc(userDocRef, {
+    products: arrayUnion(product)
+  });
+}
 
 export { auth, app, db };
 

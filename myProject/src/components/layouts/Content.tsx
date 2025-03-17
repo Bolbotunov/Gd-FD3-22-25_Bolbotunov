@@ -2,6 +2,7 @@ import HomePage from '../../pages/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import ProfilePage from '../../pages/profilePage/ProfilePage';
 import ProductsPage from '../../pages/productsPage/ProductsPage';
+import ProductPage from '../../pages/productsPage/ProductPage';
 import DiaryPage from '../../pages/DiaryPage';
 import StatisticsPage from '../../pages/StatisticsPage';
 import SettingsPage from '../../pages/SettingsPage';
@@ -24,6 +25,7 @@ export default function Content() {
           <Route path='/home' element={<HomePage/>} />
           <Route path='/profile' element={<ProfilePage/>} />
           <Route path='/products' element = {<ProductsPage/>}/>
+          <Route path='/products/:id' element = {<ProductPage/>}/>
           <Route path="/diary" element={<DiaryPage />} />
           <Route path='/statistics' element={<StatisticsPage/>} />
           <Route path='/settings' element = {<SettingsPage/>}/>

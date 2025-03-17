@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserProduct } from "../../store/AuthSlice";
 import { ProductType } from "../../store/AuthSlice";
 import { addProductToUser } from "../../config/firebase";
+import { Flex } from "../../styles/Common.styled";
 import {
   ContentContainer,
   SearchInput,
@@ -13,12 +14,13 @@ import {
   HeaderItem,
   ProductRow,
   ProductColumn,
-	AddBtn,
 	ProductRowWrapper,
 } from "./productsPage.styled"
+import { AddBtn, BtnDelete, LinkBtn } from "../../styles/Buttons.styled";
 import { searchFood } from "../../components/api/ApiTest";
 import { appColors } from "../../styles/AppColors";
 import { RootState } from "../../store/store";
+import ModalBlock from "../../components/modals/ModalBlock";
 
 
 
@@ -53,17 +55,29 @@ export default function ProductsPage() {
 	const [error, setError] = useState<string | null>(null);
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice)
+  const [isOpen, setIsOpen] = useState(false)
 
-  
+
+  function normalizeProduct(apiProduct: any): ProductType {
+    return {
+      food_name: apiProduct.food_name,
+      nf_protein: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 203)?.value || 0,
+      nf_total_fat: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 204)?.value || 0,
+      nf_total_carbohydrate: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 205)?.value || 0,
+      nf_calories: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 208)?.value || 0,
+    };
+  }
+
 	const debouncedSearch = useCallback(
     debounce(async (query: string) => {
       try {
         const data = await searchFood(query);
-				if (data.foods.length === 0) {
+				if (!data.foods || data.foods.length === 0) {
 					setError('this product does not exist');
           setResults([...defaultProducts, ...data.foods]);
 				} else {
-					setResults(data.foods);
+          const normalized = data.foods.map((p: any) => normalizeProduct(p));
+					setResults(normalized);
 					setError(null);
 				}
        
@@ -81,9 +95,12 @@ export default function ProductsPage() {
   );
 
 	useEffect(() => {
-		if(query) {
-			debouncedSearch(query)
+		if(query.trim() === '') {
+			setResults(defaultProducts);
+      setError(null);
+      return;
 		}
+    debouncedSearch(query)
 	}, [query, debouncedSearch])
 
 	function handleSelectedProduct(product: ProductType) {
@@ -94,6 +111,15 @@ export default function ProductsPage() {
     }
   }
 
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
 		<>
 		 <BlurContainer>
@@ -102,6 +128,38 @@ export default function ProductsPage() {
 			value={query}
 			onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." />
   		 {error && <ErrorText>{error}</ErrorText>} 
+
+       <Flex>
+      <AddBtn onClick={async () => {
+				if (!selectedProduct) {
+					alert('plese select product')
+					return;
+				} else {
+          dispatch(addUserProduct(selectedProduct))
+          
+          if (currentUser.uid) {
+            try {
+              await addProductToUser(currentUser.uid, selectedProduct)
+              alert('Product added')
+            } catch (error) {
+              console.error('error adding product to DB', error)
+            }
+          }
+        }
+			}}>add product to diary</AddBtn>
+      <AddBtn>create</AddBtn>
+      {selectedProduct ? (
+              <LinkBtn to={`/products/${selectedProduct.food_name}`}>
+                view
+              </LinkBtn>
+            ) : (
+            <AddBtn onClick={() => alert('plese select product')}>view</AddBtn>)
+}
+
+      <AddBtn>edit</AddBtn>
+      <BtnDelete>delete</BtnDelete>
+      </Flex>
+
       <TableHeader>
         <HeaderItem>Products</HeaderItem>
         <HeaderItem>Proteins</HeaderItem>
@@ -130,27 +188,12 @@ export default function ProductsPage() {
           ))}
         </ProductRowWrapper>
 
-      <AddBtn onClick={async () => {
-				if (!selectedProduct) {
-					alert('plese select product')
-					return;
-				} else {
-          dispatch(addUserProduct(selectedProduct))
-          
-          if (currentUser.uid) {
-            try {
-              await addProductToUser(currentUser.uid, selectedProduct)
-              alert('Product added')
-            } catch (error) {
-              console.error('error adding product to DB', error)
-            }
-          }
-          // updateFirebaseUserProducts(selectedProduct);
-        }
-			}}>Add Product to diary</AddBtn>
 			</ContentContainer>
 			</BlurContainer>
-   
+      <ModalBlock
+          isOpen= {isOpen}
+          onClose={closeModal}
+          />
     </>
 	)
 }

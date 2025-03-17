@@ -26,8 +26,8 @@ export const RecommendedkCalBlock = styled('div')`
   ${FontsFamily};
   font-weight: 600;
   font-size: calc(24px + 10%);
-  background-color: ${props => props.theme.colors.MAIN_COLOR_30};
-  color: ${props => props.theme.colors.WHITE_COLOR};
+  background-color: ${({theme}) => theme.colors.MAIN_COLOR_30};
+  color: ${({theme}) => theme.colors.WHITE_COLOR};
   justify-content: space-around;
   height: 65px;
 `;
@@ -35,5 +35,5 @@ export const RecommendedkCalBlock = styled('div')`
 
 export const UserMail = styled('p')`
   ${FontsFamily};
-  color: ${props => props.theme.colors.WHITE_COLOR};
+  color: ${({theme}) => theme.colors.WHITE_COLOR};
 `

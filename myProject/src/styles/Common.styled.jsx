@@ -30,7 +30,7 @@ export const InputStyle = styled('input') `
   padding: 10px;
 
   &::placeholder {
-    color: ${props => props.theme.colors.MAIN_COLOR};
+    color: ${({theme}) => theme.colors.MAIN_COLOR};
     opacity: 0.8;
   }
 `
@@ -55,7 +55,7 @@ export const BlurContainer = styled('div')`
   padding: 20px;
   height: 100vh;
   border-radius: 10px;
-  border: 1px solid ${props => props.theme.colors.MAIN_COLOR};
+  border: 1px solid ${({theme}) => theme.colors.MAIN_COLOR};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px); 
 `;
@@ -66,7 +66,7 @@ ${FlexDiv};
   margin: 0px;
   text-decoration: none;
 
-  color: ${props => props.theme.colors.WHITE_COLOR};
+  color: ${({theme}) => theme.colors.WHITE_COLOR};
   justify-content: space-around;
   flex-direction: column;
   gap: 10px;

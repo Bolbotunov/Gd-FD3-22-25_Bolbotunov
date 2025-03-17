@@ -10,8 +10,8 @@ export const ProductsBlock = styled('div')`
   width: 100%;
   font-weight: 600;
   font-size: calc(24px + 10%);
-  color: ${props => props.theme.colors.WHITE_COLOR};
-  background-color: ${props => props.theme.colors.WHITE_COLOR_40};
+  color: ${({theme}) => theme.colors.WHITE_COLOR};
+  background-color: ${({theme}) => theme.colors.WHITE_COLOR_40};
   justify-content: center;
   height: 100vh;
 `;
@@ -30,14 +30,14 @@ export const SearchInput = styled('input')`
   max-width: 750px;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid ${props => props.theme.colors.MAIN_COLOR};
+  border: 1px solid ${({theme}) => theme.colors.MAIN_COLOR};
   border-radius: 10px;
   margin-bottom: 20px;
-  background-color: ${props => props.theme.colors.MAIN_COLOR_30};
-  color: ${props => props.theme.colors.WHITE_COLOR};
+  background-color: ${({theme}) => theme.colors.MAIN_COLOR_30};
+  color: ${({theme}) => theme.colors.WHITE_COLOR};
 
   ::placeholder {
-    color: ${props => props.theme.colors.MAIN_COLOR};
+    color: ${({theme}) => theme.colors.MAIN_COLOR};
   }
 `;
 
@@ -45,7 +45,7 @@ export const TableHeader = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${props => props.theme.colors.WHITE_COLOR};
+  color: ${({theme}) => theme.colors.WHITE_COLOR};
   padding: 10px;
   font-weight: 500;
   font-size: 10px;
@@ -59,7 +59,7 @@ export const HeaderItem = styled('div')`
 `;
 
 export const ProductRow = styled('div')`
-  background-color: ${props => props.theme.colors.MAIN_COLOR};
+  background-color: ${({theme}) => theme.colors.MAIN_COLOR};
   display: flex;
   align-items: center;
   padding: 10px; 
@@ -82,17 +82,4 @@ export const ProductColumn =  styled('div')`
   min-width:50px;
 `;
 
-export const AddBtn = styled('button')`
-  ${BtnCommonStyle}
-  background-color: transparent;
-  color:${props => props.theme.colors.MAIN_COLOR};
-  font-size: calc(4px + 1vw);
-  font-weight: 600;
-  margin: 20px auto;
 
-  &:hover {
-    color: ${props => props.theme.colors.BLACK_COLOR};
-    background-color:${props => props.theme.colors.MAIN_COLOR};
-    cursor: pointer;
-    }
-`

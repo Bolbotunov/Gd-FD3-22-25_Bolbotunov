@@ -58,7 +58,7 @@ export const ChartLineStyle = styled('div')`
 
 export const ExtraBlock = styled('div')`
 	${FlexDiv}
-    color:${props => props.theme.colors.MAIN_COLOR};
+    color:${({theme}) => theme.colors.MAIN_COLOR};
 	padding: 20px;
     margin-left:10px;
     height: 35px;

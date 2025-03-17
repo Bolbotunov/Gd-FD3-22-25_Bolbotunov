@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { styled, css } from 'styled-components'
 import { FontsFamily } from './Fonts.styled';
 
@@ -8,15 +9,30 @@ export const BtnCommonStyle = css`
   align-items: center;
   justify-content: center;
   max-width: 100%;
-  width: 320px;
-  height: 50px;
+  width: 250px;
+  height: 45px;
   border-radius: 10px;
   background-color: transparent;
-  border: 3px solid ${props => props.theme.colors.MAIN_COLOR};
+  border: 3px solid ${({theme}) => theme.colors.MAIN_COLOR};
 
   &:hover {
-    color: ${props => props.theme.colors.BLACK_COLOR};
-    background-color:${props => props.theme.colors.MAIN_COLOR};
+    color: ${({theme}) => theme.colors.BLACK_COLOR};
+    background-color:${({theme}) => theme.colors.MAIN_COLOR};
+    cursor: pointer;
+    }
+
+`;
+
+export const BtnDictionary = css`
+   ${FontsFamily};
+   max-width: 100%;
+   width: 150px;
+   height: 5vh;
+   border-radius: 5px;
+   text-align: center;
+   font-size: calc(4px + 0.6vw);
+   margin: 20px auto;
+  &:hover {
     cursor: pointer;
     }
 
@@ -24,7 +40,7 @@ export const BtnCommonStyle = css`
 
 export const BtnStyle = styled('button') `
   ${BtnCommonStyle};
-  color:${props => props.theme.colors.MAIN_COLOR};
+  color:${({theme}) => theme.colors.MAIN_COLOR};
   font-size: 1.2rem;
   font-weight: 500;
   margin-top: 20px;
@@ -36,29 +52,56 @@ export const BtnAuth = styled('button') `
    width: 70px;
    border-radius: 5px;
    text-align: center;
-   background-color:${props => props.theme.colors.MAIN_COLOR};
-   color:${props => props.theme.colors.BLACK_COLOR};
+   background-color:${({theme}) => theme.colors.MAIN_COLOR};
+   color:${({theme}) => theme.colors.BLACK_COLOR};
 
    &:hover {
-    color: ${props => props.theme.colors.MAIN_COLOR};
-    background-color:${props => props.theme.colors.ERROR_COLOR};
+    color: ${({theme}) => theme.colors.MAIN_COLOR};
+    background-color:${({theme}) => theme.colors.ERROR_COLOR};
     cursor: alias;
     }
 `
 
+
+
 export const BtnDelete = styled('button') `
-   ${FontsFamily};
-   max-width: 100%;
-   width: 150px;
-   height: 5vh;
-   border-radius: 5px;
-   text-align: center;
-   background-color:${props => props.theme.colors.ERROR_COLOR};
-   color:${props => props.theme.colors.WHITE_COLOR};
+   ${BtnDictionary};
+   background-color:${({theme}) => theme.colors.ERROR_COLOR};
+   color:${({theme}) => theme.colors.WHITE_COLOR};
 
    &:hover {
-    color: ${props => props.theme.colors.ERROR_COLOR};
-    background-color:${props => props.theme.colors.MAIN_COLOR};
+    background-color:${({theme}) => theme.colors.ERROR_COLOR_HOVER};
+    border: 2px solid ${({theme}) => theme.colors.ERROR_COLOR};
+    font-weight: 700;
+    cursor: pointer;
+    }
+`
+
+
+export const AddBtn = styled('button')`
+  ${BtnDictionary}
+  background-color: transparent;
+  color:${({theme}) => theme.colors.MAIN_COLOR};
+  border: 2px solid ${({theme}) => theme.colors.MAIN_COLOR};
+  font-weight: 600;
+
+  &:hover {
+    color: ${({theme}) => theme.colors.BLACK_COLOR};
+    background-color:${({theme}) => theme.colors.MAIN_COLOR};
+    cursor: pointer;
+    }
+`
+
+export const LinkBtn = styled(Link)`
+  ${BtnDictionary}
+  background-color: transparent;
+  color:${({theme}) => theme.colors.MAIN_COLOR};
+  border: 2px solid ${({theme}) => theme.colors.MAIN_COLOR};
+  font-weight: 600;
+
+  &:hover {
+    color: ${({theme}) => theme.colors.BLACK_COLOR};
+    background-color:${({theme}) => theme.colors.MAIN_COLOR};
     cursor: pointer;
     }
 `

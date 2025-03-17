@@ -8,7 +8,8 @@ export const appColors = {
         WHITE_COLOR: '#ffffff',
         WHITE_COLOR_40: 'rgba(255, 255, 255, 0.4)',
         BLACK_COLOR: '#000000',
-        ERROR_COLOR: '#e21414',
+        ERROR_COLOR: '#e83636',
+        ERROR_COLOR_HOVER: '#a60000',
         OK_COLOR: '#47f647',
     }
 }

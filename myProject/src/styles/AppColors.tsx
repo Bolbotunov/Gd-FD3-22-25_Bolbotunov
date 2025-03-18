@@ -7,9 +7,11 @@ export const appColors = {
         CARBS_COLOR: '#DC191C',
         WHITE_COLOR: '#ffffff',
         WHITE_COLOR_40: 'rgba(255, 255, 255, 0.4)',
-        BLACK_COLOR: '#000000',
+        BLACK_COLOR: '#656565',
         ERROR_COLOR: '#e83636',
         ERROR_COLOR_HOVER: '#a60000',
         OK_COLOR: '#47f647',
+        DISABLED_COLOR_LIGHT: '#c9c8c8',
+        DISABLED_COLOR_DARK: '#7e7e7e',
     }
 }

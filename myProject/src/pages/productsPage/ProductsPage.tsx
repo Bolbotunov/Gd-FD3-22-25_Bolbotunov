@@ -37,16 +37,19 @@ export default function ProductsPage() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice)
 
+
   function normalizeProduct(apiProduct: any): ProductType {
+    const servingWeight = apiProduct.serving_weight_grams || 100;
     return {
       food_name: apiProduct.food_name,
-      nf_protein: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 203)?.value || 0),
-      nf_total_fat: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 204)?.value || 0),
-      nf_total_carbohydrate: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 205)?.value || 0),
-      nf_calories: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 208)?.value || 0),
+      nf_protein: Math.ceil((apiProduct.nf_protein || 0) / servingWeight * 100),
+      nf_total_fat: Math.ceil((apiProduct.nf_total_fat || 0) / servingWeight * 100),
+      nf_total_carbohydrate: Math.ceil((apiProduct.nf_total_carbohydrate || 0) / servingWeight * 100),
+      nf_calories: Math.ceil((apiProduct.nf_calories || 0) / servingWeight * 100),
       isDefault: false,
     };
   }
+  
 
 	const debouncedSearch = useCallback(
     debounce(async (query: string) => {

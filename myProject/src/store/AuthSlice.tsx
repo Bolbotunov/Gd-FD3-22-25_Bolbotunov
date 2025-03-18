@@ -16,6 +16,7 @@ export type ProductType = {
   nf_total_fat: number;
   nf_total_carbohydrate: number;
   nf_calories: number;
+  isDefault?: boolean;
 };
 
 type AuthStateType = {
@@ -55,6 +56,12 @@ export const authSlice = createSlice({
     addUserProduct(state, action: PayloadAction<ProductType>) {
       state.products.push(action.payload);
     },
+    updateUserProduct(state, action: PayloadAction<ProductType>) {
+      const index = state.products.findIndex(p => p.food_name === action.payload.food_name);
+      if (index !== -1) {
+        state.products[index] = action.payload;
+      }
+    },
     clearUser(state) {
       state.uid = null;
       state.userName = null;
@@ -66,5 +73,5 @@ export const authSlice = createSlice({
   }
 })
 
-export const { setUser,  setUserProfile, addUserProduct, clearUser } = authSlice.actions;
+export const { setUser,  setUserProfile, addUserProduct, clearUser, updateUserProduct } = authSlice.actions;
 export default authSlice.reducer;

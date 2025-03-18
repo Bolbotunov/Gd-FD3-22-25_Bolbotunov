@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { debounce } from "../../utils/debounce";
 import { ErrorText } from "../../styles/Fonts.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserProduct } from "../../store/AuthSlice";
+import { addUserProduct, updateUserProduct } from "../../store/AuthSlice";
 import { ProductType } from "../../store/AuthSlice";
 import { addProductToUser } from "../../config/firebase";
 import { Flex } from "../../styles/Common.styled";
@@ -15,56 +15,36 @@ import {
   ProductRow,
   ProductColumn,
 	ProductRowWrapper,
+  ProductColumnUser,
+  HeaderItemUser,
 } from "./productsPage.styled"
 import { AddBtn, BtnDelete, LinkBtn } from "../../styles/Buttons.styled";
 import { searchFood } from "../../components/api/ApiTest";
-import { appColors } from "../../styles/AppColors";
 import { RootState } from "../../store/store";
 import ModalBlock from "../../components/modals/ModalBlock";
+import { useNavigate } from "react-router";
+import { defaultProducts } from "../../config/defaultProducts";
 
 
-
-const defaultProducts: ProductType[] = [
-  {
-    food_name: 'User Product 1',
-    nf_protein: 5,
-    nf_total_fat: 3,
-    nf_total_carbohydrate: 20,
-    nf_calories: 120,
-  },
-  {
-    food_name: 'User Product 2',
-    nf_protein: 8,
-    nf_total_fat: 2,
-    nf_total_carbohydrate: 15,
-    nf_calories: 100,
-  },
-  {
-    food_name: 'User Product 3',
-    nf_protein: 10,
-    nf_total_fat: 4,
-    nf_total_carbohydrate: 30,
-    nf_calories: 150,
-  },
-];
 
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<ProductType[]>(defaultProducts);
 	const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null)
 	const [error, setError] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice)
-  const [isOpen, setIsOpen] = useState(false)
-
 
   function normalizeProduct(apiProduct: any): ProductType {
     return {
       food_name: apiProduct.food_name,
-      nf_protein: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 203)?.value || 0,
-      nf_total_fat: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 204)?.value || 0,
-      nf_total_carbohydrate: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 205)?.value || 0,
-      nf_calories: apiProduct.full_nutrients?.find((n: any) => n.attr_id === 208)?.value || 0,
+      nf_protein: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 203)?.value || 0),
+      nf_total_fat: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 204)?.value || 0),
+      nf_total_carbohydrate: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 205)?.value || 0),
+      nf_calories: Math.ceil(apiProduct.full_nutrients?.find((n: any) => n.attr_id === 208)?.value || 0),
+      isDefault: false,
     };
   }
 
@@ -74,10 +54,10 @@ export default function ProductsPage() {
         const data = await searchFood(query);
 				if (!data.foods || data.foods.length === 0) {
 					setError('this product does not exist');
-          setResults([...defaultProducts, ...data.foods]);
+          setResults([...defaultProducts]);
 				} else {
           const normalized = data.foods.map((p: any) => normalizeProduct(p));
-					setResults(normalized);
+					setResults([...normalized, ...defaultProducts]);
 					setError(null);
 				}
        
@@ -111,7 +91,6 @@ export default function ProductsPage() {
     }
   }
 
-
   function openModal() {
     setIsOpen(true);
   }
@@ -122,21 +101,19 @@ export default function ProductsPage() {
 
   return (
 		<>
-		 <BlurContainer>
-    <ContentContainer>
-      <SearchInput type='text'
-			value={query}
-			onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." />
-  		 {error && <ErrorText>{error}</ErrorText>} 
-
-       <Flex>
-      <AddBtn onClick={async () => {
+		  <BlurContainer>
+        <ContentContainer>
+          <SearchInput type='text'
+			    value={query}
+			    onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." />
+  		    {error && <ErrorText>{error}</ErrorText>} 
+        <Flex>
+        <AddBtn onClick={async () => {
 				if (!selectedProduct) {
 					alert('plese select product')
 					return;
 				} else {
           dispatch(addUserProduct(selectedProduct))
-          
           if (currentUser.uid) {
             try {
               await addProductToUser(currentUser.uid, selectedProduct)
@@ -147,21 +124,41 @@ export default function ProductsPage() {
           }
         }
 			}}>add product to diary</AddBtn>
-      <AddBtn>create</AddBtn>
-      {selectedProduct ? (
-              <LinkBtn to={`/products/${selectedProduct.food_name}`}>
-                view
-              </LinkBtn>
-            ) : (
-            <AddBtn onClick={() => alert('plese select product')}>view</AddBtn>)
-}
 
-      <AddBtn>edit</AddBtn>
+
+      <AddBtn>create</AddBtn>
+
+
+      <LinkBtn disabled={!selectedProduct}
+      onClick={() => {
+        if (!selectedProduct) {
+          alert('Please select a product');
+          return;
+        }
+        dispatch(addUserProduct(selectedProduct))
+        navigate(`/products/${selectedProduct.food_name}`, { state: { mode: 'view' } });
+      }}>
+        view
+        </LinkBtn>
+
+        <LinkBtn disabled={!selectedProduct}
+      onClick={() => {
+        if (!selectedProduct) {
+          alert('Please select a product');
+          return;
+        }
+        dispatch(addUserProduct(selectedProduct))
+        dispatch(updateUserProduct(selectedProduct))
+        navigate(`/products/${selectedProduct.food_name}`, { state: { mode: 'edit' } });
+      }}>
+        edit
+        </LinkBtn>
       <BtnDelete>delete</BtnDelete>
       </Flex>
 
       <TableHeader>
         <HeaderItem>Products</HeaderItem>
+        <HeaderItemUser>Created</HeaderItemUser>
         <HeaderItem>Proteins</HeaderItem>
         <HeaderItem>Fats</HeaderItem>
         <HeaderItem>Carbs</HeaderItem>
@@ -171,20 +168,25 @@ export default function ProductsPage() {
 
 			<ProductRowWrapper>
           {results.map((product:ProductType) => (
-            <ProductRow 
-						key={product.food_name}
-						onClick={() => handleSelectedProduct(product)}
-						style={{
-							backgroundColor: selectedProduct && selectedProduct.food_name === product.food_name ?
-							 appColors.colors.OK_COLOR: appColors.colors.WHITE_COLOR,
-							border: `2px solid ${appColors.colors.WHITE_COLOR}`,
-							cursor: 'pointer'}}>
-              <ProductColumn>{product.food_name}</ProductColumn>
-              <ProductColumn>{product.nf_protein || 'N/A'}g</ProductColumn>
-              <ProductColumn>{product.nf_total_fat || 'N/A'}g</ProductColumn>
-              <ProductColumn>{product.nf_total_carbohydrate || 'N/A'}g</ProductColumn>
-              <ProductColumn>{product.nf_calories || 'N/A'} kCal</ProductColumn>
-            </ProductRow>
+          <ProductRow
+          key={product.food_name}
+          isSelected={selectedProduct && selectedProduct.food_name === product.food_name}
+          onClick={() => handleSelectedProduct(product)}
+          >
+            
+            <ProductColumn>{product.food_name}</ProductColumn>
+            <ProductColumnUser>
+            <img
+            src={product.isDefault ? '/user.png' : '/api.png'}
+            alt="User Product"
+            style={{ width: "16px", height: "16px", objectFit: "cover" }}
+        />
+            </ProductColumnUser>
+            <ProductColumn>{product.nf_protein}g</ProductColumn>
+            <ProductColumn>{product.nf_total_fat}g</ProductColumn>
+            <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>
+            <ProductColumn>{product.nf_calories} kCal</ProductColumn>
+          </ProductRow>
           ))}
         </ProductRowWrapper>
 

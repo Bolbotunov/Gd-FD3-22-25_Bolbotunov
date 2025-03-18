@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { styled, css } from 'styled-components'
 import { FontsFamily } from './Fonts.styled';
+import { FlexDiv } from './Common.styled';
 
 export const BtnCommonStyle = css`
   ${FontsFamily};
@@ -92,18 +93,26 @@ export const AddBtn = styled('button')`
     }
 `
 
-export const LinkBtn = styled(Link)`
-  ${BtnDictionary}
+
+export const LinkBtn = styled('button')<{ disabled?: boolean }>`
+  ${BtnDictionary};
+  ${FlexDiv};
   background-color: transparent;
-  color:${({theme}) => theme.colors.MAIN_COLOR};
-  border: 2px solid ${({theme}) => theme.colors.MAIN_COLOR};
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.DISABLED_COLOR_LIGHT : theme.colors.MAIN_COLOR};
+  border: 2px solid
+    ${({ theme, disabled }) =>
+      disabled ? theme.colors.DISABLED_COLOR_DARK : theme.colors.MAIN_COLOR};
   font-weight: 600;
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
+  
 
   &:hover {
-    color: ${({theme}) => theme.colors.BLACK_COLOR};
-    background-color:${({theme}) => theme.colors.MAIN_COLOR};
-    cursor: pointer;
-    }
-`
-
-
+    ${({ disabled, theme }) =>
+      !disabled &&
+      css`
+        color: ${theme.colors.BLACK_COLOR};
+        background-color: ${theme.colors.MAIN_COLOR};
+      `}
+  }
+`;

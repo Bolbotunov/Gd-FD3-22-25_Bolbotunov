@@ -3,8 +3,9 @@ import { NavStyle } from './Header.styled';
 import UserInfo from "../authorization/UserInfo";
 import { RootState } from "../../store/store";
 import { useSelector } from "react-redux";
+import ThemeToggleButton from "../buttons/ThemeToggleBtn";
 
-export default function MyHeader() {
+export default function Header() {
 
   const userName = useSelector((state: RootState) => state.authSlice.userName);
 
@@ -20,6 +21,7 @@ export default function MyHeader() {
         <FontsHeaderStyle to='/diary'>Diary</FontsHeaderStyle>
         <FontsHeaderStyle to='/statistics'>Statistics</FontsHeaderStyle>
         <FontsHeaderStyle to='/settings'>Settings</FontsHeaderStyle>
+        <ThemeToggleButton/>
       </NavStyle>
     </>
   );

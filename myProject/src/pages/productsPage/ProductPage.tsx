@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { updateUserProduct } from "../../store/AuthSlice";
 import { updateUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
+import { addProductToUser } from "../../config/firebase";
 import {
   BlurContainer,
   Flex,
@@ -32,18 +33,18 @@ export default function ProductPage(props: ProductPageProps) {
   const products = useSelector((state: RootState) => state.authSlice.products);
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
-  const locationState = location.state as { mode?: "view" | "edit"; product?: ProductType } | undefined;
-  const mode: "view" | "edit" = locationState?.mode || "view";
+  const locationState = location.state as { mode?: "view" | "edit" | "adding"; product?: ProductType } | undefined;
+  const mode: "view" | "edit" | "adding" = locationState?.mode || "view";
   
   const productFromStore = locationState?.product || products.find(
     (p) => p.id === id
   );
-
+  const [editedProduct, setEditedProduct] = useState(productFromStore);
   useEffect(() => {
     setEditedProduct(productFromStore);
   }, [productFromStore]);
 
-  const [editedProduct, setEditedProduct] = useState(productFromStore);
+  
 
   if (!productFromStore) {
     return (
@@ -89,7 +90,6 @@ export default function ProductPage(props: ProductPageProps) {
     );
   };
 
-
   const handleSave = async () => {
     if (!editedProduct) return;
     dispatch(updateUserProduct(editedProduct));
@@ -105,6 +105,58 @@ export default function ProductPage(props: ProductPageProps) {
       }
     }
   };
+
+  const handleSaveToDiary = async () => {
+    if (currentUser.uid) {
+    try {
+      await addProductToUser(currentUser.uid, productFromStore)
+      alert('Product added');
+      navigate(`/products/${productFromStore.id}`, {
+        state: { mode: "view", product: editedProduct },
+      });
+    } catch (error) {
+      console.error('error adding product to DB', error)
+    }
+  }
+  };
+
+
+  if (mode === "adding") {
+    return (
+      <BlurContainer>
+        <ContentContainer>
+          <MainTitle>{productFromStore.food_name}</MainTitle>
+          <NutrientRow>
+            <NutrientLabel>Proteins:</NutrientLabel>
+            <NutrientValue>{productFromStore.nf_protein}g</NutrientValue>
+          </NutrientRow>
+          <NutrientRow>
+            <NutrientLabel>Fats:</NutrientLabel>
+            <NutrientValue>{productFromStore.nf_total_fat}g</NutrientValue>
+          </NutrientRow>
+          <NutrientRow>
+            <NutrientLabel>Carbs:</NutrientLabel>
+            <NutrientValue>{productFromStore.nf_total_carbohydrate}g</NutrientValue>
+          </NutrientRow>
+          <NutrientRow>
+            <NutrientLabel>Calories:</NutrientLabel>
+            <NutrientValue>{productFromStore.nf_calories} kCal</NutrientValue>
+          </NutrientRow>
+          <NutrientRow>
+            <InputStyle
+              type="number"
+              value={editedProduct?.weight}
+              onChange={(e) => handleChange("weight", e.target.value)}
+            />g
+          </NutrientRow>
+        </ContentContainer>
+        <Flex>
+          <AddBtn onClick={handleSaveToDiary }>add</AddBtn>
+          <BtnDelete onClick={() => navigate('/products')}>cancel</BtnDelete>
+        </Flex>
+      </BlurContainer>
+    );
+  }
 
   return (
     <BlurContainer>

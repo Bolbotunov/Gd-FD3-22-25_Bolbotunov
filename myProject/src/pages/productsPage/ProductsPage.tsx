@@ -23,7 +23,6 @@ import { searchFood } from "../../components/api/ApiTest";
 import { RootState } from "../../store/store";
 import ModalBlock from "../../components/modals/ModalBlock";
 import { useNavigate } from "react-router";
-import { defaultProducts } from "../../config/defaultProducts";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function ProductsPage() {
@@ -122,15 +121,16 @@ export default function ProductsPage() {
 					alert('plese select product')
 					return;
 				} else {
+          navigate(`/products/${selectedProduct.id}`, { state: { mode: 'adding', product: selectedProduct } });
           dispatch(addUserProduct(selectedProduct))
-          if (currentUser.uid) {
-            try {
-              await addProductToUser(currentUser.uid, selectedProduct)
-              alert('Product added')
-            } catch (error) {
-              console.error('error adding product to DB', error)
-            }
-          }
+          // if (currentUser.uid) {
+          //   try {
+          //     await addProductToUser(currentUser.uid, selectedProduct)
+          //     alert('Product added')
+          //   } catch (error) {
+          //     console.error('error adding product to DB', error)
+          //   }
+          // }
         }
 			}}>add product to diary</AddBtn>
 

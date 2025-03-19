@@ -18,6 +18,7 @@ export type ProductType = {
   nf_total_carbohydrate: number;
   nf_calories: number;
   isDefault?: boolean;
+  weight?: number;
 };
 
 type AuthStateType = {

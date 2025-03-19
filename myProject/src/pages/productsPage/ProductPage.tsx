@@ -1,5 +1,5 @@
 
-import { BlurContainer } from "../../styles/Common.styled";
+import { BlurContainer, Flex } from "../../styles/Common.styled";
 import { 
   ContentContainer,
   NutrientRow,
@@ -7,7 +7,7 @@ import {
   NutrientValue,
  } from "./productsPage.styled";
 import { MainTitle } from "../../styles/Fonts.styled";
-import { AddBtn } from "../../styles/Buttons.styled";
+import { AddBtn, BtnDelete } from "../../styles/Buttons.styled";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate, useLocation } from "react-router";
 import { RootState } from "../../store/store";
@@ -155,7 +155,10 @@ export default function ProductPage(props: ProductPageProps) {
             /> kCal
           </NutrientValue>
         </NutrientRow>
-        <AddBtn onClick={handleSave}>Save</AddBtn>
+        <Flex>
+          <AddBtn onClick={handleSave}>Save</AddBtn>
+          <BtnDelete onClick={() => navigate('/products')}>cancel</BtnDelete>
+        </Flex>
       </ContentContainer>
     </BlurContainer>
   );

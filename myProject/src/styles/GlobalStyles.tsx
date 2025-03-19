@@ -1,4 +1,3 @@
-// globalStyles.js
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -10,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     height: 100%;
-    background-image: url('/bg1.avif');
+    background-image: ${({ theme }) => theme.backgroundImage};
     background-size: cover;
     background-position: center 10%;
     background-repeat: no-repeat;

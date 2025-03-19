@@ -28,15 +28,8 @@ export async function addProductToUser(uid: string, product: ProductType) {
 
 export async function updateUserProductInFirebase(uid: string, updatedProduct: ProductType) {
   const userDocRef = doc(db, "users", uid);
-  // Здесь вам нужно реализовать логику обновления массива продуктов.
-  // Один из вариантов — взять весь массив из Firestore, обновить нужный элемент и сохранить обратно.
-  // Для примера предполагаем, что у вас уже есть функция, которая делает такое обновление.
   await updateDoc(userDocRef, {
-    // Предположим, поле "products" хранит массив продуктов
-    // Логика обновления зависит от структуры данных. 
-    // Приведем базовый пример:
-    products: updatedProduct, 
-    // Набор данных, который вы хотите обновить (нужно реализовать соответствующую логику)
+    products: updatedProduct,
   });
 }
 

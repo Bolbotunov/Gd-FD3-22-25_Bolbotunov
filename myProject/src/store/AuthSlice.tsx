@@ -56,13 +56,16 @@ export const authSlice = createSlice({
     setUserProfile(state, action: PayloadAction<ProfileType>) {
       state.profile = action.payload;
     },
+    setDictionaryProducts(state, action: PayloadAction<ProductType[]>) {
+      state.dictionary = action.payload;
+    },
     addUserProduct(state, action: PayloadAction<ProductType>) {
       state.products.push(action.payload);
     },
     updateUserProduct(state, action: PayloadAction<ProductType>) {
-      const index = state.products.findIndex(p => p.id === action.payload.id);
+      const index = state.dictionary.findIndex(p => p.food_name === action.payload.food_name);
       if (index !== -1) {
-        state.products[index] = action.payload;
+        state.dictionary[index] = action.payload;
       }
     },
     clearUser(state) {
@@ -71,10 +74,18 @@ export const authSlice = createSlice({
       state.userEmail = null;
       state.profile = null;
       state.products = [];
+      state.dictionary = [];
       state.status = '';
     }
   }
 })
 
-export const { setUser,  setUserProfile, addUserProduct, clearUser, updateUserProduct } = authSlice.actions;
+export const {
+  setUser,
+  setUserProfile,
+  addUserProduct,
+  clearUser,
+  updateUserProduct,
+  setDictionaryProducts,
+ } = authSlice.actions;
 export default authSlice.reducer;

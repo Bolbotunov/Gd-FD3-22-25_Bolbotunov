@@ -30,13 +30,12 @@ export default function ProductPage(props: ProductPageProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.authSlice.products);
+  const products = useSelector((state: RootState) => state.authSlice.dictionary);
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
   const locationState = location.state as { mode?: "view" | "edit"; product?: ProductType } | undefined;
   const mode: "view" | "edit" = locationState?.mode || "view";
   
-
   const productFromStore = locationState?.product || products.find(
     (p) => p.id === id
   );
@@ -98,7 +97,6 @@ export default function ProductPage(props: ProductPageProps) {
     dispatch(updateUserProduct(editedProduct));
     if (currentUser.uid) {
       try {
-      
         await updateUserProductInFirebase(currentUser.uid, editedProduct);
         alert("Product updated");
         navigate("/products");

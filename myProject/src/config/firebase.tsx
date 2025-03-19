@@ -19,6 +19,20 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app)
 
+
+
+export async function getUserDictionary(uid: string): Promise<ProductType[]> {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return data.dictionaryProducts || [];
+  } else {
+    return [];
+  }
+}
+
+
 export async function initializeUserDictionary(uid: string) {
   const userDocRef = doc(db, "users", uid);
   const docSnap = await getDoc(userDocRef);
@@ -44,15 +58,13 @@ export async function addProductToUser(uid: string, product: ProductType) {
 
 export async function updateUserProductInFirebase(uid: string, updatedProduct: ProductType) {
   const userDocRef = doc(db, "users", uid);
-
   const docSnap = await getDoc(userDocRef);
   if (!docSnap.exists()) {
     throw new Error("User document not found");
   }
-
   const data = docSnap.data();
   let dictionaryProducts: ProductType[] = data.dictionaryProducts || [];
-  const index = dictionaryProducts.findIndex(p => p.id === updatedProduct.id);
+  const index = dictionaryProducts.findIndex(p => p.food_name === updatedProduct.food_name);
 
   if (index !== -1) {
     dictionaryProducts[index] = updatedProduct;

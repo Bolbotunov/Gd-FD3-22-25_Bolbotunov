@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 import { updateUserProduct } from "../../store/AuthSlice";
 import { updateUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
-
 import {
   BlurContainer,
   Flex,
@@ -30,7 +29,7 @@ export default function ProductPage(props: ProductPageProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.authSlice.dictionary);
+  const products = useSelector((state: RootState) => state.authSlice.products);
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
   const locationState = location.state as { mode?: "view" | "edit"; product?: ProductType } | undefined;
@@ -43,7 +42,6 @@ export default function ProductPage(props: ProductPageProps) {
   useEffect(() => {
     setEditedProduct(productFromStore);
   }, [productFromStore]);
-
 
   const [editedProduct, setEditedProduct] = useState(productFromStore);
 
@@ -99,7 +97,9 @@ export default function ProductPage(props: ProductPageProps) {
       try {
         await updateUserProductInFirebase(currentUser.uid, editedProduct);
         alert("Product updated");
-        navigate("/products");
+        navigate(`/products/${editedProduct.id}`, {
+          state: { mode: "view", product: editedProduct },
+        });
       } catch (error) {
         console.error("Error updating product in Firebase:", error);
       }

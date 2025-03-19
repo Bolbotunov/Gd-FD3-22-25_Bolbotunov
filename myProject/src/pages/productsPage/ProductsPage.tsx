@@ -145,7 +145,7 @@ export default function ProductsPage() {
           return;
         }
         dispatch(addUserProduct(selectedProduct))
-        navigate(`/products/${selectedProduct.id}`, { state: { mode: 'view' } });
+        navigate(`/products/${selectedProduct.id}`, { state: { mode: 'view', product: selectedProduct } });
       }}>
         view
         </LinkBtn>

@@ -1,8 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, getDoc, setDoc, arrayUnion } from "firebase/firestore";
 import { ProductType } from '../store/AuthSlice';
+import { defaultProducts } from './defaultProducts';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -19,6 +20,35 @@ const auth = getAuth(app);
 const db = getFirestore(app)
 
 
+
+export async function getUserDictionary(uid: string): Promise<ProductType[]> {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return data.dictionaryProducts || [];
+  } else {
+    return [];
+  }
+}
+
+
+export async function initializeUserDictionary(uid: string) {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    if (!data.dictionaryProducts || data.dictionaryProducts.length === 0) {
+      await updateDoc(userDocRef, { dictionaryProducts: defaultProducts });
+    }
+  } else {
+    await setDoc(userDocRef, {
+      dictionaryProducts: defaultProducts,
+    });
+  }
+}
+
+
 export async function addProductToUser(uid: string, product: ProductType) {
   const userDocRef = doc(db, "users", uid);
   await updateDoc(userDocRef, {
@@ -28,9 +58,23 @@ export async function addProductToUser(uid: string, product: ProductType) {
 
 export async function updateUserProductInFirebase(uid: string, updatedProduct: ProductType) {
   const userDocRef = doc(db, "users", uid);
-  await updateDoc(userDocRef, {
-    products: updatedProduct,
-  });
+  const docSnap = await getDoc(userDocRef);
+  if (!docSnap.exists()) {
+    throw new Error("User document not found");
+  }
+  const data = docSnap.data();
+  let dictionaryProducts: ProductType[] = data.dictionaryProducts || [];
+  const index = dictionaryProducts.findIndex(p => p.food_name === updatedProduct.food_name);
+
+  if (index !== -1) {
+    dictionaryProducts[index] = updatedProduct;
+  } else {
+    dictionaryProducts.push(updatedProduct);
+  }
+  
+  await updateDoc(userDocRef, { dictionaryProducts });
+
+ 
 }
 
 export { auth, app, db };

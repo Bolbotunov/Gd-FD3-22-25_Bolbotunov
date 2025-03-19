@@ -1,10 +1,11 @@
 import { JSX, useEffect, useId, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-import { auth, db } from '../../config/firebase';
-import { setUser, clearUser } from '../../store/AuthSlice';
+import { auth, db, getUserDictionary } from '../../config/firebase';
+import { setUser, clearUser, setDictionaryProducts } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router'
 import { doc, getDoc } from 'firebase/firestore';
+import { initializeUserDictionary } from '../../config/firebase';
 
 export default function AuthCheck({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,9 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
         const userDocRef = doc(db, 'users', user.uid)
         const userData = await getDoc(userDocRef)
         const userProfile = userData.exists() ? userData.data().profile : null;
+        await initializeUserDictionary(user.uid);
+        const dictionaryProducts = await getUserDictionary(user.uid);
+        dispatch(setDictionaryProducts(dictionaryProducts));
         dispatch(
           setUser({
             uid: user.uid,

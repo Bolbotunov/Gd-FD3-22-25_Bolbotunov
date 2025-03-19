@@ -1,48 +1,45 @@
 
-import { BlurContainer, Flex } from "../../styles/Common.styled";
-import { 
-  ContentContainer,
-  NutrientRow,
-  NutrientLabel,
-  NutrientValue,
- } from "./productsPage.styled";
 import { MainTitle } from "../../styles/Fonts.styled";
 import { AddBtn, BtnDelete } from "../../styles/Buttons.styled";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate, useLocation } from "react-router";
 import { RootState } from "../../store/store";
 import { useState, useEffect } from "react";
-import { InputStyle } from "../../styles/Common.styled";
 import { useDispatch } from "react-redux";
 import { updateUserProduct } from "../../store/AuthSlice";
 import { updateUserProductInFirebase } from "../../config/firebase";
+import { ProductType } from "../../store/AuthSlice";
 
-export type ProductType = {
-  food_name: string;
-  nf_protein: number;
-  nf_total_fat: number;
-  nf_total_carbohydrate: number;
-  nf_calories: number;
-  isDefault?: boolean;
-};
+import {
+  BlurContainer,
+  Flex,
+  InputStyle,
+ } from "../../styles/Common.styled";
+import {
+  ContentContainer,
+  NutrientRow,
+  NutrientLabel,
+  NutrientValue,
+ } from "./productsPage.styled";
 
-type ProductPageProps = {}; 
+
+type ProductPageProps = {};
 
 export default function ProductPage(props: ProductPageProps) {
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.authSlice.products);
+  const products = useSelector((state: RootState) => state.authSlice.dictionary);
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
   const locationState = location.state as { mode?: "view" | "edit"; product?: ProductType } | undefined;
   const mode: "view" | "edit" = locationState?.mode || "view";
   
-
   const productFromStore = locationState?.product || products.find(
-    (p) => p.food_name.toLowerCase() === id?.toLowerCase()
+    (p) => p.id === id
   );
+
   useEffect(() => {
     setEditedProduct(productFromStore);
   }, [productFromStore]);
@@ -88,14 +85,12 @@ export default function ProductPage(props: ProductPageProps) {
     );
   }
 
-
-
-
   const handleChange = (field: keyof ProductType, value: string) => {
     setEditedProduct((prev) =>
       prev ? { ...prev, [field]: typeof prev[field] === "number" ? Number(value) : value } : prev
     );
   };
+
 
   const handleSave = async () => {
     if (!editedProduct) return;

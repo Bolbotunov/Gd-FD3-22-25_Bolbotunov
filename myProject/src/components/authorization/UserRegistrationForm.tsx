@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router'
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux'
 import { useEffect } from "react";
+import { initializeUserDictionary } from '../../config/firebase';
 
 
 type RegisterType = {
@@ -35,12 +36,11 @@ export default function UserRegistrationForm() {
       const uid = user.uid;
       updateProfile(user, { displayName: userName })
       dispatch(setUser({ uid, userName, userEmail: email }))
+      initializeUserDictionary(uid)
       console.log('User registered and profile updated', uid)
       navigate("/home");
   })
   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
     console.error('Firebase error:', error);
     });
   }

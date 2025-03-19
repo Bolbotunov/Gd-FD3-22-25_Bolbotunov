@@ -24,12 +24,12 @@ import { RootState } from "../../store/store";
 import ModalBlock from "../../components/modals/ModalBlock";
 import { useNavigate } from "react-router";
 import { defaultProducts } from "../../config/defaultProducts";
-
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<ProductType[]>(defaultProducts);
+  const  productsFromDictionary = useSelector((state: RootState) => state.authSlice.dictionary);
+  const [results, setResults] = useState<ProductType[]>(productsFromDictionary);
 	const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null)
 	const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false)
@@ -37,10 +37,16 @@ export default function ProductsPage() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice)
 
+  
+  useEffect(() => {
+  setResults(productsFromDictionary);
+  }, [productsFromDictionary]);
+
 
   function normalizeProduct(apiProduct: any): ProductType {
     const servingWeight = apiProduct.serving_weight_grams || 100;
     return {
+      id: uuidv4(),
       food_name: apiProduct.food_name,
       nf_protein: Math.ceil((apiProduct.nf_protein || 0) / servingWeight * 100),
       nf_total_fat: Math.ceil((apiProduct.nf_total_fat || 0) / servingWeight * 100),
@@ -57,10 +63,10 @@ export default function ProductsPage() {
         const data = await searchFood(query);
 				if (!data.foods || data.foods.length === 0) {
 					setError('this product does not exist');
-          setResults([...defaultProducts]);
+          setResults([...productsFromDictionary]);
 				} else {
           const normalized = data.foods.map((p: any) => normalizeProduct(p));
-					setResults([...normalized, ...defaultProducts]);
+					setResults([...normalized, ...productsFromDictionary]);
 					setError(null);
 				}
        
@@ -71,7 +77,7 @@ export default function ProductsPage() {
         } else {
           setError('There was an error loading data. Please try again later.');
         }
-        setResults([...defaultProducts])
+        setResults([...productsFromDictionary])
       } 
     }, 1000),
     []
@@ -79,7 +85,7 @@ export default function ProductsPage() {
 
 	useEffect(() => {
 		if(query.trim() === '') {
-			setResults(defaultProducts);
+			setResults(productsFromDictionary);
       setError(null);
       return;
 		}
@@ -87,7 +93,7 @@ export default function ProductsPage() {
 	}, [query, debouncedSearch])
 
 	function handleSelectedProduct(product: ProductType) {
-    if (selectedProduct && selectedProduct.food_name === product.food_name) {
+    if (selectedProduct && selectedProduct.id === product.id) {
       setSelectedProduct(null);
     } else {
       setSelectedProduct(product);
@@ -139,20 +145,22 @@ export default function ProductsPage() {
           return;
         }
         dispatch(addUserProduct(selectedProduct))
-        navigate(`/products/${selectedProduct.food_name}`, { state: { mode: 'view' } });
+        navigate(`/products/${selectedProduct.id}`, { state: { mode: 'view' } });
       }}>
         view
         </LinkBtn>
 
-        <LinkBtn disabled={!selectedProduct}
+        <LinkBtn disabled={!selectedProduct || !selectedProduct.isDefault}
       onClick={() => {
-        if (!selectedProduct) {
+        if (selectedProduct) {
+          dispatch(addUserProduct(selectedProduct))
+          dispatch(updateUserProduct(selectedProduct))
+          navigate(`/products/${selectedProduct.id}`, { state: { mode: 'edit' } });
+        } else {
           alert('Please select a product');
           return;
         }
-        dispatch(addUserProduct(selectedProduct))
-        dispatch(updateUserProduct(selectedProduct))
-        navigate(`/products/${selectedProduct.food_name}`, { state: { mode: 'edit' } });
+       
       }}>
         edit
         </LinkBtn>
@@ -172,8 +180,8 @@ export default function ProductsPage() {
 			<ProductRowWrapper>
           {results.map((product:ProductType) => (
           <ProductRow
-          key={product.food_name}
-          isSelected={selectedProduct && selectedProduct.food_name === product.food_name}
+          key={product.id}
+          isSelected={selectedProduct && selectedProduct.id === product.id}
           onClick={() => handleSelectedProduct(product)}
           >
             

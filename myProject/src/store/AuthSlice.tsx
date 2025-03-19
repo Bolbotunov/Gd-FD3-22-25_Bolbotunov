@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { defaultProducts } from '../config/defaultProducts';
 
 type ProfileType = {
   weight?: number;
@@ -11,6 +11,7 @@ type ProfileType = {
 };
 
 export type ProductType = {
+  id: string;
   food_name: string;
   nf_protein: number;
   nf_total_fat: number;
@@ -25,6 +26,7 @@ type AuthStateType = {
   userEmail: string | null;
   profile: ProfileType | null;
   products:  ProductType[];
+  dictionary:  ProductType[];
   status: string;
   error: string | null;
 }
@@ -35,6 +37,7 @@ const initialState: AuthStateType = {
   userEmail: null,
   profile: null,
   products: [],
+  dictionary: defaultProducts,
   status: '',
   error: null,
 };
@@ -57,7 +60,7 @@ export const authSlice = createSlice({
       state.products.push(action.payload);
     },
     updateUserProduct(state, action: PayloadAction<ProductType>) {
-      const index = state.products.findIndex(p => p.food_name === action.payload.food_name);
+      const index = state.products.findIndex(p => p.id === action.payload.id);
       if (index !== -1) {
         state.products[index] = action.payload;
       }

@@ -1,32 +1,29 @@
 
-import { BlurContainer, Flex } from "../../styles/Common.styled";
-import { 
-  ContentContainer,
-  NutrientRow,
-  NutrientLabel,
-  NutrientValue,
- } from "./productsPage.styled";
 import { MainTitle } from "../../styles/Fonts.styled";
 import { AddBtn, BtnDelete } from "../../styles/Buttons.styled";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate, useLocation } from "react-router";
 import { RootState } from "../../store/store";
 import { useState, useEffect } from "react";
-import { InputStyle } from "../../styles/Common.styled";
 import { useDispatch } from "react-redux";
 import { updateUserProduct } from "../../store/AuthSlice";
 import { updateUserProductInFirebase } from "../../config/firebase";
+import { ProductType } from "../../store/AuthSlice";
 
-export type ProductType = {
-  food_name: string;
-  nf_protein: number;
-  nf_total_fat: number;
-  nf_total_carbohydrate: number;
-  nf_calories: number;
-  isDefault?: boolean;
-};
+import {
+  BlurContainer,
+  Flex,
+  InputStyle,
+ } from "../../styles/Common.styled";
+import {
+  ContentContainer,
+  NutrientRow,
+  NutrientLabel,
+  NutrientValue,
+ } from "./productsPage.styled";
 
-type ProductPageProps = {}; 
+
+type ProductPageProps = {};
 
 export default function ProductPage(props: ProductPageProps) {
   const location = useLocation();
@@ -41,8 +38,9 @@ export default function ProductPage(props: ProductPageProps) {
   
 
   const productFromStore = locationState?.product || products.find(
-    (p) => p.food_name.toLowerCase() === id?.toLowerCase()
+    (p) => p.id === id
   );
+
   useEffect(() => {
     setEditedProduct(productFromStore);
   }, [productFromStore]);
@@ -88,20 +86,19 @@ export default function ProductPage(props: ProductPageProps) {
     );
   }
 
-
-
-
   const handleChange = (field: keyof ProductType, value: string) => {
     setEditedProduct((prev) =>
       prev ? { ...prev, [field]: typeof prev[field] === "number" ? Number(value) : value } : prev
     );
   };
 
+
   const handleSave = async () => {
     if (!editedProduct) return;
     dispatch(updateUserProduct(editedProduct));
     if (currentUser.uid) {
       try {
+      
         await updateUserProductInFirebase(currentUser.uid, editedProduct);
         alert("Product updated");
         navigate("/products");

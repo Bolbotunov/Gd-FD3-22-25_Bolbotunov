@@ -7,7 +7,6 @@ import { InputLabelStyle, MainTitle, ErrorText, InformationText, FontsHeaderStyl
 import { auth } from '../../config/firebase';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch, UseDispatch } from 'react-redux';
-import { updateProfile } from 'firebase/auth'
 import { setUser } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router'
 import { useState } from 'react';
@@ -32,7 +31,6 @@ export default function UserLoginForm() {
       const displayName = user.displayName ? user.displayName : user.email ?? '';
       dispatch(setUser({ uid, userName: displayName, userEmail: email || '' }))
       console.log('User login', displayName)
-      // updateProfile(user, { displayName: userName })
   })
   .then(() => {
     navigate("/home");

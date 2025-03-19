@@ -21,7 +21,7 @@ height: 0;
 }
 `;
 
-export const Slider = styled.span`
+export const Slider = styled('span')`
 position: absolute;
 cursor: pointer;
 top: 0;

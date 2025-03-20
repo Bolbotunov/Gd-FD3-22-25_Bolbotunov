@@ -69,6 +69,9 @@ export const authSlice = createSlice({
         state.dictionary[index] = action.payload;
       }
     },
+    removeDictionaryProduct(state, action: PayloadAction<string>) {
+      state.dictionary = state.dictionary.filter(p => p.id !== action.payload);
+    },
     clearUser(state) {
       state.uid = null;
       state.userName = null;
@@ -88,5 +91,6 @@ export const {
   clearUser,
   updateUserProduct,
   setDictionaryProducts,
+  removeDictionaryProduct,
  } = authSlice.actions;
 export default authSlice.reducer;

@@ -16,7 +16,6 @@ export const AppContainer = styled('div') `
   max-width: 1440px;
   padding: 0px 82px;
   overflow: hidden;
-  margin: 10px;
 `
 
 
@@ -46,6 +45,7 @@ export const SelectStyle = styled('select') `
 
 export const BlurContainer = styled('div')`
   flex: 1;
+  width: 100%;
   margin: 0px;
   ${FlexDiv};
   justify-content: space-evenly;
@@ -53,7 +53,8 @@ export const BlurContainer = styled('div')`
   gap: 10px;
   background-color:  ${({theme}) => theme.colors.WHITE_COLOR_40};
   padding: 20px;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   border-radius: 10px;
   border: 1px solid ${({theme}) => theme.colors.MAIN_COLOR};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

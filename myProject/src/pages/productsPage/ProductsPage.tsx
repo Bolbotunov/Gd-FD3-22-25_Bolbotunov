@@ -3,9 +3,9 @@ import { useEffect, useState, useCallback } from "react";
 import { debounce } from "../../utils/debounce";
 import { ErrorText } from "../../styles/Fonts.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserProduct, updateUserProduct } from "../../store/AuthSlice";
+import { addUserProduct, setDictionaryProducts, removeDictionaryProduct } from "../../store/AuthSlice";
+import { deleteUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
-import { addProductToUser } from "../../config/firebase";
 import { Flex } from "../../styles/Common.styled";
 import {
   ContentContainer,
@@ -17,7 +17,7 @@ import {
 	ProductRowWrapper,
   ProductColumnUser,
   HeaderItemUser,
-} from "./productsPage.styled"
+} from "./ProductsPage.styled"
 import { AddBtn, BtnDelete, LinkBtn } from "../../styles/Buttons.styled";
 import { searchFood } from "../../components/api/ApiTest";
 import { RootState } from "../../store/store";
@@ -65,6 +65,7 @@ export default function ProductsPage() {
           setResults([...productsFromDictionary]);
 				} else {
           const normalized = data.foods.map((p: any) => normalizeProduct(p));
+          dispatch(setDictionaryProducts([...normalized, ...productsFromDictionary]))
 					setResults([...normalized, ...productsFromDictionary]);
 					setError(null);
 				}
@@ -78,7 +79,7 @@ export default function ProductsPage() {
         }
         setResults([...productsFromDictionary])
       } 
-    }, 1000),
+    }, 1200),
     []
   );
 
@@ -91,6 +92,7 @@ export default function ProductsPage() {
     debouncedSearch(query)
 	}, [query, debouncedSearch])
 
+  
 	function handleSelectedProduct(product: ProductType) {
     if (selectedProduct && selectedProduct.id === product.id) {
       setSelectedProduct(null);
@@ -121,21 +123,22 @@ export default function ProductsPage() {
 					alert('plese select product')
 					return;
 				} else {
-          navigate(`/products/${selectedProduct.id}`, { state: { mode: 'adding', product: selectedProduct } });
+          navigate(`/products/${selectedProduct.id}?mode=adding`, {
+            state: { product: selectedProduct, mode: "adding" },
+          });
           dispatch(addUserProduct(selectedProduct))
-          // if (currentUser.uid) {
-          //   try {
-          //     await addProductToUser(currentUser.uid, selectedProduct)
-          //     alert('Product added')
-          //   } catch (error) {
-          //     console.error('error adding product to DB', error)
-          //   }
-          // }
         }
 			}}>add product to diary</AddBtn>
 
 
-      <AddBtn>create</AddBtn>
+        <LinkBtn
+          onClick={() => {
+          navigate(`/products/creating`, {
+            state: {  mode: "creating" },
+          });
+      }}>
+        create
+      </LinkBtn>
 
 
       <LinkBtn disabled={!selectedProduct}
@@ -144,8 +147,9 @@ export default function ProductsPage() {
           alert('Please select a product');
           return;
         }
-        dispatch(addUserProduct(selectedProduct))
-        navigate(`/products/${selectedProduct.id}`, { state: { mode: 'view', product: selectedProduct } });
+        navigate(`/products/${selectedProduct.id}?mode=view`, {
+          state: { product: selectedProduct, mode: "view" },
+        });
       }}>
         view
         </LinkBtn>
@@ -153,18 +157,40 @@ export default function ProductsPage() {
         <LinkBtn disabled={!selectedProduct || !selectedProduct.isDefault}
       onClick={() => {
         if (selectedProduct) {
-          dispatch(addUserProduct(selectedProduct))
-          dispatch(updateUserProduct(selectedProduct))
-          navigate(`/products/${selectedProduct.id}`, { state: { mode: 'edit' } });
+          navigate(`/products/${selectedProduct.id}?mode=edit`, {
+            state: { product: selectedProduct, mode: "edit" },
+          });
         } else {
           alert('Please select a product');
           return;
         }
-       
       }}>
         edit
         </LinkBtn>
-      <BtnDelete>delete</BtnDelete>
+
+
+        <BtnDelete
+          disabled={!selectedProduct || !selectedProduct.isDefault}
+          onClick={async () => {
+            if (!selectedProduct ) {
+              alert('Please select a product');
+            return;
+            }
+            if (currentUser.uid) {
+              try {
+                await deleteUserProductInFirebase(currentUser.uid, selectedProduct);
+                dispatch(removeDictionaryProduct(selectedProduct.id));
+                alert("Product deleted");
+              } catch (error) {
+            console.error("Error deleting product:", error);
+              }
+            }
+           
+          }}
+        >
+          delete
+        </BtnDelete>
+
       </Flex>
 
       <TableHeader>

@@ -71,11 +71,27 @@ export async function updateUserProductInFirebase(uid: string, updatedProduct: P
   } else {
     dictionaryProducts.push(updatedProduct);
   }
-  
   await updateDoc(userDocRef, { dictionaryProducts });
-
- 
 }
+
+
+export async function deleteUserProductInFirebase(
+  uid: string,
+  productToDelete: ProductType
+) {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (!docSnap.exists()) {
+    throw new Error("User document not found");
+  }
+  const data = docSnap.data();
+  let dictionaryProducts: ProductType[] = data.dictionaryProducts || [];
+  const updatedDictionary = dictionaryProducts.filter(
+    (p) => p.id !== productToDelete.id
+  );
+  await updateDoc(userDocRef, { dictionaryProducts: updatedDictionary });
+}
+
 
 export { auth, app, db };
 

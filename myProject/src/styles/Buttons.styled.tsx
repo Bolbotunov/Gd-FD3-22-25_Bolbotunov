@@ -66,16 +66,22 @@ export const BtnAuth = styled('button') `
 
 
 export const BtnDelete = styled('button') `
-   ${BtnDictionary};
-   background-color:${({theme}) => theme.colors.ERROR_COLOR};
-   color:${({theme}) => theme.colors.WHITE_COLOR};
+  ${BtnDictionary};
+  background-color: ${({ theme, disabled }) =>
+  disabled ? 'transparent' : theme.colors.ERROR_COLOR};
+  color: ${({ theme, disabled }) =>
+  disabled ? theme.colors.DISABLED_COLOR_LIGHT : theme.colors.WHITE_COLOR};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 
-   &:hover {
-    background-color:${({theme}) => theme.colors.ERROR_COLOR_HOVER};
-    border: 2px solid ${({theme}) => theme.colors.ERROR_COLOR};
-    font-weight: 700;
-    cursor: pointer;
-    }
+  &:hover {
+    ${({ disabled, theme }) =>
+      !disabled &&
+      css`
+        color: ${theme.colors.WHITE_COLOR};
+        background-color: ${theme.colors.ERROR_COLOR_HOVER};
+        border: 2px solid ${theme.colors.ERROR_COLOR};
+      `}
+  }
 `
 
 

@@ -3,7 +3,8 @@ import { useEffect, useState, useCallback } from "react";
 import { debounce } from "../../utils/debounce";
 import { ErrorText } from "../../styles/Fonts.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserProduct, setDictionaryProducts } from "../../store/AuthSlice";
+import { addUserProduct, setDictionaryProducts, removeDictionaryProduct } from "../../store/AuthSlice";
+import { deleteUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
 import { Flex } from "../../styles/Common.styled";
 import {
@@ -168,7 +169,28 @@ export default function ProductsPage() {
         </LinkBtn>
 
 
-      <BtnDelete>delete</BtnDelete>
+        <BtnDelete
+          disabled={!selectedProduct || !selectedProduct.isDefault}
+          onClick={async () => {
+            if (!selectedProduct ) {
+              alert('Please select a product');
+            return;
+            }
+            if (currentUser.uid) {
+              try {
+                await deleteUserProductInFirebase(currentUser.uid, selectedProduct);
+                dispatch(removeDictionaryProduct(selectedProduct.id));
+                alert("Product deleted");
+              } catch (error) {
+            console.error("Error deleting product:", error);
+              }
+            }
+           
+          }}
+        >
+          delete
+        </BtnDelete>
+
       </Flex>
 
       <TableHeader>

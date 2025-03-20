@@ -2,7 +2,7 @@
 import { MainTitle } from "../../styles/Fonts.styled";
 import { AddBtn, BtnDelete } from "../../styles/Buttons.styled";
 import { useSelector } from "react-redux";
-import { useParams, useNavigate, useLocation } from "react-router";
+import { useParams, useNavigate, useLocation, useSearchParams } from "react-router";
 import { RootState } from "../../store/store";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -28,17 +28,17 @@ type ProductPageProps = {};
 export default function ProductPage(props: ProductPageProps) {
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.authSlice.products);
+  const dictionaryProducts= useSelector((state: RootState) => state.authSlice.dictionary);
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
   const locationState = location.state as { mode?: "view" | "edit" | "adding"; product?: ProductType } | undefined;
-  const mode: "view" | "edit" | "adding" = locationState?.mode || "view";
-  
-  const productFromStore = locationState?.product || products.find(
-    (p) => p.id === id
-  );
+  const mode: "view" | "edit" | "adding" = (searchParams.get("mode") as "view" | "edit" | "adding") || "view";
+
+  const productFromStore = dictionaryProducts.find((p) => p.id === id) || locationState?.product;
   const [editedProduct, setEditedProduct] = useState(productFromStore);
   useEffect(() => {
     setEditedProduct(productFromStore);

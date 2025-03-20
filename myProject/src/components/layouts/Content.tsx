@@ -11,6 +11,7 @@ import LoginPage from '../../pages/LoginPage';
 import { Navigate } from 'react-router';
 import RegisterPage from '../../pages/RegisterPage';
 import AuthCheck from '../authorization/AuthCheck';
+import CreateProductPage from '../../pages/productsPage/CreatingProductPage';
 
 export default function Content() {
   return (
@@ -26,6 +27,7 @@ export default function Content() {
           <Route path='/profile' element={<ProfilePage/>} />
           <Route path='/products' element = {<ProductsPage/>}/>
           <Route path='/products/:id' element = {<ProductPage/>}/>
+          <Route path="/products/creating" element={<CreateProductPage />} />
           <Route path="/diary" element={<DiaryPage />} />
           <Route path='/statistics' element={<StatisticsPage/>} />
           <Route path='/settings' element = {<SettingsPage/>}/>

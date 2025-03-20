@@ -117,9 +117,9 @@ export const NutrientRow = styled('div')`
 `;
 
 export const NutrientLabel = styled('span')`
-  font-size: 1rem;
+  font-size: 1.5rem;
 `;
 
 export const NutrientValue = styled('span')`
-  font-size: 1rem;
+  font-size: 1.5rem;
 `;

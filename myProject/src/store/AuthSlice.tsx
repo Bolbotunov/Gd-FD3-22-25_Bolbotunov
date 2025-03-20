@@ -62,7 +62,7 @@ export const authSlice = createSlice({
     },
     addApiProduct(state, action: PayloadAction<ProductType>) {
       state.dictionary.push(action.payload);
-    },    
+    },
     addUserProduct(state, action: PayloadAction<ProductType>) {
       state.products.push(action.payload);
     },

@@ -20,7 +20,7 @@ import {
   NutrientRow,
   NutrientLabel,
   NutrientValue,
- } from "./productsPage.styled";
+ } from "./ProductsPage.styled";
 
 
 type ProductPageProps = {};
@@ -32,21 +32,22 @@ export default function ProductPage(props: ProductPageProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.authSlice.products);
-  const dictionaryProducts= useSelector((state: RootState) => state.authSlice.dictionary);
-  const currentUser = useSelector((state: RootState) => state.authSlice);
-
   const locationState = location.state as { mode?: "view" | "edit" | "adding"; product?: ProductType } | undefined;
   const mode: "view" | "edit" | "adding" = (searchParams.get("mode") as "view" | "edit" | "adding") || "view";
+  const dictionaryProducts = useSelector((state: RootState) => state.authSlice.dictionary)
+    .find((p) => p.id === id) || locationState?.product;
+  const currentUser = useSelector((state: RootState) => state.authSlice);
 
-  const productFromStore = dictionaryProducts.find((p) => p.id === id) || locationState?.product;
-  const [editedProduct, setEditedProduct] = useState(productFromStore);
+
+
+  const [editedProduct, setEditedProduct] = useState(dictionaryProducts);
   useEffect(() => {
-    setEditedProduct(productFromStore);
-  }, [productFromStore]);
+    setEditedProduct(dictionaryProducts);
+  }, [dictionaryProducts]);
 
   
 
-  if (!productFromStore) {
+  if (!dictionaryProducts) {
     return (
       <BlurContainer>
         <ContentContainer>
@@ -61,22 +62,22 @@ export default function ProductPage(props: ProductPageProps) {
     return (
       <BlurContainer>
         <ContentContainer>
-          <MainTitle>{productFromStore.food_name}</MainTitle>
+          <MainTitle>{dictionaryProducts.food_name}</MainTitle>
           <NutrientRow>
             <NutrientLabel>Proteins:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_protein}g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_protein}g</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <NutrientLabel>Fats:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_total_fat}g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_total_fat}g</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <NutrientLabel>Carbs:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_total_carbohydrate}g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_total_carbohydrate}g</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <NutrientLabel>Calories:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_calories} kCal</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_calories} kCal</NutrientValue>
           </NutrientRow>
         </ContentContainer>
         <AddBtn onClick={() => navigate('/products')}>Ok</AddBtn>
@@ -92,8 +93,8 @@ export default function ProductPage(props: ProductPageProps) {
 
   const handleSave = async () => {
     if (!editedProduct) return;
-    dispatch(updateUserProduct(editedProduct));
     if (currentUser.uid) {
+      dispatch(updateUserProduct(editedProduct));
       try {
         await updateUserProductInFirebase(currentUser.uid, editedProduct);
         alert("Product updated");
@@ -109,9 +110,9 @@ export default function ProductPage(props: ProductPageProps) {
   const handleSaveToDiary = async () => {
     if (currentUser.uid) {
     try {
-      await addProductToUser(currentUser.uid, productFromStore)
+      await addProductToUser(currentUser.uid, dictionaryProducts)
       alert('Product added');
-      navigate(`/products/${productFromStore.id}`, {
+      navigate(`/products/${dictionaryProducts.id}`, {
         state: { mode: "view", product: editedProduct },
       });
     } catch (error) {
@@ -125,22 +126,22 @@ export default function ProductPage(props: ProductPageProps) {
     return (
       <BlurContainer>
         <ContentContainer>
-          <MainTitle>{productFromStore.food_name}</MainTitle>
+          <MainTitle>{dictionaryProducts.food_name}</MainTitle>
           <NutrientRow>
             <NutrientLabel>Proteins:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_protein}g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_protein}g</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <NutrientLabel>Fats:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_total_fat}g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_total_fat}g</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <NutrientLabel>Carbs:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_total_carbohydrate}g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_total_carbohydrate}g</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <NutrientLabel>Calories:</NutrientLabel>
-            <NutrientValue>{productFromStore.nf_calories} kCal</NutrientValue>
+            <NutrientValue>{dictionaryProducts.nf_calories} kCal</NutrientValue>
           </NutrientRow>
           <NutrientRow>
             <InputStyle

@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import { debounce } from "../../utils/debounce";
 import { ErrorText } from "../../styles/Fonts.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserProduct, updateUserProduct, addApiProduct, setDictionaryProducts } from "../../store/AuthSlice";
+import { addUserProduct, setDictionaryProducts } from "../../store/AuthSlice";
 import { ProductType } from "../../store/AuthSlice";
 import { Flex } from "../../styles/Common.styled";
 import {
@@ -16,7 +16,7 @@ import {
 	ProductRowWrapper,
   ProductColumnUser,
   HeaderItemUser,
-} from "./productsPage.styled"
+} from "./ProductsPage.styled"
 import { AddBtn, BtnDelete, LinkBtn } from "../../styles/Buttons.styled";
 import { searchFood } from "../../components/api/ApiTest";
 import { RootState } from "../../store/store";
@@ -130,7 +130,14 @@ export default function ProductsPage() {
 			}}>add product to diary</AddBtn>
 
 
-      <AddBtn>create</AddBtn>
+        <LinkBtn
+          onClick={() => {
+          navigate(`/products/creating`, {
+            state: {  mode: "creating" },
+          });
+      }}>
+        create
+      </LinkBtn>
 
 
       <LinkBtn disabled={!selectedProduct}
@@ -139,7 +146,6 @@ export default function ProductsPage() {
           alert('Please select a product');
           return;
         }
-        // dispatch(addApiProduct(selectedProduct))
         navigate(`/products/${selectedProduct.id}?mode=view`, {
           state: { product: selectedProduct, mode: "view" },
         });
@@ -150,20 +156,18 @@ export default function ProductsPage() {
         <LinkBtn disabled={!selectedProduct || !selectedProduct.isDefault}
       onClick={() => {
         if (selectedProduct) {
-          dispatch(addUserProduct(selectedProduct))
-          dispatch(updateUserProduct(selectedProduct))
           navigate(`/products/${selectedProduct.id}?mode=edit`, {
             state: { product: selectedProduct, mode: "edit" },
           });
-          
         } else {
           alert('Please select a product');
           return;
         }
-       
       }}>
         edit
         </LinkBtn>
+
+
       <BtnDelete>delete</BtnDelete>
       </Flex>
 

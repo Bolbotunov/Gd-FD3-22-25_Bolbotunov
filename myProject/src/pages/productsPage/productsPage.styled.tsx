@@ -16,14 +16,6 @@ export const ProductsBlock = styled('div')`
 `;
 
 
-export const ContentContainer = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-
 export const SearchInput = styled('input')`
   width: 100%;
   max-width: 750px;

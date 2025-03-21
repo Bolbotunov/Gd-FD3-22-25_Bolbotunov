@@ -19,7 +19,20 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app)
 
-
+export async function initializeUserDictionary(uid: string) {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    if (!data.dictionaryProducts || data.dictionaryProducts.length === 0) {
+      await updateDoc(userDocRef, { dictionaryProducts: defaultProducts });
+    }
+  } else {
+    await setDoc(userDocRef, {
+      dictionaryProducts: defaultProducts,
+    });
+  }
+}
 
 export async function getUserDictionary(uid: string): Promise<ProductType[]> {
   const userDocRef = doc(db, "users", uid);
@@ -40,21 +53,6 @@ export async function getDailyProducts(uid: string): Promise<ProductType[]> {
     return data.products || [];
   } else {
     return [];
-  }
-}
-
-export async function initializeUserDictionary(uid: string) {
-  const userDocRef = doc(db, "users", uid);
-  const docSnap = await getDoc(userDocRef);
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-    if (!data.dictionaryProducts || data.dictionaryProducts.length === 0) {
-      await updateDoc(userDocRef, { dictionaryProducts: defaultProducts });
-    }
-  } else {
-    await setDoc(userDocRef, {
-      dictionaryProducts: defaultProducts,
-    });
   }
 }
 
@@ -100,6 +98,23 @@ export async function deleteUserProductInFirebase(
     (p) => p.id !== productToDelete.id
   );
   await updateDoc(userDocRef, { dictionaryProducts: updatedDictionary });
+}
+
+export async function deleteDailyProductInFirebase(
+  uid: string,
+  productToDelete: ProductType
+) {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (!docSnap.exists()) {
+    throw new Error("User document not found");
+  }
+  const data = docSnap.data();
+  let products: ProductType[] = data.products || [];
+  const updatedDailyProducts = products.filter(
+    (p) => p.id !== productToDelete.id
+  );
+  await updateDoc(userDocRef, { products: updatedDailyProducts });
 }
 
 

@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserProduct, setDictionaryProducts, removeDictionaryProduct } from "../../store/AuthSlice";
 import { deleteUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
-import { Flex } from "../../styles/Common.styled";
+import { Flex, ContentContainer } from "../../styles/Common.styled";
 import {
-  ContentContainer,
   SearchInput,
   TableHeader,
   HeaderItem,
@@ -150,7 +149,7 @@ export default function ProductsPage() {
           return;
         }
         navigate(`/products/${selectedProduct.id}?mode=view`, {
-          state: { product: selectedProduct, mode: "view" },
+          state: { product: selectedProduct, mode: "view", origin: 'products' },
         });
       }}>
         view

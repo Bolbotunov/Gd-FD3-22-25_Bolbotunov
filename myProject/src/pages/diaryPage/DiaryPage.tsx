@@ -1,29 +1,33 @@
-import { BlurContainer, Flex } from "../styles/Common.styled"
-import Chart from "../components/charts/Chart"
-import DailyKCal from "../components/DailyKCal/DailyKCal"
+import {
+  BlurContainer,
+  Flex,
+  ContentContainer,
+} from "../../styles/Common.styled"
+import Chart from "../../components/charts/Chart"
+import DailyKCal from "../../components/DailyKCal/DailyKCal"
 import { useDispatch, useSelector } from "react-redux";
-import useCurrentDate from "../hooks/useCurrentDate";
-import { appColors } from "../styles/AppColors";
-import { CategoryTitleStyle, FontsHeaderStyle } from "../styles/Fonts.styled";
-import { BtnStyle } from "../styles/Buttons.styled";
-import { AddBtn, BtnDelete, LinkBtn } from "../styles/Buttons.styled";
+import useCurrentDate from "../../hooks/useCurrentDate";
+import { appColors } from "../../styles/AppColors";
+import { CategoryTitleStyle } from "../../styles/Fonts.styled";
+import { BtnDelete, LinkBtn } from "../../styles/Buttons.styled";
 import { useNavigate } from "react-router";
-import { RootState } from "../store/store";
-import { ProductType, setDailyProducts } from "../store/AuthSlice";
-import { getDailyProducts } from "../config/firebase";
+import { RootState } from "../../store/store";
+import { ProductType, setDailyProducts, removeDailyProduct } from "../../store/AuthSlice";
+import { getDailyProducts,  deleteDailyProductInFirebase } from "../../config/firebase";
 import { useState, useEffect } from "react";
 import {
+  TableHeader,
+  HeaderItem,
   ProductRow,
   ProductColumn,
 	ProductRowWrapper,
   ProductColumnUser,
+  HeaderItemUser,
   CreatedImage,
-	ContentContainer,
-} from "./productsPage/ProductsPage.styled"
+} from "../productsPage/ProductsPage.styled"
 
 
 export default function DiaryPage() {
-	const [results, setResults] = useState<ProductType[]>([]);
 	const dailyProducts = useSelector((state: RootState) => state.authSlice.products)
 	const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null)
 	const currentUser = useSelector((state: RootState) => state.authSlice)
@@ -85,7 +89,7 @@ export default function DiaryPage() {
             state: {  mode: "creating" },
           });
       		}}>
-        create
+        add product
       </LinkBtn>
 
 
@@ -96,7 +100,7 @@ export default function DiaryPage() {
           return;
         }
         navigate(`/products/${selectedProduct.id}?mode=view`, {
-          state: { product: selectedProduct, mode: "view" },
+          state: { product: selectedProduct, mode: "view", origin: 'diary' },
         });
       }}>
         view
@@ -105,7 +109,7 @@ export default function DiaryPage() {
         <LinkBtn disabled={!selectedProduct || !selectedProduct.isDefault}
       onClick={() => {
         if (selectedProduct) {
-          navigate(`/products/${selectedProduct.id}?mode=edit`, {
+          navigate(`/diary/${selectedProduct.id}?mode=edit`, {
             state: { product: selectedProduct, mode: "edit" },
           });
         } else {
@@ -113,34 +117,42 @@ export default function DiaryPage() {
           return;
         }
       }}>
-        edit
+        edit weight
         </LinkBtn>
 
 
         <BtnDelete
           disabled={!selectedProduct || !selectedProduct.isDefault}
-          // onClick={async () => {
-          //   if (!selectedProduct ) {
-          //     alert('Please select a product');
-          //   return;
-          //   }
-          //   if (currentUser.uid) {
-          //     try {
-          //       await deleteUserProductInFirebase(currentUser.uid, selectedProduct);
-          //       dispatch(removeDictionaryProduct(selectedProduct.id));
-          //       alert("Product deleted");
-          //     } catch (error) {
-          //   console.error("Error deleting product:", error);
-          //     }
-          //   }
+          onClick={async () => {
+            if (!selectedProduct ) {
+              alert('Please select a product');
+            return;
+            }
+            if (currentUser.uid) {
+              try {
+                await  deleteDailyProductInFirebase(currentUser.uid, selectedProduct);
+                dispatch(removeDailyProduct(selectedProduct.id));
+                alert("Product deleted");
+              } catch (error) {
+            console.error("Error deleting product:", error);
+              }
+            }
            
-          // }}
+          }}
         >
           delete
         </BtnDelete>
 				</Flex>
 
-
+				<TableHeader>
+        <HeaderItem>Products</HeaderItem>
+        <HeaderItemUser>Created</HeaderItemUser>
+        <HeaderItem>Proteins</HeaderItem>
+        <HeaderItem>Fats</HeaderItem>
+        <HeaderItem>Carbs</HeaderItem>
+        <HeaderItem>kCal per 100g</HeaderItem>
+				<HeaderItem>Weight</HeaderItem>
+      </TableHeader>
 
 					<ProductRowWrapper>
           {dailyProducts.map((product:ProductType) => (
@@ -161,6 +173,7 @@ export default function DiaryPage() {
             <ProductColumn>{product.nf_total_fat}g</ProductColumn>
             <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>
             <ProductColumn>{product.nf_calories} kCal</ProductColumn>
+						<ProductColumn>{product.weight || 0} g</ProductColumn>
           </ProductRow>
           ))}
         </ProductRowWrapper>

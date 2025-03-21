@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BlurContainer, Flex } from "../../styles/Common.styled";
+import { BlurContainer, Flex, ContentContainer } from "../../styles/Common.styled";
 import { MainTitle, ErrorText } from "../../styles/Fonts.styled";
 import { InputStyle } from "../../styles/Common.styled";
 import { AddBtn, BtnDelete } from "../../styles/Buttons.styled";
@@ -8,7 +8,7 @@ import { addUserProduct } from "../../store/AuthSlice";
 import { ProductType } from "../../store/AuthSlice";
 import { useNavigate } from "react-router";
 import { v4 as uuidv4 } from "uuid";
-import { NutrientLabel, NutrientRow, ContentContainer } from "./ProductsPage.styled";
+import { NutrientLabel, NutrientRow } from "./ProductsPage.styled";
 import { updateUserProductInFirebase } from "../../config/firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";

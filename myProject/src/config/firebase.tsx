@@ -32,6 +32,16 @@ export async function getUserDictionary(uid: string): Promise<ProductType[]> {
   }
 }
 
+export async function getDailyProducts(uid: string): Promise<ProductType[]> {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return data.products || [];
+  } else {
+    return [];
+  }
+}
 
 export async function initializeUserDictionary(uid: string) {
   const userDocRef = doc(db, "users", uid);

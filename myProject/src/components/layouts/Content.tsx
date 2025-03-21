@@ -22,7 +22,6 @@ export default function Content() {
           <Route path='/' element={<Navigate to='/login' />} />
           <Route path='/login' element={<LoginPage/>} />
           <Route path='/register' element={<RegisterPage/>} />
-          
           <Route path='/home' element={<HomePage/>} />
           <Route path='/profile' element={<ProfilePage/>} />
           <Route path='/products' element = {<ProductsPage/>}/>
@@ -31,7 +30,6 @@ export default function Content() {
           <Route path="/diary" element={<DiaryPage />} />
           <Route path='/statistics' element={<StatisticsPage/>} />
           <Route path='/settings' element = {<SettingsPage/>}/>
-          
         </Routes>
         </AuthCheck>
       </ContentStyle>

@@ -6,7 +6,7 @@ import { useParams, useNavigate, useLocation, useSearchParams } from "react-rout
 import { RootState } from "../../store/store";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserProduct } from "../../store/AuthSlice";
+import { updateUserProduct, addUserProduct } from "../../store/AuthSlice";
 import { updateUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
 import { addProductToUser } from "../../config/firebase";
@@ -31,7 +31,6 @@ export default function ProductPage(props: ProductPageProps) {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.authSlice.products);
   const locationState = location.state as { mode?: "view" | "edit" | "adding"; product?: ProductType } | undefined;
   const mode: "view" | "edit" | "adding" = (searchParams.get("mode") as "view" | "edit" | "adding") || "view";
   const dictionaryProducts = useSelector((state: RootState) => state.authSlice.dictionary)
@@ -41,10 +40,14 @@ export default function ProductPage(props: ProductPageProps) {
 
 
   const [editedProduct, setEditedProduct] = useState(dictionaryProducts);
-  useEffect(() => {
-    setEditedProduct(dictionaryProducts);
-  }, [dictionaryProducts]);
 
+  
+  useEffect(() => {
+    if (mode === "adding" && dictionaryProducts) {
+      setEditedProduct({ ...dictionaryProducts, weight: dictionaryProducts.weight || 0 });
+    }
+  }, [mode, dictionaryProducts]);
+  
   
 
   if (!dictionaryProducts) {
@@ -108,13 +111,13 @@ export default function ProductPage(props: ProductPageProps) {
   };
 
   const handleSaveToDiary = async () => {
-    if (currentUser.uid) {
+    if (currentUser.uid && editedProduct) {
+      
     try {
-      await addProductToUser(currentUser.uid, dictionaryProducts)
+      await addProductToUser(currentUser.uid, editedProduct)
+      dispatch(addUserProduct(editedProduct));
       alert('Product added');
-      navigate(`/products/${dictionaryProducts.id}`, {
-        state: { mode: "view", product: editedProduct },
-      });
+      navigate(`/diary`);
     } catch (error) {
       console.error('error adding product to DB', error)
     }
@@ -148,11 +151,12 @@ export default function ProductPage(props: ProductPageProps) {
               type="number"
               value={editedProduct?.weight}
               onChange={(e) => handleChange("weight", e.target.value)}
+              placeholder="Enter weight"
             />g
           </NutrientRow>
         </ContentContainer>
         <Flex>
-          <AddBtn onClick={handleSaveToDiary }>add</AddBtn>
+          <AddBtn onClick={handleSaveToDiary}>add</AddBtn>
           <BtnDelete onClick={() => navigate('/products')}>cancel</BtnDelete>
         </Flex>
       </BlurContainer>

@@ -123,3 +123,9 @@ export const NutrientLabel = styled('span')`
 export const NutrientValue = styled('span')`
   font-size: 1.5rem;
 `;
+
+export const CreatedImage = styled('img')`
+   width: 16px;
+   height: 16px;
+   object-fit: cover;
+`;

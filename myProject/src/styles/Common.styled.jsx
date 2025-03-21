@@ -100,3 +100,10 @@ export const Flex = styled('div')`
 	${FlexDiv};
   align-items: center;
 `;
+
+export const ContentContainer = styled('div')`
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;

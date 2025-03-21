@@ -16,14 +16,6 @@ export const ProductsBlock = styled('div')`
 `;
 
 
-export const ContentContainer = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-
 export const SearchInput = styled('input')`
   width: 100%;
   max-width: 750px;
@@ -122,4 +114,10 @@ export const NutrientLabel = styled('span')`
 
 export const NutrientValue = styled('span')`
   font-size: 1.5rem;
+`;
+
+export const CreatedImage = styled('img')`
+   width: 16px;
+   height: 16px;
+   object-fit: cover;
 `;

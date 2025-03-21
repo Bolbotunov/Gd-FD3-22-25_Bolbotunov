@@ -6,9 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUserProduct, setDictionaryProducts, removeDictionaryProduct } from "../../store/AuthSlice";
 import { deleteUserProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
-import { Flex } from "../../styles/Common.styled";
+import { Flex, ContentContainer } from "../../styles/Common.styled";
 import {
-  ContentContainer,
   SearchInput,
   TableHeader,
   HeaderItem,
@@ -17,6 +16,7 @@ import {
 	ProductRowWrapper,
   ProductColumnUser,
   HeaderItemUser,
+  CreatedImage,
 } from "./ProductsPage.styled"
 import { AddBtn, BtnDelete, LinkBtn } from "../../styles/Buttons.styled";
 import { searchFood } from "../../components/api/ApiTest";
@@ -118,6 +118,7 @@ export default function ProductsPage() {
 			    onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." />
   		    {error && <ErrorText>{error}</ErrorText>} 
         <Flex>
+          
         <AddBtn onClick={async () => {
 				if (!selectedProduct) {
 					alert('plese select product')
@@ -148,7 +149,7 @@ export default function ProductsPage() {
           return;
         }
         navigate(`/products/${selectedProduct.id}?mode=view`, {
-          state: { product: selectedProduct, mode: "view" },
+          state: { product: selectedProduct, mode: "view", origin: 'products' },
         });
       }}>
         view
@@ -213,11 +214,10 @@ export default function ProductsPage() {
             
             <ProductColumn>{product.food_name}</ProductColumn>
             <ProductColumnUser>
-            <img
+            <CreatedImage
             src={product.isDefault ? '/user.png' : '/api.png'}
             alt="User Product"
-            style={{ width: "16px", height: "16px", objectFit: "cover" }}
-        />
+            />
             </ProductColumnUser>
             <ProductColumn>{product.nf_protein}g</ProductColumn>
             <ProductColumn>{product.nf_total_fat}g</ProductColumn>

@@ -6,8 +6,8 @@ import { useParams, useNavigate, useLocation, useSearchParams } from "react-rout
 import { RootState } from "../../store/store";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserProduct, addUserProduct } from "../../store/AuthSlice";
-import { updateUserProductInFirebase } from "../../config/firebase";
+import { updateUserProduct, addUserProduct, updateDailyProduct } from "../../store/AuthSlice";
+import { updateUserProductInFirebase, updateDailyProductInFirebase } from "../../config/firebase";
 import { ProductType } from "../../store/AuthSlice";
 import AddingMode from "../../components/mode/AddingMode";
 import ViewingMode from "../../components/mode/ViewingMode";
@@ -15,11 +15,9 @@ import EditMode from "../../components/mode/EditMode";
 import { addProductToUser } from "../../config/firebase";
 import {
   BlurContainer,
-  Flex,
-  InputStyle,
   ContentContainer,
  } from "../../styles/Common.styled";
-import { string } from "yup";
+ import { useProductForm } from "../../hooks/useProductForm";
 
 
 type ProductPageProps = {};
@@ -27,35 +25,44 @@ type ProductPageProps = {};
 export default function ProductPage(props: ProductPageProps) {
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUser = useSelector((state: RootState) => state.authSlice);
   const locationState = location.state as {
     mode?: "view" | "edit" | "adding";
     product?: ProductType;
     origin?: string;
   } | undefined;
   const mode: "view" | "edit" | "adding" = (new URLSearchParams(location.search).get("mode") as "view" | "edit" | "adding") || "view";
+  const origin = location.state?.origin || 'products'
+  const showWeight = origin === "diary";
 
-  const dictionaryProducts = useSelector((state: RootState) => state.authSlice.dictionary)
+  const dailyProducts = useSelector((state: RootState) => state.authSlice.products)
     .find((p) => p.id === id) || locationState?.product;
 
-  const currentUser = useSelector((state: RootState) => state.authSlice);
+    const dictionaryProducts = useSelector((state: RootState) => state.authSlice.dictionary)
+    .find((p) => p.id === id) || locationState?.product;
 
+    const productForView = origin === "diary" ? dailyProducts : dictionaryProducts;
+    const initialProduct = origin === "diary" ? dailyProducts : dictionaryProducts;
+  
+  // const productForView =
+  // origin === "diary" ? dailyProducts : dictionaryProducts;
 
+  const { product: editedProduct, setProduct, handleChange } = useProductForm(initialProduct);
 
-  const [editedProduct, setEditedProduct] = useState(dictionaryProducts);
-
+  useEffect(() => {
+    if (mode === "adding" && productForView) {
+      setProduct({ ...productForView, weight: productForView.weight || 100 });
+    }
+  }, [mode, productForView, setProduct]);
   
   useEffect(() => {
-    if (mode === "adding" && dictionaryProducts) {
-      setEditedProduct({ ...dictionaryProducts, weight: dictionaryProducts.weight || 0 });
-    }
-  }, [mode, dictionaryProducts]);
-  
+    console.log("editedProduct: ", editedProduct);
+  }, [editedProduct]);
   
 
-  if (!dictionaryProducts) {
+  if (!productForView) {
     return (
       <BlurContainer>
         <ContentContainer>
@@ -63,54 +70,57 @@ export default function ProductPage(props: ProductPageProps) {
           <AddBtn onClick={() => navigate('/products')}>Ok</AddBtn>
         </ContentContainer>
       </BlurContainer>
-    );
-  }
+    )
+  }  
 
-  if (mode === "view")  {
-    const origin = location.state?.origin || 'products'
-    if (!editedProduct) {
-      return null;
-    }
+  if (mode === "view") {
+    if (!productForView) return null;
     return (
-      editedProduct && (
-        <ViewingMode
-          dictionaryProducts={dictionaryProducts}
-          navigate={navigate}
-          origin={origin}
-        />
-      )
+      <ViewingMode
+        dictionaryProducts={editedProduct}
+        navigate={navigate}
+        origin={origin}
+        showWeight={showWeight}
+      />
     );
   }
-
-  const handleChange = (field: keyof ProductType, value: string) => {
-    setEditedProduct((prev) =>
-      prev ? { ...prev, [field]: typeof prev[field] === "number" ? Number(value) : value } : prev
-    );
-  };
 
   const handleSave = async () => {
     if (!editedProduct) return;
     if (currentUser.uid) {
-      dispatch(updateUserProduct(editedProduct));
-      try {
-        await updateUserProductInFirebase(currentUser.uid, editedProduct);
-        alert("Product updated");
-        navigate(`/products/${editedProduct.id}`, {
-          state: { mode: "view", product: editedProduct },
-        });
-      } catch (error) {
-        console.error("Error updating product in Firebase:", error);
+      if (origin === "diary") {
+        dispatch(updateDailyProduct(editedProduct));
+        try {
+          await updateDailyProductInFirebase(currentUser.uid, editedProduct);
+          alert("Product updated in diary");
+          navigate(`/products/${editedProduct.id}`, {
+            state: { mode: "view", product: editedProduct, origin: "diary" },
+          });
+        } catch (error) {
+          console.error("Error updating daily product in Firebase:", error);
+        }
+      } else {
+        dispatch(updateUserProduct(editedProduct));
+        try {
+          await updateUserProductInFirebase(currentUser.uid, editedProduct);
+          alert("Product updated");
+          navigate(`/products`);
+        } catch (error) {
+          console.error("Error updating product in Firebase:", error);
+        }
       }
     }
   };
+  
 
   const handleSaveToDiary = async () => {
     if (currentUser.uid && editedProduct) {
+      console.log("Saving product:", editedProduct);
     try {
       await addProductToUser(currentUser.uid, editedProduct)
       dispatch(addUserProduct(editedProduct));
       alert('Product added');
-      navigate(`/products`);
+      navigate(`/diary`);
     } catch (error) {
       console.error('error adding product to DB', error)
     }
@@ -122,32 +132,29 @@ export default function ProductPage(props: ProductPageProps) {
       return null;
     }
     return (
-      editedProduct && (
         <AddingMode
-          dictionaryProducts={dictionaryProducts}
+          dictionaryProducts={productForView}
           editedProduct={editedProduct}
           handleChange={handleChange}
           handleSaveToDiary={handleSaveToDiary}
           navigate={navigate}
         />
-      )
     );
   }
   
   if (mode === "edit") {
-    if (!editedProduct) {
-      return null;
-    }
+    if (!editedProduct) return null;
     return (
-      editedProduct && (
-        <EditMode
-          editedProduct={editedProduct}
-          handleChange={handleChange}
-          handleSave={handleSave}
-          navigate={navigate}
-        />
-      )
+      <EditMode
+        editedProduct={editedProduct}
+        handleChange={handleChange}
+        handleSave={handleSave}
+        navigate={navigate}
+        origin={origin}
+      />
     );
   }
+
+  
   return null;
 }

@@ -69,6 +69,12 @@ export const authSlice = createSlice({
         state.dictionary[index] = action.payload;
       }
     },
+    updateDailyProduct(state, action: PayloadAction<ProductType>) {
+      const index = state.products.findIndex(p => p.id === action.payload.id);
+      if (index !== -1) {
+        state.products[index] = action.payload;
+      }
+    },
     setDailyProducts(state, action: PayloadAction<ProductType[]>) {
       state.products = action.payload;
     },
@@ -100,5 +106,6 @@ export const {
   removeDictionaryProduct,
   setDailyProducts,
   removeDailyProduct,
+  updateDailyProduct,
  } = authSlice.actions;
 export default authSlice.reducer;

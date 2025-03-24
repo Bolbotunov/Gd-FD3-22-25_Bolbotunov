@@ -159,7 +159,7 @@ export default function ProductsPage() {
       onClick={() => {
         if (selectedProduct) {
           navigate(`/products/${selectedProduct.id}?mode=edit`, {
-            state: { product: selectedProduct, mode: "edit" },
+            state: { product: selectedProduct, mode: "edit", origin: 'products'},
           });
         } else {
           alert('Please select a product');

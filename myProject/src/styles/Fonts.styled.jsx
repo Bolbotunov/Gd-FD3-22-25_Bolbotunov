@@ -40,10 +40,10 @@ export const FontsHeaderStyle = styled(NavLink)`
 
 
     &:hover {
-    color: ${({theme}) => theme.colors.WHITE_COLOR};
+    color: ${({theme}) => theme.colors.SECONDARY_COLOR};
     }
     &.active {
-     color: ${({theme}) => theme.colors.WHITE_COLOR};
+     color: ${({theme}) => theme.colors.SECONDARY_COLOR};
     }
 `
 
@@ -73,7 +73,7 @@ export const CategoryTitleStyle = styled('h2')`
 
 
 export const ChartLineTitle = styled('p')`
-	 color: ${({theme}) => theme.colors.WHITE_COLOR};
+	 color: ${({theme}) => theme.colors.SECONDARY_COLOR};
      text-align:left;
 `;
 

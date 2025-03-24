@@ -12,30 +12,15 @@ import { NutrientLabel, NutrientRow } from "./ProductsPage.styled";
 import { updateUserProductInFirebase } from "../../config/firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { useProductForm } from "../../hooks/useProductForm";
 
 export default function CreateProductPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
-
-  const [newProduct, setNewProduct] = useState<ProductType>({
-    id: uuidv4(),
-    food_name: "",
-    nf_protein: 0,
-    nf_total_fat: 0,
-    nf_total_carbohydrate: 0,
-    nf_calories: 0,
-    isDefault: true,
-  });
-  
+  const { product: newProduct, handleChange } = useProductForm();
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (field: keyof ProductType, value: string) => {
-    setNewProduct((prev) => ({
-      ...prev,
-      [field]: field === "food_name" ? value : Number(value),
-    }));
-  };
 
   const handleSave = async () => {
     if (!newProduct.food_name.trim()) {

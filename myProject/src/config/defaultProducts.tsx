@@ -10,6 +10,7 @@ export const defaultProducts: ProductType[] = [
     nf_total_carbohydrate: 0,
     nf_calories: 254.8,
     isDefault: true,
+    weight: 100,
   },
   {
     id: uuidv4(),
@@ -19,6 +20,7 @@ export const defaultProducts: ProductType[] = [
     nf_total_carbohydrate: 0.3,
     nf_calories: 140,
     isDefault: true,
+    weight: 100,
   },
   {
     id: uuidv4(),
@@ -28,6 +30,7 @@ export const defaultProducts: ProductType[] = [
     nf_total_carbohydrate: 3.8,
     nf_calories: 24,
     isDefault: true,
+    weight: 100,
   },
   {
     id: uuidv4(),
@@ -37,6 +40,7 @@ export const defaultProducts: ProductType[] = [
     nf_total_carbohydrate: 15.3,
     nf_calories: 67,
     isDefault: true,
+    weight: 100,
   },
   {
     id: uuidv4(),
@@ -46,5 +50,6 @@ export const defaultProducts: ProductType[] = [
     nf_total_carbohydrate: 55.4,
     nf_calories: 229,
     isDefault: true,
+    weight: 100,
   },
 ];

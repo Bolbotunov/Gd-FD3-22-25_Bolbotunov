@@ -70,14 +70,14 @@ export const BtnDelete = styled('button') `
   background-color: ${({ theme, disabled }) =>
   disabled ? 'transparent' : theme.colors.ERROR_COLOR};
   color: ${({ theme, disabled }) =>
-  disabled ? theme.colors.DISABLED_COLOR_LIGHT : theme.colors.WHITE_COLOR};
+  disabled ? theme.colors.DISABLED_COLOR_LIGHT : theme.colors.SECONDARY_COLOR};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 
   &:hover {
     ${({ disabled, theme }) =>
       !disabled &&
       css`
-        color: ${theme.colors.WHITE_COLOR};
+        color: ${theme.colors.SECONDARY_COLOR};
         background-color: ${theme.colors.ERROR_COLOR_HOVER};
         border: 2px solid ${theme.colors.ERROR_COLOR};
       `}

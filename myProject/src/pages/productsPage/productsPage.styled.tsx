@@ -9,8 +9,8 @@ export const ProductsBlock = styled('div')`
   width: 100%;
   font-weight: 600;
   font-size: calc(24px + 10%);
-  color: ${({theme}) => theme.colors.WHITE_COLOR};
-  background-color: ${({theme}) => theme.colors.WHITE_COLOR_40};
+  color: ${({theme}) => theme.colors.SECONDARY_COLOR};
+  background-color: ${({theme}) => theme.colors.SECONDARY_COLOR_40};
   justify-content: center;
   height: 100vh;
 `;
@@ -25,7 +25,7 @@ export const SearchInput = styled('input')`
   border-radius: 10px;
   margin-bottom: 20px;
   background-color: ${({theme}) => theme.colors.MAIN_COLOR_30};
-  color: ${({theme}) => theme.colors.WHITE_COLOR};
+  color: ${({theme}) => theme.colors.SECONDARY_COLOR};
 
   ::placeholder {
     color: ${({theme}) => theme.colors.MAIN_COLOR};
@@ -36,7 +36,7 @@ export const TableHeader = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${({theme}) => theme.colors.WHITE_COLOR};
+  color: ${({theme}) => theme.colors.SECONDARY_COLOR};
   padding: 10px;
   font-weight: 500;
   font-size: 10px;
@@ -71,7 +71,7 @@ export const ProductRow = styled('div')<{ isSelected: boolean | null }>`
 
     &:hover {
       background-color: ${({ isSelected, theme }) =>
-      isSelected ? theme.colors.OK_COLOR : theme.colors.WHITE_COLOR};
+      isSelected ? theme.colors.OK_COLOR : theme.colors.SECONDARY_COLOR};
     }
 `;
 
@@ -105,7 +105,7 @@ export const NutrientRow = styled('div')`
   justify-content: space-between;
   width: 100%;
   margin: 10px 0;
-  color: ${({theme}) => theme.colors.WHITE_COLOR};
+  color: ${({theme}) => theme.colors.SECONDARY_COLOR};
 `;
 
 export const NutrientLabel = styled('span')`

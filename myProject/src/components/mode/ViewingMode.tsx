@@ -9,12 +9,14 @@ type ViewingModeProps = {
   dictionaryProducts: ProductType;
   navigate: (path: string) => void;
   origin: string;
+  showWeight?: boolean;
 }
 
 export default function ViewingMode({
   dictionaryProducts,
   navigate,
   origin,
+  showWeight = false,
 }: ViewingModeProps) {
 
   const handleFromPage = () => {
@@ -24,6 +26,9 @@ export default function ViewingMode({
       navigate("/products");
     }
   };
+
+
+
   return (
     <BlurContainer>
     <ContentContainer>
@@ -44,6 +49,12 @@ export default function ViewingMode({
         <NutrientLabel>Calories:</NutrientLabel>
         <NutrientValue>{dictionaryProducts.nf_calories} kCal</NutrientValue>
       </NutrientRow>
+      {showWeight && (
+          <NutrientRow>
+            <NutrientLabel>Weight:</NutrientLabel>
+            <NutrientValue>{dictionaryProducts.weight || 100} g</NutrientValue>
+          </NutrientRow>
+        )}
     </ContentContainer>
     <AddBtn onClick={handleFromPage}>Ok</AddBtn>
   </BlurContainer>

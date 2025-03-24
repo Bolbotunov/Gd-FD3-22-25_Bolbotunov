@@ -21,9 +21,6 @@ import {
   ProductRow,
   ProductColumn,
 	ProductRowWrapper,
-  ProductColumnUser,
-  HeaderItemUser,
-  CreatedImage,
 } from "../productsPage/ProductsPage.styled"
 
 
@@ -106,11 +103,11 @@ export default function DiaryPage() {
         view
         </LinkBtn>
 
-        <LinkBtn disabled={!selectedProduct || !selectedProduct.isDefault}
+        <LinkBtn disabled={!selectedProduct}
       onClick={() => {
         if (selectedProduct) {
-          navigate(`/diary/${selectedProduct.id}?mode=edit`, {
-            state: { product: selectedProduct, mode: "edit" },
+          navigate(`/products/${selectedProduct.id}?mode=edit`, {
+            state: { product: selectedProduct, mode: "edit" , origin: 'diary'},
           });
         } else {
           alert('Please select a product');
@@ -122,7 +119,7 @@ export default function DiaryPage() {
 
 
         <BtnDelete
-          disabled={!selectedProduct || !selectedProduct.isDefault}
+          disabled={!selectedProduct}
           onClick={async () => {
             if (!selectedProduct ) {
               alert('Please select a product');
@@ -137,7 +134,7 @@ export default function DiaryPage() {
             console.error("Error deleting product:", error);
               }
             }
-           
+
           }}
         >
           delete
@@ -146,7 +143,6 @@ export default function DiaryPage() {
 
 				<TableHeader>
         <HeaderItem>Products</HeaderItem>
-        <HeaderItemUser>Created</HeaderItemUser>
         <HeaderItem>Proteins</HeaderItem>
         <HeaderItem>Fats</HeaderItem>
         <HeaderItem>Carbs</HeaderItem>
@@ -161,14 +157,7 @@ export default function DiaryPage() {
           isSelected={selectedProduct && selectedProduct.id === product.id}
           onClick={() => handleSelectedProduct(product)}
           >
-            
             <ProductColumn>{product.food_name}</ProductColumn>
-            <ProductColumnUser>
-            <CreatedImage
-            src={product.isDefault ? '/user.png' : '/api.png'}
-            alt="User Product"
-            />
-            </ProductColumnUser>
             <ProductColumn>{product.nf_protein}g</ProductColumn>
             <ProductColumn>{product.nf_total_fat}g</ProductColumn>
             <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>

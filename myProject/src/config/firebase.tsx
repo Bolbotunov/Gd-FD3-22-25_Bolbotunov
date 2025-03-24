@@ -82,6 +82,24 @@ export async function updateUserProductInFirebase(uid: string, updatedProduct: P
   await updateDoc(userDocRef, { dictionaryProducts });
 }
 
+// ===
+export async function updateDailyProductInFirebase(uid: string, updatedProduct: ProductType) {
+  const userDocRef = doc(db, "users", uid);
+  const docSnap = await getDoc(userDocRef);
+  if (!docSnap.exists()) {
+    throw new Error("User document not found");
+  }
+  const data = docSnap.data();
+  let dailyProducts: ProductType[] = data.products || [];
+  const index = dailyProducts.findIndex(p => p.food_name === updatedProduct.food_name);
+
+  if (index !== -1) {
+    dailyProducts[index] = updatedProduct;
+  } else {
+    dailyProducts.push(updatedProduct);
+  }
+  await updateDoc(userDocRef, { products: dailyProducts });
+}
 
 export async function deleteUserProductInFirebase(
   uid: string,

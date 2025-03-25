@@ -18,6 +18,7 @@ import {
   ContentContainer,
  } from "../../styles/Common.styled";
  import { useProductForm } from "../../hooks/useProductForm";
+ import { useDailyNutrients } from "../../hooks/useDailyNutrients";
 
 
 type ProductPageProps = {};
@@ -46,9 +47,6 @@ export default function ProductPage(props: ProductPageProps) {
     const productForView = origin === "diary" ? dailyProducts : dictionaryProducts;
     const initialProduct = origin === "diary" ? dailyProducts : dictionaryProducts;
   
-  // const productForView =
-  // origin === "diary" ? dailyProducts : dictionaryProducts;
-
   const { product: editedProduct, setProduct, handleChange } = useProductForm(initialProduct);
 
   useEffect(() => {
@@ -72,6 +70,7 @@ export default function ProductPage(props: ProductPageProps) {
       </BlurContainer>
     )
   }  
+
 
   if (mode === "view") {
     if (!productForView) return null;

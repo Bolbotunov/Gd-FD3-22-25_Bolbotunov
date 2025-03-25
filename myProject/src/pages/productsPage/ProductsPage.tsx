@@ -24,6 +24,7 @@ import { RootState } from "../../store/store";
 import ModalBlock from "../../components/modals/ModalBlock";
 import { useNavigate } from "react-router";
 import { v4 as uuidv4 } from 'uuid';
+import { calculateNutrients } from "../../utils/calculateNutrients";
 
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
@@ -35,7 +36,6 @@ export default function ProductsPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice)
-
   
   useEffect(() => {
   setResults(productsFromDictionary);
@@ -44,13 +44,14 @@ export default function ProductsPage() {
 
   function normalizeProduct(apiProduct: any): ProductType {
     const servingWeight = apiProduct.serving_weight_grams || 100;
+    const formatToOneDecimal = (num: number) => (num / servingWeight * 100).toFixed(1);
     return {
       id: uuidv4(),
       food_name: apiProduct.food_name,
-      nf_protein: Math.ceil((apiProduct.nf_protein || 0) / servingWeight * 100),
-      nf_total_fat: Math.ceil((apiProduct.nf_total_fat || 0) / servingWeight * 100),
-      nf_total_carbohydrate: Math.ceil((apiProduct.nf_total_carbohydrate || 0) / servingWeight * 100),
-      nf_calories: Math.ceil((apiProduct.nf_calories || 0) / servingWeight * 100),
+      nf_protein: parseFloat(formatToOneDecimal(apiProduct.nf_protein || 0)),
+      nf_total_fat: parseFloat(formatToOneDecimal(apiProduct.nf_total_fat || 0)),
+      nf_total_carbohydrate: parseFloat(formatToOneDecimal(apiProduct.nf_total_carbohydrate || 0)),
+      nf_calories: parseFloat(formatToOneDecimal(apiProduct.nf_calories || 0)),
       isDefault: false,
     };
   }
@@ -94,6 +95,7 @@ export default function ProductsPage() {
 
   
 	function handleSelectedProduct(product: ProductType) {
+
     if (selectedProduct && selectedProduct.id === product.id) {
       setSelectedProduct(null);
     } else {
@@ -222,7 +224,7 @@ export default function ProductsPage() {
             <ProductColumn>{product.nf_protein}g</ProductColumn>
             <ProductColumn>{product.nf_total_fat}g</ProductColumn>
             <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>
-            <ProductColumn>{product.nf_calories} kCal</ProductColumn>
+            <ProductColumn>{calculateNutrients(product).calories} kCal</ProductColumn>
           </ProductRow>
           ))}
         </ProductRowWrapper>

@@ -7,39 +7,42 @@ import { useDispatch } from "react-redux";
 import { addUserProduct } from "../../store/AuthSlice";
 import { ProductType } from "../../store/AuthSlice";
 import { useNavigate } from "react-router";
-import { v4 as uuidv4 } from "uuid";
 import { NutrientLabel, NutrientRow } from "./ProductsPage.styled";
 import { updateUserProductInFirebase } from "../../config/firebase";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { useProductForm } from "../../hooks/useProductForm";
+import { calculateNutrients } from "../../utils/calculateNutrients";
 
 export default function CreateProductPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
-  const { product: newProduct, handleChange } = useProductForm();
   const [error, setError] = useState<string | null>(null);
-
+  const { product: newProduct, handleChange } = useProductForm();
+  const calculatedCalories = calculateNutrients(newProduct);
 
   const handleSave = async () => {
     if (!newProduct.food_name.trim()) {
       setError("Product name is required.");
       return;
     }
+
+    const productToSave: ProductType = { ...newProduct, nf_calories: calculatedCalories.calories };
+
     if (currentUser.uid) {
-    dispatch(addUserProduct(newProduct));
+    dispatch(addUserProduct(productToSave));
       try {
-        await updateUserProductInFirebase(currentUser.uid, newProduct);
+        await updateUserProductInFirebase(currentUser.uid, productToSave);
         alert("Product created");
-        navigate(`/products/${newProduct.id}?mode=view`, {
-          state: { product: newProduct, mode: "view" },
+        navigate(`/products/${productToSave.id}?mode=view`, {
+          state: { product: productToSave, mode: "view" },
         });
       } catch (error) {
         console.error("Error updating product in Firebase:", error);
       }
     }
-    console.log('product:', newProduct)
+    console.log('product:', productToSave)
   };
 
   return (
@@ -82,11 +85,7 @@ export default function CreateProductPage() {
         </NutrientRow>
         <NutrientRow>
           <NutrientLabel>Calories (kCal per 100g):</NutrientLabel>
-          <InputStyle
-            type="number"
-            value={newProduct.nf_calories}
-            onChange={(e) => handleChange("nf_calories", e.target.value)}
-          />
+          <div>{calculatedCalories.calories} kCal</div>
         </NutrientRow>
         <Flex>
           <AddBtn onClick={handleSave}>Save</AddBtn>

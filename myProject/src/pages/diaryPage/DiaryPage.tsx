@@ -22,14 +22,20 @@ import {
   ProductColumn,
 	ProductRowWrapper,
 } from "../productsPage/ProductsPage.styled"
-
+import { useDailyNutrients } from "../../hooks/useDailyNutrients";
+import { calculateNutrients } from "../../utils/calculateNutrients";
+import { useProductForm } from "../../hooks/useProductForm";
+import { useMemo } from "react";
 
 export default function DiaryPage() {
 	const dailyProducts = useSelector((state: RootState) => state.authSlice.products)
+  const dailyNutrients = useDailyNutrients(dailyProducts);
 	const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null)
 	const currentUser = useSelector((state: RootState) => state.authSlice)
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
+ 
+  // const { product: newProduct, handleChange } = useProductForm();
 
 	useEffect(() => {
 		async function fetchDailyProducts() {
@@ -47,9 +53,11 @@ export default function DiaryPage() {
 
 
 	const currentDate = useCurrentDate();
-  const proteinPercent = '85%';
-  const fatsPercent = '52%';
-  const carbsPercent = '25%';
+
+
+  const proteinPercent = `${Math.min(100, (dailyNutrients.protein / 150) * 100)}%`
+  const fatsPercent = `${Math.min(100, (dailyNutrients.fats / 80) * 100)}%`
+  const carbsPercent = `${Math.min(100, (dailyNutrients.carbs / 300) * 100)}%`
 
   const chartTitle = '50/100'
 
@@ -58,6 +66,7 @@ export default function DiaryPage() {
       setSelectedProduct(null);
     } else {
       setSelectedProduct(product);
+      console.log(dailyNutrients )
     }
   }
 
@@ -146,25 +155,28 @@ export default function DiaryPage() {
         <HeaderItem>Proteins</HeaderItem>
         <HeaderItem>Fats</HeaderItem>
         <HeaderItem>Carbs</HeaderItem>
-        <HeaderItem>kCal per 100g</HeaderItem>
+        <HeaderItem>kCal</HeaderItem>
 				<HeaderItem>Weight</HeaderItem>
       </TableHeader>
 
 					<ProductRowWrapper>
-          {dailyProducts.map((product:ProductType) => (
-          <ProductRow
+      {dailyProducts.map((product: ProductType) => {
+          const nutrients = calculateNutrients(product);
+        return (
+            <ProductRow
           key={product.id}
           isSelected={selectedProduct && selectedProduct.id === product.id}
           onClick={() => handleSelectedProduct(product)}
-          >
-            <ProductColumn>{product.food_name}</ProductColumn>
-            <ProductColumn>{product.nf_protein}g</ProductColumn>
-            <ProductColumn>{product.nf_total_fat}g</ProductColumn>
-            <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>
-            <ProductColumn>{product.nf_calories} kCal</ProductColumn>
-						<ProductColumn>{product.weight || 0} g</ProductColumn>
-          </ProductRow>
-          ))}
+            >
+          <ProductColumn>{product.food_name}</ProductColumn>
+          <ProductColumn>{nutrients.protein.toFixed(1)}g</ProductColumn>
+          <ProductColumn>{nutrients.fats.toFixed(1)}g</ProductColumn>
+          <ProductColumn>{nutrients.carbs.toFixed(1)}g</ProductColumn>
+          <ProductColumn>{nutrients.calories.toFixed(1)} kCal</ProductColumn>
+          <ProductColumn>{product.weight || 100} g</ProductColumn>
+        </ProductRow>
+        );
+})}
         </ProductRowWrapper>
 				</ContentContainer>
         </BlurContainer>

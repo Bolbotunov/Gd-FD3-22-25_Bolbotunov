@@ -4,6 +4,8 @@ import { MainTitle } from "../../styles/Fonts.styled";
 import { NutrientValue, NutrientRow, NutrientLabel } from "../../pages/productsPage/ProductsPage.styled";
 import { AddBtn } from "../../styles/Buttons.styled";
 import { ProductType } from "../../store/AuthSlice";
+import { useMemo } from "react";
+import { calculateNutrients } from "../../utils/calculateNutrients";
 
 type ViewingModeProps = {
   dictionaryProducts: ProductType;
@@ -19,6 +21,7 @@ export default function ViewingMode({
   showWeight = false,
 }: ViewingModeProps) {
 
+
   const handleFromPage = () => {
     if (origin === "diary") {
       navigate("/diary");
@@ -27,6 +30,9 @@ export default function ViewingMode({
     }
   };
 
+  const computedNutrients = useMemo(() => {
+    return calculateNutrients(dictionaryProducts);
+  }, [dictionaryProducts]);
 
 
   return (
@@ -35,24 +41,24 @@ export default function ViewingMode({
       <MainTitle>{dictionaryProducts.food_name}</MainTitle>
       <NutrientRow>
         <NutrientLabel>Proteins:</NutrientLabel>
-        <NutrientValue>{dictionaryProducts.nf_protein}g</NutrientValue>
+        <NutrientValue>{computedNutrients.protein}g</NutrientValue>
       </NutrientRow>
       <NutrientRow>
         <NutrientLabel>Fats:</NutrientLabel>
-        <NutrientValue>{dictionaryProducts.nf_total_fat}g</NutrientValue>
+        <NutrientValue>{computedNutrients.fats}g</NutrientValue>
       </NutrientRow>
       <NutrientRow>
         <NutrientLabel>Carbs:</NutrientLabel>
-        <NutrientValue>{dictionaryProducts.nf_total_carbohydrate}g</NutrientValue>
+        <NutrientValue>{computedNutrients.carbs}g</NutrientValue>
       </NutrientRow>
       <NutrientRow>
         <NutrientLabel>Calories:</NutrientLabel>
-        <NutrientValue>{dictionaryProducts.nf_calories} kCal</NutrientValue>
+        <NutrientValue>{computedNutrients.calories} kCal</NutrientValue>
       </NutrientRow>
       {showWeight && (
           <NutrientRow>
             <NutrientLabel>Weight:</NutrientLabel>
-            <NutrientValue>{dictionaryProducts.weight || 100} g</NutrientValue>
+            <NutrientValue>{dictionaryProducts.weight} g</NutrientValue>
           </NutrientRow>
         )}
     </ContentContainer>

@@ -1,7 +1,7 @@
 export function debounce(func: Function, delay: number) {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-  return function(...args: any[]) {
+  return function (...args: any[]) {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }

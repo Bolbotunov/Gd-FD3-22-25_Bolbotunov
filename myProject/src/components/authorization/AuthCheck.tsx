@@ -2,8 +2,12 @@ import { JSX, useEffect, useId, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { auth, db, getUserDictionary } from '../../config/firebase';
-import { setUser, clearUser, setDictionaryProducts } from '../../store/AuthSlice';
-import { useNavigate } from 'react-router'
+import {
+  setUser,
+  clearUser,
+  setDictionaryProducts,
+} from '../../store/AuthSlice';
+import { useNavigate } from 'react-router';
 import { doc, getDoc } from 'firebase/firestore';
 import { initializeUserDictionary } from '../../config/firebase';
 
@@ -16,8 +20,8 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const displayName = user.displayName || user.email || '';
-        const userDocRef = doc(db, 'users', user.uid)
-        const userData = await getDoc(userDocRef)
+        const userDocRef = doc(db, 'users', user.uid);
+        const userData = await getDoc(userDocRef);
         const userProfile = userData.exists() ? userData.data().profile : null;
         await initializeUserDictionary(user.uid);
         const dictionaryProducts = await getUserDictionary(user.uid);
@@ -33,7 +37,7 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
       } else {
         dispatch(clearUser());
       }
-      setLoading(false)
+      setLoading(false);
     });
 
     return () => unsubscribe();

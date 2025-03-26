@@ -7,13 +7,13 @@ export const searchFood = async (query: any) => {
   try {
     console.log('Request Body:', { query });
     const response = await axios.post(
-      `${BASE_URL}/natural/nutrients`, 
+      `${BASE_URL}/natural/nutrients`,
       { query },
       {
         headers: {
           'x-app-id': ID,
           'x-app-key': API_KEY,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
       }
     );

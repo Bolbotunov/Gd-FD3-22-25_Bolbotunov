@@ -1,11 +1,11 @@
-import useDailyKCal from "../../hooks/useDailyKCal";
-import { DailyKCalStyle } from "../../styles/Fonts.styled";
+import useDailyKCal from '../../hooks/useDailyKCal';
+import { DailyKCalStyle } from '../../styles/Fonts.styled';
 
 export default function DailyKCal() {
-  let dailyKCal = useDailyKCal()
+  let dailyKCal = useDailyKCal();
   return (
-        <>
-       <DailyKCalStyle>kCal: {dailyKCal}</DailyKCalStyle>
-        </>
-      );
+    <>
+      <DailyKCalStyle>kCal: {dailyKCal}</DailyKCalStyle>
+    </>
+  );
 }

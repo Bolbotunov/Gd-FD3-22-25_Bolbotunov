@@ -1,92 +1,81 @@
-import { styled, css } from 'styled-components'
-import { NavLink } from 'react-router'
+import { styled, css } from 'styled-components';
+import { NavLink } from 'react-router';
 
 export const FontsFamily = css`
-    font-family: 'Montserrat Alternates', sans-serif;
-    text-decoration: none;
-    transition: .4s ease;
+  font-family: 'Montserrat Alternates', sans-serif;
+  text-decoration: none;
+  transition: 0.4s ease;
 `;
 
-
 export const MainTitle = styled('h1')`
-     ${FontsFamily};
-     color: ${({theme}) => theme.colors.MAIN_COLOR};
-`
+  ${FontsFamily};
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;
 
 export const MainSubTitle = styled('h4')`
-     ${FontsFamily};
-     color: ${({theme}) => theme.colors.MAIN_COLOR};
-     font-weight: 400;
-`
+  ${FontsFamily};
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  font-weight: 400;
+`;
 
 export const InformationText = styled('h4')`
-     ${FontsFamily};
-     color: ${({theme}) => theme.colors.ERROR_COLOR};
-     font-weight: 500;
-`
+  ${FontsFamily};
+  color: ${({ theme }) => theme.colors.ERROR_COLOR};
+  font-weight: 500;
+`;
 
 export const InformationTextOk = styled('h4')`
-     ${FontsFamily};
-     color: ${({theme}) => theme.colors.OK_COLOR};
-     font-weight: 500;
-`
-
+  ${FontsFamily};
+  color: ${({ theme }) => theme.colors.OK_COLOR};
+  font-weight: 500;
+`;
 
 export const FontsHeaderStyle = styled(NavLink)`
-    ${FontsFamily};
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: ${({theme}) => theme.colors.MAIN_COLOR};
+  ${FontsFamily};
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
 
-
-    &:hover {
-    color: ${({theme}) => theme.colors.SECONDARY_COLOR};
-    }
-    &.active {
-     color: ${({theme}) => theme.colors.SECONDARY_COLOR};
-    }
-`
-
-
+  &:hover {
+    color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  }
+  &.active {
+    color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  }
+`;
 
 export const ErrorText = styled('div')`
-  color: ${({theme}) => theme.colors.ERROR_COLOR};
+  color: ${({ theme }) => theme.colors.ERROR_COLOR};
   font-size: 0.9rem;
   margin-top: 0.5rem;
   font-weight: bold;
 `;
-
-
 
 export const UserInfoText = styled('p')`
   font-size: 0.9rem;
   font-weight: 400;
 `;
 
-
 export const CategoryTitleStyle = styled('h2')`
-   ${FontsFamily};
-    /* font-size: 1.2rem; */
-    font-weight: 500;
-    color: ${({theme}) => theme.colors.MAIN_COLOR};
+  ${FontsFamily};
+  /* font-size: 1.2rem; */
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
-
 export const ChartLineTitle = styled('p')`
-	 color: ${({theme}) => theme.colors.SECONDARY_COLOR};
-     text-align:left;
+  color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  text-align: left;
 `;
 
 export const InputLabelStyle = styled('label')`
-	 color: ${({theme}) => theme.colors.MAIN_COLOR};
-     text-align: left;
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  text-align: left;
 `;
 
-
 export const DailyKCalStyle = styled('p')`
-    ${FontsFamily};
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: ${({theme}) => theme.colors.MAIN_COLOR};
-
-`
+  ${FontsFamily};
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;

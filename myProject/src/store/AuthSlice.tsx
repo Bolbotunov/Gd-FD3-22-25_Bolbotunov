@@ -26,11 +26,38 @@ type AuthStateType = {
   userName: string | null;
   userEmail: string | null;
   profile: ProfileType | null;
-  products:  ProductType[];
-  dictionary:  ProductType[];
+  products: ProductType[];
+  dictionary: ProductType[];
   status: string;
   error: string | null;
-}
+};
+
+type DaysType = {
+  date: string;
+  products: ProductType[];
+};
+
+type AuthStateTypeTest = {
+  uid: string | null;
+  userName: string | null;
+  userEmail: string | null;
+  profile: ProfileType | null;
+  products: DaysType[];
+  dictionary: ProductType[];
+  status: string;
+  error: string | null;
+};
+
+type TestType = {
+  uid: string | null;
+  userName: string | null;
+  userEmail: string | null;
+  profile: ProfileType | null;
+  products: DaysType[];
+  dictionary: ProductType[];
+  status: string;
+  error: string | null;
+};
 
 const initialState: AuthStateType = {
   uid: null,
@@ -47,7 +74,15 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<{ uid: string; userName: string; userEmail: string; profile?: ProfileType }>) {
+    setUser(
+      state,
+      action: PayloadAction<{
+        uid: string;
+        userName: string;
+        userEmail: string;
+        profile?: ProfileType;
+      }>
+    ) {
       state.uid = action.payload.uid;
       state.userName = action.payload.userName;
       state.userEmail = action.payload.userEmail;
@@ -64,13 +99,15 @@ export const authSlice = createSlice({
       state.products.push(action.payload);
     },
     updateUserProduct(state, action: PayloadAction<ProductType>) {
-      const index = state.dictionary.findIndex(p => p.food_name === action.payload.food_name);
+      const index = state.dictionary.findIndex(
+        (p) => p.food_name === action.payload.food_name
+      );
       if (index !== -1) {
         state.dictionary[index] = action.payload;
       }
     },
     updateDailyProduct(state, action: PayloadAction<ProductType>) {
-      const index = state.products.findIndex(p => p.id === action.payload.id);
+      const index = state.products.findIndex((p) => p.id === action.payload.id);
       if (index !== -1) {
         state.products[index] = action.payload;
       }
@@ -79,10 +116,12 @@ export const authSlice = createSlice({
       state.products = action.payload;
     },
     removeDictionaryProduct(state, action: PayloadAction<string>) {
-      state.dictionary = state.dictionary.filter(p => p.id !== action.payload);
+      state.dictionary = state.dictionary.filter(
+        (p) => p.id !== action.payload
+      );
     },
     removeDailyProduct(state, action: PayloadAction<string>) {
-      state.products = state.products.filter(p => p.id !== action.payload);
+      state.products = state.products.filter((p) => p.id !== action.payload);
     },
     clearUser(state) {
       state.uid = null;
@@ -92,9 +131,9 @@ export const authSlice = createSlice({
       state.products = [];
       state.dictionary = [];
       state.status = '';
-    }
-  }
-})
+    },
+  },
+});
 
 export const {
   setUser,
@@ -107,5 +146,5 @@ export const {
   setDailyProducts,
   removeDailyProduct,
   updateDailyProduct,
- } = authSlice.actions;
+} = authSlice.actions;
 export default authSlice.reducer;

@@ -1,5 +1,5 @@
-import { styled, css } from 'styled-components'
-import { Link } from 'react-router'
+import { styled, css } from 'styled-components';
+import { Link } from 'react-router';
 
 export const FlexDiv = css`
   display: flex;
@@ -7,19 +7,16 @@ export const FlexDiv = css`
   justify-content: center;
 `;
 
-
-
-export const AppContainer = styled('div') `
+export const AppContainer = styled('div')`
   ${FlexDiv};
   flex-direction: column;
   margin: 0 auto;
   max-width: 1440px;
   padding: 0px 82px;
   overflow: hidden;
-`
+`;
 
-
-export const InputStyle = styled('input') `
+export const InputStyle = styled('input')`
   text-align: left;
   width: 100%;
   max-width: 350px;
@@ -29,11 +26,11 @@ export const InputStyle = styled('input') `
   padding: 10px;
 
   &::placeholder {
-    color: ${({theme}) => theme.colors.MAIN_COLOR};
+    color: ${({ theme }) => theme.colors.MAIN_COLOR};
     opacity: 0.8;
   }
-`
-export const SelectStyle = styled('select') `
+`;
+export const SelectStyle = styled('select')`
   text-align: left;
   max-width: 100%;
   width: 350px;
@@ -41,7 +38,7 @@ export const SelectStyle = styled('select') `
   border-radius: 10px;
   font-size: 1rem;
   padding: 5px;
-`
+`;
 
 export const BlurContainer = styled('div')`
   flex: 1;
@@ -51,23 +48,22 @@ export const BlurContainer = styled('div')`
   justify-content: space-evenly;
   flex-direction: column;
   gap: 10px;
-  background-color:  ${({theme}) => theme.colors.SECONDARY_COLOR_40};
+  background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
   padding: 20px;
   height: auto;
   min-height: 100vh;
   border-radius: 10px;
-  border: 1px solid ${({theme}) => theme.colors.MAIN_COLOR};
+  border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px); 
+  backdrop-filter: blur(5px);
 `;
 
-
 export const SmallBlurContainer = styled(Link)`
-${FlexDiv};
+  ${FlexDiv};
   margin: 0px;
   text-decoration: none;
 
-  color: ${({theme}) => theme.colors.SECONDARY_COLOR};
+  color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
   justify-content: space-around;
   flex-direction: column;
   gap: 10px;
@@ -77,17 +73,17 @@ ${FlexDiv};
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
-  transition: .5s all;
+  transition: 0.5s all;
 
   &:hover {
     cursor: pointer;
-    }
+  }
 `;
 
 export const WhiteBlock = css`
-	${FlexDiv};
+  ${FlexDiv};
   width: 90%;
-	margin: 0px;
+  margin: 0px;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
@@ -97,7 +93,7 @@ export const WhiteBlock = css`
 `;
 
 export const Flex = styled('div')`
-	${FlexDiv};
+  ${FlexDiv};
   align-items: center;
 `;
 

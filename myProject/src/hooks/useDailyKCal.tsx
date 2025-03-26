@@ -1,12 +1,7 @@
-import { useEffect, useState } from "react"
-
+import { useDailyNutrients } from './useDailyNutrients';
 
 export default function useDailyKCal() {
-    const [currentKCal, setcurrentKCal] = useState(0)
+  const { totals } = useDailyNutrients();
 
-    // useEffect(() => {
-    //     setCurrentDate(new Date())
-    // }, [])
-   
-    return currentKCal;
+  return totals.calories;
 }

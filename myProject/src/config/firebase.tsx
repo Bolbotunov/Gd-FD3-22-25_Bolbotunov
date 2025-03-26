@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { doc, updateDoc, getDoc, setDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, getDoc, setDoc, arrayUnion } from 'firebase/firestore';
 import { ProductType } from '../store/AuthSlice';
 import { defaultProducts } from './defaultProducts';
 
@@ -17,10 +17,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app)
+const db = getFirestore(app);
 
 export async function initializeUserDictionary(uid: string) {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (docSnap.exists()) {
     const data = docSnap.data();
@@ -35,7 +35,7 @@ export async function initializeUserDictionary(uid: string) {
 }
 
 export async function getUserDictionary(uid: string): Promise<ProductType[]> {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (docSnap.exists()) {
     const data = docSnap.data();
@@ -46,7 +46,7 @@ export async function getUserDictionary(uid: string): Promise<ProductType[]> {
 }
 
 export async function getDailyProducts(uid: string): Promise<ProductType[]> {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (docSnap.exists()) {
     const data = docSnap.data();
@@ -56,23 +56,27 @@ export async function getDailyProducts(uid: string): Promise<ProductType[]> {
   }
 }
 
-
 export async function addProductToUser(uid: string, product: ProductType) {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, 'users', uid);
   await updateDoc(userDocRef, {
-    products: arrayUnion(product)
+    products: arrayUnion(product),
   });
 }
 
-export async function updateUserProductInFirebase(uid: string, updatedProduct: ProductType) {
-  const userDocRef = doc(db, "users", uid);
+export async function updateUserProductInFirebase(
+  uid: string,
+  updatedProduct: ProductType
+) {
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (!docSnap.exists()) {
-    throw new Error("User document not found");
+    throw new Error('User document not found');
   }
   const data = docSnap.data();
   let dictionaryProducts: ProductType[] = data.dictionaryProducts || [];
-  const index = dictionaryProducts.findIndex(p => p.food_name === updatedProduct.food_name);
+  const index = dictionaryProducts.findIndex(
+    (p) => p.food_name === updatedProduct.food_name
+  );
 
   if (index !== -1) {
     dictionaryProducts[index] = updatedProduct;
@@ -83,15 +87,20 @@ export async function updateUserProductInFirebase(uid: string, updatedProduct: P
 }
 
 // ===
-export async function updateDailyProductInFirebase(uid: string, updatedProduct: ProductType) {
-  const userDocRef = doc(db, "users", uid);
+export async function updateDailyProductInFirebase(
+  uid: string,
+  updatedProduct: ProductType
+) {
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (!docSnap.exists()) {
-    throw new Error("User document not found");
+    throw new Error('User document not found');
   }
   const data = docSnap.data();
   let dailyProducts: ProductType[] = data.products || [];
-  const index = dailyProducts.findIndex(p => p.food_name === updatedProduct.food_name);
+  const index = dailyProducts.findIndex(
+    (p) => p.food_name === updatedProduct.food_name
+  );
 
   if (index !== -1) {
     dailyProducts[index] = updatedProduct;
@@ -105,10 +114,10 @@ export async function deleteUserProductInFirebase(
   uid: string,
   productToDelete: ProductType
 ) {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (!docSnap.exists()) {
-    throw new Error("User document not found");
+    throw new Error('User document not found');
   }
   const data = docSnap.data();
   let dictionaryProducts: ProductType[] = data.dictionaryProducts || [];
@@ -122,10 +131,10 @@ export async function deleteDailyProductInFirebase(
   uid: string,
   productToDelete: ProductType
 ) {
-  const userDocRef = doc(db, "users", uid);
+  const userDocRef = doc(db, 'users', uid);
   const docSnap = await getDoc(userDocRef);
   if (!docSnap.exists()) {
-    throw new Error("User document not found");
+    throw new Error('User document not found');
   }
   const data = docSnap.data();
   let products: ProductType[] = data.products || [];
@@ -135,6 +144,4 @@ export async function deleteDailyProductInFirebase(
   await updateDoc(userDocRef, { products: updatedDailyProducts });
 }
 
-
 export { auth, app, db };
-

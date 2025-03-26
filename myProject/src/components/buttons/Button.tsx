@@ -1,11 +1,9 @@
-import { BtnStyle } from "../../styles/Buttons.styled";
-
+import { BtnStyle } from '../../styles/Buttons.styled';
 
 export default function Button() {
-
-    return (
-        <>
-          <BtnStyle/>
-        </>
-      );
+  return (
+    <>
+      <BtnStyle />
+    </>
+  );
 }

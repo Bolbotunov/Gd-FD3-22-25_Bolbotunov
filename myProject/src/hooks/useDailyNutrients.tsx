@@ -1,8 +1,8 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { ProductType } from "../store/AuthSlice";
-import { calculateNutrients } from "../utils/calculateNutrients";
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { ProductType } from '../store/AuthSlice';
+import { calculateNutrients } from '../utils/calculateNutrients';
 
 export function useDailyNutrients() {
   const products = useSelector((state: RootState) => state.authSlice.products);
@@ -29,24 +29,25 @@ export function useDailyNutrients() {
     );
   }, [products]);
 
-
   const proteinPercent = useMemo(
-    () => `${(totals.protein / 150 * 100).toFixed(1)}`,
+    () => `${((totals.protein / 150) * 100).toFixed(1)}`,
     [totals.protein]
   );
   const fatsPercent = useMemo(
-    () => `${(totals.fats / 80 * 100).toFixed(1)}`,
+    () => `${((totals.fats / 80) * 100).toFixed(1)}`,
     [totals.fats]
   );
   const carbsPercent = useMemo(
-    () => `${(totals.carbs / 300 * 100).toFixed(1)}`,
+    () => `${((totals.carbs / 300) * 100).toFixed(1)}`,
     [totals.carbs]
   );
 
-  const proteinTitle = useMemo(() => `${proteinPercent}/100%`, [proteinPercent]);
+  const proteinTitle = useMemo(
+    () => `${proteinPercent}/100%`,
+    [proteinPercent]
+  );
   const fatsTitle = useMemo(() => `${fatsPercent}/100%`, [fatsPercent]);
   const carbsTitle = useMemo(() => `${carbsPercent}/100%`, [carbsPercent]);
-
 
   return {
     products,
@@ -57,6 +58,6 @@ export function useDailyNutrients() {
     carbsPercent,
     proteinTitle,
     fatsTitle,
-    carbsTitle
+    carbsTitle,
   };
 }

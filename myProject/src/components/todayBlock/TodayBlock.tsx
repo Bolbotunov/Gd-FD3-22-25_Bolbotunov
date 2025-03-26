@@ -1,21 +1,21 @@
-import { BlurContainer } from "../../styles/Common.styled";
-import { CategoryTitleStyle } from "../../styles/Fonts.styled";
-import Chart from "../charts/Chart";
-import { useDispatch, useSelector } from "react-redux";
-import useCurrentDate from "../../hooks/useCurrentDate";
-import { appColors } from "../../styles/AppColors";
-import DailyKCal from "../DailyKCal/DailyKCal";
-import { BtnStyle } from "../../styles/Buttons.styled";
-import { FontsHeaderStyle } from "../../styles/Fonts.styled";
-import { useDailyNutrients } from "../../hooks/useDailyNutrients";
-import { useEffect } from "react";
-import { getDailyProducts } from "../../config/firebase";
-import { setDailyProducts } from "../../store/AuthSlice";
-import { RootState } from "../../store/store";
+import { BlurContainer } from '../../styles/Common.styled';
+import { CategoryTitleStyle } from '../../styles/Fonts.styled';
+import Chart from '../charts/Chart';
+import { useDispatch, useSelector } from 'react-redux';
+import useCurrentDate from '../../hooks/useCurrentDate';
+import { appColors } from '../../styles/AppColors';
+import DailyKCal from '../DailyKCal/DailyKCal';
+import { BtnStyle } from '../../styles/Buttons.styled';
+import { FontsHeaderStyle } from '../../styles/Fonts.styled';
+import { useDailyNutrients } from '../../hooks/useDailyNutrients';
+import { useEffect } from 'react';
+import { getDailyProducts } from '../../config/firebase';
+import { setDailyProducts } from '../../store/AuthSlice';
+import { RootState } from '../../store/store';
 
 export default function TodayBlock() {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state: RootState) => state.authSlice)
+  const currentUser = useSelector((state: RootState) => state.authSlice);
   const currentDate = useCurrentDate();
   const {
     products,
@@ -24,7 +24,7 @@ export default function TodayBlock() {
     carbsPercent,
     proteinTitle,
     fatsTitle,
-    carbsTitle
+    carbsTitle,
   } = useDailyNutrients();
 
   useEffect(() => {
@@ -34,13 +34,12 @@ export default function TodayBlock() {
           const dailyProductsFromFB = await getDailyProducts(currentUser.uid);
           dispatch(setDailyProducts(dailyProductsFromFB));
         } catch (error) {
-          console.error("Error fetching user products:", error);
+          console.error('Error fetching user products:', error);
         }
       }
     }
     fetchDailyProducts();
   }, [currentUser.uid, dispatch]);
-
 
   if (!products || products.length === 0) {
     return <div>Loading...</div>;
@@ -48,9 +47,7 @@ export default function TodayBlock() {
 
   return (
     <BlurContainer>
-      <CategoryTitleStyle>
-        Today: {currentDate}
-      </CategoryTitleStyle>
+      <CategoryTitleStyle>Today: {currentDate}</CategoryTitleStyle>
       <Chart
         proteinPercent={proteinPercent}
         fatsPercent={fatsPercent}
@@ -61,11 +58,11 @@ export default function TodayBlock() {
         extraTitles={{
           protein: proteinTitle,
           fats: fatsTitle,
-          carbs: carbsTitle
+          carbs: carbsTitle,
         }}
       />
       <DailyKCal />
-      <FontsHeaderStyle to="/diary">
+      <FontsHeaderStyle to='/diary'>
         <BtnStyle>go to diary</BtnStyle>
       </FontsHeaderStyle>
     </BlurContainer>

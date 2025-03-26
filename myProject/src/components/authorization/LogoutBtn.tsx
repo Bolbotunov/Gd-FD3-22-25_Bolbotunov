@@ -14,12 +14,12 @@ export default function LogoutButton() {
     signOut(auth)
       .then(() => {
         dispatch(clearUser());
-        navigate("/login");
+        navigate('/login');
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error('Error:', error);
       });
-  };
+  }
 
   return <BtnAuth onClick={userLogout}>log out</BtnAuth>;
 }

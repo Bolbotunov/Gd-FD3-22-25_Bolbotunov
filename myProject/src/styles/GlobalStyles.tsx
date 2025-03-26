@@ -17,5 +17,3 @@ export const GlobalStyle = createGlobalStyle`
     background-attachment: fixed;
   }
 `;
-
-

@@ -1,12 +1,16 @@
-import { Flex, ContentContainer } from "../../styles/Common.styled";
-import { BlurContainer } from "../../styles/Common.styled";
-import { MainTitle } from "../../styles/Fonts.styled";
-import { NutrientValue, NutrientRow, NutrientLabel } from "../../pages/productsPage/ProductsPage.styled";
-import { InputStyle } from "../../styles/Common.styled";
-import { AddBtn, BtnDelete } from "../../styles/Buttons.styled";
-import { ProductType } from "../../store/AuthSlice";
-import { useMemo } from "react";
-import { calculateNutrients } from "../../utils/calculateNutrients";
+import { Flex, ContentContainer } from '../../styles/Common.styled';
+import { BlurContainer } from '../../styles/Common.styled';
+import { MainTitle } from '../../styles/Fonts.styled';
+import {
+  NutrientValue,
+  NutrientRow,
+  NutrientLabel,
+} from '../../pages/productsPage/ProductsPage.styled';
+import { InputStyle } from '../../styles/Common.styled';
+import { AddBtn, BtnDelete } from '../../styles/Buttons.styled';
+import { ProductType } from '../../store/AuthSlice';
+import { useMemo } from 'react';
+import { calculateNutrients } from '../../utils/calculateNutrients';
 
 type EditModeProps = {
   editedProduct: ProductType;
@@ -14,9 +18,7 @@ type EditModeProps = {
   handleSave: () => void;
   navigate: (path: string) => void;
   origin: string;
-}
-
-
+};
 
 export default function EditMode({
   editedProduct,
@@ -25,27 +27,25 @@ export default function EditMode({
   navigate,
   origin,
 }: EditModeProps) {
-  
-  const isDiaryEdit = origin === "diary";
+  const isDiaryEdit = origin === 'diary';
 
   const computedNutrients = useMemo(() => {
     return calculateNutrients(editedProduct);
   }, [editedProduct]);
 
-
   const handleFromPage = () => {
-    if (origin === "diary") {
-      navigate("/diary");
+    if (origin === 'diary') {
+      navigate('/diary');
     } else {
-      navigate("/products");
+      navigate('/products');
     }
   };
-  
+
   return (
     <BlurContainer>
       <ContentContainer>
         <MainTitle>Edit {editedProduct?.food_name}</MainTitle>
-  
+
         <NutrientRow>
           <NutrientLabel>Proteins:</NutrientLabel>
           <NutrientValue>
@@ -53,14 +53,14 @@ export default function EditMode({
               <div>{computedNutrients.protein}g</div>
             ) : (
               <InputStyle
-                type="number"
+                type='number'
                 value={editedProduct?.nf_protein}
-                onChange={(e) => handleChange("nf_protein", e.target.value)}
+                onChange={(e) => handleChange('nf_protein', e.target.value)}
               />
             )}
           </NutrientValue>
         </NutrientRow>
-  
+
         <NutrientRow>
           <NutrientLabel>Fats:</NutrientLabel>
           <NutrientValue>
@@ -68,14 +68,14 @@ export default function EditMode({
               <div>{computedNutrients.fats}g</div>
             ) : (
               <InputStyle
-                type="number"
+                type='number'
                 value={editedProduct?.nf_total_fat}
-                onChange={(e) => handleChange("nf_total_fat", e.target.value)}
+                onChange={(e) => handleChange('nf_total_fat', e.target.value)}
               />
             )}
           </NutrientValue>
         </NutrientRow>
-  
+
         <NutrientRow>
           <NutrientLabel>Carbs:</NutrientLabel>
           <NutrientValue>
@@ -83,9 +83,11 @@ export default function EditMode({
               <div>{computedNutrients.carbs}g</div>
             ) : (
               <InputStyle
-                type="number"
+                type='number'
                 value={editedProduct?.nf_total_carbohydrate}
-                onChange={(e) => handleChange("nf_total_carbohydrate", e.target.value)}
+                onChange={(e) =>
+                  handleChange('nf_total_carbohydrate', e.target.value)
+                }
               />
             )}
           </NutrientValue>
@@ -93,7 +95,7 @@ export default function EditMode({
         <NutrientRow>
           <NutrientLabel>Calories:</NutrientLabel>
           <NutrientValue>
-              <div>{computedNutrients.calories} kCal</div>
+            <div>{computedNutrients.calories} kCal</div>
           </NutrientValue>
         </NutrientRow>
         {isDiaryEdit && (
@@ -101,11 +103,12 @@ export default function EditMode({
             <NutrientLabel>Weight:</NutrientLabel>
             <NutrientValue>
               <InputStyle
-                type="number"
+                type='number'
                 value={editedProduct.weight}
-                onChange={(e) => handleChange("weight", e.target.value)}
-                placeholder="Enter weight"
-              />g
+                onChange={(e) => handleChange('weight', e.target.value)}
+                placeholder='Enter weight'
+              />
+              g
             </NutrientValue>
           </NutrientRow>
         )}
@@ -117,4 +120,3 @@ export default function EditMode({
     </BlurContainer>
   );
 }
-

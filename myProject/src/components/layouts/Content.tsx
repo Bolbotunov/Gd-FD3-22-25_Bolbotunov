@@ -17,26 +17,23 @@ export default function Content() {
   return (
     <>
       <ContentStyle>
-      <AuthCheck>
-        <Routes>
-          <Route path='/' element={<Navigate to='/login' />} />
-          <Route path='/login' element={<LoginPage/>} />
-          <Route path='/register' element={<RegisterPage/>} />
-          <Route path='/home' element={<HomePage/>} />
-          <Route path='/profile' element={<ProfilePage/>} />
-          <Route path='/products' element = {<ProductsPage/>}/>
-          <Route path='/products/:id' element = {<ProductPage/>}/>
-          <Route path="/products/creating" element={<CreateProductPage />} />
-          <Route path="/diary" element={<DiaryPage />} />
-          <Route path="/diary/:id" element={<DiaryPage />} />
-          <Route path='/statistics' element={<StatisticsPage/>} />
-          <Route path='/settings' element = {<SettingsPage/>}/>
-        </Routes>
+        <AuthCheck>
+          <Routes>
+            <Route path='/' element={<Navigate to='/login' />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/home' element={<HomePage />} />
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/products' element={<ProductsPage />} />
+            <Route path='/products/:id' element={<ProductPage />} />
+            <Route path='/products/creating' element={<CreateProductPage />} />
+            <Route path='/diary' element={<DiaryPage />} />
+            <Route path='/diary/:id' element={<DiaryPage />} />
+            <Route path='/statistics' element={<StatisticsPage />} />
+            <Route path='/settings' element={<SettingsPage />} />
+          </Routes>
         </AuthCheck>
       </ContentStyle>
     </>
   );
 }
-
-
-

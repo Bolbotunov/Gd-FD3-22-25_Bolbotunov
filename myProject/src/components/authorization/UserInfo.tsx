@@ -12,7 +12,7 @@ export default function UserInfo() {
       {currentUser ? (
         <SmallBlurContainer to={'/profile'}>
           <UserInfoText>Welcome, {currentUser.userName}!</UserInfoText>
-          <LogoutButton/>
+          <LogoutButton />
         </SmallBlurContainer>
       ) : (
         <p>No user logged in.</p>

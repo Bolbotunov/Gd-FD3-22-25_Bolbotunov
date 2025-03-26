@@ -1,7 +1,7 @@
-import { useDailyNutrients } from "./useDailyNutrients";
+import { useDailyNutrients } from './useDailyNutrients';
 
 export default function useDailyKCal() {
-    const { totals } = useDailyNutrients();
+  const { totals } = useDailyNutrients();
 
-    return totals.calories;
+  return totals.calories;
 }

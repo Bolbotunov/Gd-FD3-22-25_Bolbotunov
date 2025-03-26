@@ -24,18 +24,29 @@ import {
 } from "../productsPage/ProductsPage.styled"
 import { useDailyNutrients } from "../../hooks/useDailyNutrients";
 import { calculateNutrients } from "../../utils/calculateNutrients";
-import { useProductForm } from "../../hooks/useProductForm";
-import { useMemo } from "react";
+
 
 export default function DiaryPage() {
-	const dailyProducts = useSelector((state: RootState) => state.authSlice.products)
-  const dailyNutrients = useDailyNutrients(dailyProducts);
+  const currentDate = useCurrentDate();
+  const {
+    products,
+    proteinPercent,
+    fatsPercent,
+    carbsPercent,
+    proteinTitle,
+    fatsTitle,
+    carbsTitle
+  } = useDailyNutrients();
 	const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null)
 	const currentUser = useSelector((state: RootState) => state.authSlice)
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
- 
-  // const { product: newProduct, handleChange } = useProductForm();
+
+  const extraTitles = {
+    protein: proteinTitle,
+    fats: fatsTitle,
+    carbs: carbsTitle,
+  };
 
 	useEffect(() => {
 		async function fetchDailyProducts() {
@@ -52,25 +63,18 @@ export default function DiaryPage() {
 	}, [currentUser.uid, dispatch]);
 
 
-	const currentDate = useCurrentDate();
-
-
-  const proteinPercent = `${Math.min(100, (dailyNutrients.protein / 150) * 100)}%`
-  const fatsPercent = `${Math.min(100, (dailyNutrients.fats / 80) * 100)}%`
-  const carbsPercent = `${Math.min(100, (dailyNutrients.carbs / 300) * 100)}%`
-
-  const chartTitle = '50/100'
-
 	function handleSelectedProduct(product: ProductType) {
     if (selectedProduct && selectedProduct.id === product.id) {
       setSelectedProduct(null);
     } else {
       setSelectedProduct(product);
-      console.log(dailyNutrients )
+      console.log(product)
     }
   }
 
-
+  if (!products || products.length === 0) {
+    return <div>Loading...</div>;
+  }
   return <>
     <BlurContainer>
 			<ContentContainer>
@@ -78,14 +82,18 @@ export default function DiaryPage() {
           Today: {currentDate}
         </CategoryTitleStyle>
 				<Chart
-					proteinPercent = {proteinPercent}
-					fatsPercent= {fatsPercent}
-					carbsPercent = {carbsPercent}
-					proteinColor = {appColors.colors.PROTEIN_COLOR}
-					fatsColor = {appColors.colors.FATS_COLOR}
-					carbsColor = {appColors.colors.CARBS_COLOR}
-					extraTitle={chartTitle}
-					/>
+          proteinPercent={proteinPercent}
+          fatsPercent={fatsPercent}
+          carbsPercent={carbsPercent}
+          proteinColor={appColors.colors.PROTEIN_COLOR}
+          fatsColor={appColors.colors.FATS_COLOR}
+          carbsColor={appColors.colors.CARBS_COLOR}
+          extraTitles={{
+            protein: proteinTitle,
+            fats: fatsTitle,
+            carbs: carbsTitle
+        }}
+        />
 				<DailyKCal/>
 				<Flex>
 
@@ -160,7 +168,7 @@ export default function DiaryPage() {
       </TableHeader>
 
 					<ProductRowWrapper>
-      {dailyProducts.map((product: ProductType) => {
+      {products.map((product: ProductType) => {
           const nutrients = calculateNutrients(product);
         return (
             <ProductRow

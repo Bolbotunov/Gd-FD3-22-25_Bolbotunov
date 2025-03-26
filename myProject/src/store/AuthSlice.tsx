@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { defaultProducts } from '../config/defaultProducts';
 
+
+
+
 type ProfileType = {
   weight?: number;
   height?: number;
@@ -20,6 +23,11 @@ export type ProductType = {
   isDefault?: boolean;
   weight?: number;
 };
+
+// type DaysType = {
+//   date: string;
+//   products: ProductType[];
+// };
 
 type AuthStateType = {
   uid: string | null;
@@ -47,7 +55,12 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<{ uid: string; userName: string; userEmail: string; profile?: ProfileType }>) {
+    setUser(state, action: PayloadAction<{
+      uid: string;
+      userName: string;
+      userEmail: string;
+      profile?: ProfileType
+    }>) {
       state.uid = action.payload.uid;
       state.userName = action.payload.userName;
       state.userEmail = action.payload.userEmail;

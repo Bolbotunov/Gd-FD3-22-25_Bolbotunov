@@ -41,10 +41,6 @@ export default function TodayBlock() {
     fetchDailyProducts();
   }, [currentUser.uid, dispatch]);
 
-  if (!products || products.length === 0) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <BlurContainer>
       <CategoryTitleStyle>Today: {currentDate}</CategoryTitleStyle>

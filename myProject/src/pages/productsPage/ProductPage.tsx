@@ -26,8 +26,10 @@ import EditMode from '../../components/mode/EditMode';
 import { addProductToUser } from '../../config/firebase';
 import { BlurContainer, ContentContainer } from '../../styles/Common.styled';
 import { useProductForm } from '../../hooks/useProductForm';
+import useCurrentDate from '../../hooks/useCurrentDate';
 
 export default function ProductPage() {
+  const currentDate = useCurrentDate();
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -131,6 +133,10 @@ export default function ProductPage() {
 
   const handleSaveToDiary = async () => {
     if (currentUser.uid && editedProduct) {
+      const productWithDate = {
+        ...editedProduct,
+        diaryDate: currentDate,
+      };
       console.log('Saving product:', editedProduct);
       try {
         await addProductToUser(currentUser.uid, editedProduct);

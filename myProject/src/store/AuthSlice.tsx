@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { defaultProducts } from '../config/defaultProducts';
+import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories';
 
-type ProfileType = {
+export type ProfileType = {
   weight?: number;
   height?: number;
   age?: number;
@@ -19,6 +20,7 @@ export type ProductType = {
   nf_calories: number;
   isDefault?: boolean;
   weight?: number;
+  diaryDate?: string;
 };
 
 type AuthStateType = {
@@ -26,34 +28,11 @@ type AuthStateType = {
   userName: string | null;
   userEmail: string | null;
   profile: ProfileType | null;
+  recommendedCalories?: number | null;
+  userNormOfProtein?: number | null;
+  userNormOfFats?: number | null;
+  userNormOfCarbs?: number | null;
   products: ProductType[];
-  dictionary: ProductType[];
-  status: string;
-  error: string | null;
-};
-
-type DaysType = {
-  date: string;
-  products: ProductType[];
-};
-
-type AuthStateTypeTest = {
-  uid: string | null;
-  userName: string | null;
-  userEmail: string | null;
-  profile: ProfileType | null;
-  products: DaysType[];
-  dictionary: ProductType[];
-  status: string;
-  error: string | null;
-};
-
-type TestType = {
-  uid: string | null;
-  userName: string | null;
-  userEmail: string | null;
-  profile: ProfileType | null;
-  products: DaysType[];
   dictionary: ProductType[];
   status: string;
   error: string | null;
@@ -64,6 +43,7 @@ const initialState: AuthStateType = {
   userName: null,
   userEmail: null,
   profile: null,
+  recommendedCalories: null,
   products: [],
   dictionary: defaultProducts,
   status: '',
@@ -91,7 +71,24 @@ export const authSlice = createSlice({
     },
     setUserProfile(state, action: PayloadAction<ProfileType>) {
       state.profile = action.payload;
+
+      if (action.payload) {
+        const calculatedValues = calculateNormDailyCalories(action.payload);
+
+        if (calculatedValues) {
+          state.recommendedCalories = calculatedValues.normCalories;
+          state.userNormOfProtein = calculatedValues.userNormOfProtein;
+          state.userNormOfFats = calculatedValues.userNormOfFats;
+          state.userNormOfCarbs = calculatedValues.userNormOfCarbs;
+        }
+      } else {
+        state.recommendedCalories = null;
+        state.userNormOfProtein = null;
+        state.userNormOfFats = null;
+        state.userNormOfCarbs = null;
+      }
     },
+
     setDictionaryProducts(state, action: PayloadAction<ProductType[]>) {
       state.dictionary = action.payload;
     },

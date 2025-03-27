@@ -3,9 +3,15 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { ProductType } from '../store/AuthSlice';
 import { calculateNutrients } from '../utils/calculateNutrients';
+import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories';
 
 export function useDailyNutrients() {
   const products = useSelector((state: RootState) => state.authSlice.products);
+  const currentUser = useSelector((state: RootState) => state.authSlice);
+
+  const recommendedCalories = currentUser.profile
+    ? calculateNormDailyCalories(currentUser.profile)
+    : null;
 
   const nutrientsPerProduct = useMemo(() => {
     return products.map((product: ProductType) => ({
@@ -29,16 +35,22 @@ export function useDailyNutrients() {
     );
   }, [products]);
 
+  const normOfProteins = recommendedCalories?.userNormOfProtein || 100;
+  const normOfFats = recommendedCalories?.userNormOfFats || 100;
+  const normOfCarbs = recommendedCalories?.userNormOfCarbs || 100;
+
   const proteinPercent = useMemo(
-    () => `${((totals.protein / 150) * 100).toFixed(1)}`,
+    () => `${((totals.protein / normOfProteins) * 100).toFixed(1)}`,
     [totals.protein]
   );
+
   const fatsPercent = useMemo(
-    () => `${((totals.fats / 80) * 100).toFixed(1)}`,
+    () => `${((totals.fats / normOfFats) * 100).toFixed(1)}`,
     [totals.fats]
   );
+
   const carbsPercent = useMemo(
-    () => `${((totals.carbs / 300) * 100).toFixed(1)}`,
+    () => `${((totals.carbs / normOfCarbs) * 100).toFixed(1)}`,
     [totals.carbs]
   );
 

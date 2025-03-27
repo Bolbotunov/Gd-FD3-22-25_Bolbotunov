@@ -9,30 +9,15 @@ import { db } from '../../config/firebase';
 import { setDoc, doc } from 'firebase/firestore';
 import { setUser, setUserProfile } from '../../store/AuthSlice';
 import { SelectStyle } from '../../styles/Common.styled';
-
-type ProfileFormValues = {
-  weight: number;
-  height: number;
-  age: number;
-  goal: string;
-  activity: string;
-  gender: string;
-};
-
-export async function saveUserProfile(
-  uid: string,
-  profileData: ProfileFormValues
-) {
-  const userDocRef = doc(db, 'users', uid);
-  await setDoc(userDocRef, { profile: profileData }, { merge: true });
-}
+import { ProfileType } from '../../store/AuthSlice';
+import { saveUserProfile } from '../../config/firebase';
 
 export default function ProfileForm() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
   console.log('currentUser:', currentUser);
 
-  const initialValues: ProfileFormValues = {
+  const initialValues: ProfileType = {
     weight: currentUser.profile?.weight || 70,
     height: currentUser.profile?.height || 170,
     age: currentUser.profile?.age || 25,
@@ -50,13 +35,13 @@ export default function ProfileForm() {
     gender: Yup.string().required('Required'),
   });
 
-  const handleSubmit = async (values: ProfileFormValues) => {
+  const handleSubmit = async (values: ProfileType) => {
     try {
       if (!currentUser.uid) throw new Error('User ID missing!');
 
       await saveUserProfile(currentUser.uid, values);
       dispatch(setUserProfile(values));
-      alert('!!!!Profile updated successfully!');
+      alert('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
     }
@@ -91,8 +76,8 @@ export default function ProfileForm() {
           >
             <option value=''>Select goal</option>
             <option value='lose'>Lose Weight</option>
-            <option value='gain'>Gain Muscle</option>
             <option value='maintain'>Maintain</option>
+            <option value='gain'>Gain </option>
           </Field>
           <ErrorMessage name='goal' component={ErrorText} />
 

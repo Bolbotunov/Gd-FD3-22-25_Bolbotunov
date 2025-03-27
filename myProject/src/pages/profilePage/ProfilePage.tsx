@@ -10,9 +10,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { UserMail } from './ProfilePage.styled';
 import DeleteUserBtn from '../../components/authorization/DeleteUserBtn';
+import { calculateNormDailyCalories } from '../../utils/calculateNormDailyCalories';
 
 export default function ProfilePage() {
   const currentUser = useSelector((state: RootState) => state.authSlice);
+  const recommendedCalories = currentUser.profile
+    ? calculateNormDailyCalories(currentUser.profile)
+    : null;
   return (
     <>
       <BlurContainer>
@@ -22,7 +26,9 @@ export default function ProfilePage() {
         </WrapperSections>
       </BlurContainer>
       <InformationBlock>
-        <RecommendedkCalBlock>2200 kCal</RecommendedkCalBlock>
+        <RecommendedkCalBlock>
+          {recommendedCalories?.normCalories}kCal
+        </RecommendedkCalBlock>
         <MainSubTitle>
           Recommended daily calorie intake Everybody is unique. Try different
           calorie intake and seek what best fits you

@@ -34,6 +34,7 @@ import { calculateNutrients } from '../../utils/calculateNutrients';
 
 export default function DiaryPage() {
   const currentDate = useCurrentDate();
+
   const {
     products,
     proteinPercent,

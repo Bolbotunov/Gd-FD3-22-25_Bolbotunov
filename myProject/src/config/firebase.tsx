@@ -2,8 +2,9 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, updateDoc, getDoc, setDoc, arrayUnion } from 'firebase/firestore';
-import { ProductType } from '../store/AuthSlice';
+import { ProductType, ProfileType } from '../store/AuthSlice';
 import { defaultProducts } from './defaultProducts';
+import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -59,7 +60,10 @@ export async function getDailyProducts(uid: string): Promise<ProductType[]> {
 export async function addProductToUser(uid: string, product: ProductType) {
   const userDocRef = doc(db, 'users', uid);
   await updateDoc(userDocRef, {
-    products: arrayUnion(product),
+    products: arrayUnion({
+      ...product,
+      diaryDate: new Date().toLocaleDateString(),
+    }),
   });
 }
 
@@ -86,7 +90,6 @@ export async function updateUserProductInFirebase(
   await updateDoc(userDocRef, { dictionaryProducts });
 }
 
-// ===
 export async function updateDailyProductInFirebase(
   uid: string,
   updatedProduct: ProductType
@@ -142,6 +145,22 @@ export async function deleteDailyProductInFirebase(
     (p) => p.id !== productToDelete.id
   );
   await updateDoc(userDocRef, { products: updatedDailyProducts });
+}
+
+export async function saveUserProfile(uid: string, profileData: ProfileType) {
+  const userDocRef = doc(db, 'users', uid);
+  const calculated = calculateNormDailyCalories(profileData);
+  await setDoc(
+    userDocRef,
+    {
+      profile: profileData,
+      recommendedCalories: calculated ? calculated.normCalories : null,
+      userNormOfProtein: calculated ? calculated.userNormOfProtein : null,
+      userNormOfFats: calculated ? calculated.userNormOfFats : null,
+      userNormOfCarbs: calculated ? calculated.userNormOfCarbs : null,
+    },
+    { merge: true }
+  );
 }
 
 export { auth, app, db };

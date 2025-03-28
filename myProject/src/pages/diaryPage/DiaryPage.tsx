@@ -8,7 +8,6 @@ import DailyKCal from '../../components/DailyKCal/DailyKCal';
 import { useDispatch, useSelector } from 'react-redux';
 import useCurrentDate from '../../hooks/useCurrentDate';
 import { appColors } from '../../styles/AppColors';
-import { CategoryTitleStyle } from '../../styles/Fonts.styled';
 import { BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
 import { useNavigate } from 'react-router';
 import { RootState } from '../../store/store';
@@ -31,10 +30,19 @@ import {
 } from '../productsPage/ProductsPage.styled';
 import { useDailyNutrients } from '../../hooks/useDailyNutrients';
 import { calculateNutrients } from '../../utils/calculateNutrients';
+// import {
+//   CarouselContainer,
+//   CarouselLine,
+//   CarouselMainDate,
+//   CarouselTitleStyle,
+//   FlexContainer,
+//   LeftButton,
+//   RightButton,
+// } from './DiaryPage.styled';
 
 export default function DiaryPage() {
   const currentDate = useCurrentDate();
-
+  const [currentDateSlider, setCurrentDate] = useState(new Date());
   const {
     products,
     proteinPercent,
@@ -80,11 +88,39 @@ export default function DiaryPage() {
     }
   }
 
+  function handlePreviousDate() {
+    setCurrentDate(
+      (prevDate) => new Date(prevDate.setDate(prevDate.getDate() - 1))
+    );
+  }
+
+  function handleNextDate() {
+    setCurrentDate(
+      (prevDate) => new Date(prevDate.setDate(prevDate.getDate() + 1))
+    );
+  }
+
+  const formattedDate = currentDateSlider.toLocaleDateString('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
   return (
     <>
       <BlurContainer>
         <ContentContainer>
-          <CategoryTitleStyle>Today: {currentDate}</CategoryTitleStyle>
+          {/* <CarouselContainer>
+            <CarouselTitleStyle>Today: </CarouselTitleStyle>
+            <FlexContainer>
+              <LeftButton onClick={handlePreviousDate} />
+              <Flex>
+                <CarouselLine>
+                  <CarouselMainDate>{formattedDate}</CarouselMainDate>
+                </CarouselLine>
+              </Flex>
+              <RightButton onClick={handleNextDate} />
+            </FlexContainer>
+          </CarouselContainer> */}
           <Chart
             proteinPercent={proteinPercent}
             fatsPercent={fatsPercent}

@@ -4,7 +4,7 @@ import ProfilePage from '../../pages/profilePage/ProfilePage';
 import ProductsPage from '../../pages/productsPage/ProductsPage';
 import ProductPage from '../../pages/productsPage/ProductPage';
 import DiaryPage from '../../pages/diaryPage/DiaryPage';
-import StatisticsPage from '../../pages/StatisticsPage';
+import StatisticsPage from '../../pages/statisticsPage/StatisticsPage';
 import SettingsPage from '../../pages/SettingsPage';
 import { ContentStyle } from './Content.styled';
 import LoginPage from '../../pages/LoginPage';

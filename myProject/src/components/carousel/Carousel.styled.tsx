@@ -72,7 +72,7 @@ export const DateSliderInner = styled('div')<{
 `;
 
 export const DateStyle = styled('span')<{ isActive: boolean }>`
-  font-size: ${({ isActive }) => (isActive ? '1.5rem' : '0.9rem')};
+  font-size: ${({ isActive }) => (isActive ? '1.2rem' : '0.9rem')};
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
   color: ${({ theme, isActive }) =>
     isActive ? theme.colors.MAIN_COLOR : theme.colors.MAIN_COLOR_30};

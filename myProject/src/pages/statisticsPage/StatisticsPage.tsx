@@ -19,7 +19,11 @@ import {
   ProductRow,
   ProductColumn,
 } from '../productsPage/ProductsPage.styled';
-import { MessageStyle, ProductRowStat } from './StatisticsPage.styled';
+import {
+  MessageStyle,
+  ProductRowStat,
+  StyledCalendar,
+} from './StatisticsPage.styled';
 import { getDailyProducts } from '../../config/firebase';
 
 export default function StatisticsPage() {
@@ -35,7 +39,7 @@ export default function StatisticsPage() {
       }
     };
 
-    return <Calendar onChange={handleChange} value={selectedDate} />;
+    return <StyledCalendar onChange={handleChange} value={selectedDate} />;
   }
 
   const formattedSelectedDate = useMemo(() => {

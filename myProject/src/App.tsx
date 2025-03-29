@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import './config/firebase';
 import store from './store/store';
 import { CustomThemeProvider } from './contexts/ThemeContext';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -22,6 +24,16 @@ function App() {
               <Header />
               <Content />
               <Footer />
+              <ToastContainer
+                position='top-right'
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnHover
+                draggable
+                pauseOnFocusLoss
+              />
             </BrowserRouter>
           </AppContainer>
         </CustomThemeProvider>

@@ -15,6 +15,7 @@ export const appColors = {
     DISABLED_COLOR_DARK: '#7e7e7e',
   },
   backgroundImage: "url('/bgDark.avif')",
+  logoSrc: '/LogoLight.png',
 };
 
 export const lightAppColors = {
@@ -34,4 +35,5 @@ export const lightAppColors = {
     DISABLED_COLOR_DARK: '#444444',
   },
   backgroundImage: "url('/bgLight.avif')",
+  logoSrc: '/LogoBlack.png',
 };

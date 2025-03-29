@@ -7,7 +7,7 @@ import { appColors } from '../../styles/AppColors';
 import DailyKCal from '../DailyKCal/DailyKCal';
 import { BtnStyle } from '../../styles/Buttons.styled';
 import { FontsHeaderStyle } from '../../styles/Fonts.styled';
-import { useDailyNutrients } from '../../hooks/useDailyNutrients';
+import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 import { useEffect } from 'react';
 import { getDailyProducts } from '../../config/firebase';
 import { setDailyProducts } from '../../store/AuthSlice';
@@ -15,17 +15,18 @@ import { RootState } from '../../store/store';
 
 export default function TodayBlock() {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state: RootState) => state.authSlice);
   const currentDate = useCurrentDate();
+  const currentUser = useSelector((state: RootState) => state.authSlice);
   const {
-    products,
+    filteredProducts,
+    totals,
     proteinPercent,
     fatsPercent,
     carbsPercent,
     proteinTitle,
     fatsTitle,
     carbsTitle,
-  } = useDailyNutrients();
+  } = useDailyNutrientsForDate(currentDate);
 
   useEffect(() => {
     async function fetchDailyProducts() {
@@ -43,7 +44,9 @@ export default function TodayBlock() {
 
   return (
     <BlurContainer>
-      <CategoryTitleStyle>Today: {currentDate}</CategoryTitleStyle>
+      <CategoryTitleStyle>
+        Today: {currentDate.toLocaleDateString()}
+      </CategoryTitleStyle>
       <Chart
         proteinPercent={proteinPercent}
         fatsPercent={fatsPercent}
@@ -57,7 +60,7 @@ export default function TodayBlock() {
           carbs: carbsTitle,
         }}
       />
-      <DailyKCal />
+      <DailyKCal onDate={totals.calories} />
       <FontsHeaderStyle to='/diary'>
         <BtnStyle>go to diary</BtnStyle>
       </FontsHeaderStyle>

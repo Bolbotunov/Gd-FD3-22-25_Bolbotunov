@@ -11,6 +11,7 @@ import { BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
 import { useNavigate } from 'react-router';
 import { RootState } from '../../store/store';
 import { useMemo } from 'react';
+import { toast } from 'react-toastify';
 import {
   ProductType,
   setDailyProducts,
@@ -42,6 +43,7 @@ export default function DiaryPage() {
 
   const {
     filteredProducts,
+    totals,
     proteinPercent,
     fatsPercent,
     carbsPercent,
@@ -108,7 +110,7 @@ export default function DiaryPage() {
               carbs: carbsTitle,
             }}
           />
-          <DailyKCal />
+          <DailyKCal onDate={totals.calories} />
           <Flex>
             <LinkBtn
               disabled={!isToday}
@@ -161,10 +163,9 @@ export default function DiaryPage() {
             </LinkBtn>
 
             <BtnDelete
-              disabled={!selectedProduct}
               onClick={async () => {
                 if (!selectedProduct) {
-                  alert('Please select a product');
+                  toast.error('Please select a product');
                   return;
                 }
                 if (currentUser.uid) {
@@ -174,9 +175,10 @@ export default function DiaryPage() {
                       selectedProduct
                     );
                     dispatch(removeDailyProduct(selectedProduct.id));
-                    alert('Product deleted');
+                    toast.success('Product deleted successfully!');
                   } catch (error) {
                     console.error('Error deleting product:', error);
+                    toast.error('Error deleting product');
                   }
                 }
               }}

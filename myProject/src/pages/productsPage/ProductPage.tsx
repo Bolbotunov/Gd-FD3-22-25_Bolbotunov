@@ -27,6 +27,7 @@ import { addProductToUser } from '../../config/firebase';
 import { BlurContainer, ContentContainer } from '../../styles/Common.styled';
 import { useProductForm } from '../../hooks/useProductForm';
 import useCurrentDate from '../../hooks/useCurrentDate';
+import { toast } from 'react-toastify';
 
 export default function ProductPage() {
   const currentDate = useCurrentDate();
@@ -111,7 +112,7 @@ export default function ProductPage() {
         dispatch(updateDailyProduct(editedProduct));
         try {
           await updateDailyProductInFirebase(currentUser.uid, editedProduct);
-          alert('Product updated in diary');
+          toast.success('Product updated in diary');
           navigate(`/products/${editedProduct.id}`, {
             state: { mode: 'view', product: editedProduct, origin: 'diary' },
           });
@@ -122,7 +123,7 @@ export default function ProductPage() {
         dispatch(updateUserProduct(editedProduct));
         try {
           await updateUserProductInFirebase(currentUser.uid, editedProduct);
-          alert('Product updated');
+          toast.success('Product updated');
           navigate(`/products`);
         } catch (error) {
           console.error('Error updating product in Firebase:', error);
@@ -137,11 +138,10 @@ export default function ProductPage() {
         ...editedProduct,
         diaryDate: currentDate,
       };
-      console.log('Saving product:', editedProduct);
       try {
         await addProductToUser(currentUser.uid, editedProduct);
         dispatch(addUserProduct(editedProduct));
-        alert('Product added');
+        toast.success('Product added');
         navigate(`/diary`);
       } catch (error) {
         console.error('error adding product to DB', error);

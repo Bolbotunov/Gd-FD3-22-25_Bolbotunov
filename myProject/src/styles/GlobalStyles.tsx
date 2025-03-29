@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     background-image: ${({ theme }) => theme.backgroundImage};
     background-size: cover;
-    background-position: center 10%;
+    background-position: center 0%;
     background-repeat: no-repeat;
     min-height: 100vh;
     background-attachment: fixed;

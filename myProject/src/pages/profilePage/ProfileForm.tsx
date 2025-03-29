@@ -5,18 +5,15 @@ import { RootState } from '../../store/store';
 import { AppContainer, InputStyle } from '../../styles/Common.styled';
 import { InputLabelStyle, ErrorText } from '../../styles/Fonts.styled';
 import { BtnStyle } from '../../styles/Buttons.styled';
-import { db } from '../../config/firebase';
-import { setDoc, doc } from 'firebase/firestore';
-import { setUser, setUserProfile } from '../../store/AuthSlice';
+import { setUserProfile } from '../../store/AuthSlice';
 import { SelectStyle } from '../../styles/Common.styled';
 import { ProfileType } from '../../store/AuthSlice';
 import { saveUserProfile } from '../../config/firebase';
+import { toast } from 'react-toastify';
 
 export default function ProfileForm() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
-  console.log('currentUser:', currentUser);
-
   const initialValues: ProfileType = {
     weight: currentUser.profile?.weight || 70,
     height: currentUser.profile?.height || 170,
@@ -41,7 +38,7 @@ export default function ProfileForm() {
 
       await saveUserProfile(currentUser.uid, values);
       dispatch(setUserProfile(values));
-      alert('Profile updated successfully!');
+      toast.success('Profile update successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
     }

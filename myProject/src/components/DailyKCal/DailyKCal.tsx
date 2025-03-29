@@ -4,8 +4,12 @@ import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { calculateNormDailyCalories } from '../../utils/calculateNormDailyCalories';
 
-export default function DailyKCal() {
-  let dailyKCal = Math.round(useDailyKCal());
+type DailyKCalProps = {
+  onDate: number;
+};
+
+export default function DailyKCal({ onDate }: DailyKCalProps) {
+  let dailyKCal = Math.round(onDate);
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
   const recommendedCalories = currentUser.profile

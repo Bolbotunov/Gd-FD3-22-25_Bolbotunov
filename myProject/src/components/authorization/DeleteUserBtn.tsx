@@ -5,30 +5,32 @@ import { useNavigate } from 'react-router';
 import { auth } from '../../config/firebase';
 import { clearUser } from '../../store/AuthSlice';
 import { BtnDelete } from '../../styles/Buttons.styled';
+import { showConfirmToast } from '../../utils/showConfirmToast';
 
 export default function DeleteUserBtn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function deleteUser() {
-    const agree = prompt('delete user?');
-    if (agree) {
-      const user = auth.currentUser;
-      if (user) {
-        user
-          .delete()
-          .then(() => {
-            dispatch(clearUser());
-            navigate('/register');
-          })
-          .catch((error) => {
-            console.error('Error for deleting user', error);
-          });
-      } else {
-        console.error('No have authorized user');
+  const handleDeleteUser = async () => {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        await user.delete();
+        dispatch(clearUser());
+        navigate('/register');
+      } catch (error) {
+        console.error('Error deleting user:', error);
       }
+    } else {
+      console.error('No authorized user found');
     }
-  }
+  };
 
-  return <BtnDelete onClick={deleteUser}>Delete Account</BtnDelete>;
+  const handleDeleteClick = () => {
+    showConfirmToast(() => {
+      handleDeleteUser();
+    });
+  };
+
+  return <BtnDelete onClick={handleDeleteClick}>Delete Account</BtnDelete>;
 }

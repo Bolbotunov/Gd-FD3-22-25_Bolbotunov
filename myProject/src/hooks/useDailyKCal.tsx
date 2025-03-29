@@ -1,7 +1,9 @@
-import { useDailyNutrients } from './useDailyNutrients';
+import { useDailyNutrientsForDate } from './useDailyNutrientsForDate';
+import useCurrentDate from './useCurrentDate';
 
 export default function useDailyKCal() {
-  const { totals } = useDailyNutrients();
+  const currentDate = useCurrentDate();
+  const { totals } = useDailyNutrientsForDate(currentDate);
 
   return totals.calories;
 }

@@ -29,6 +29,7 @@ import ModalBlock from '../../components/modals/ModalBlock';
 import { useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import { calculateNutrients } from '../../utils/calculateNutrients';
+import { toast } from 'react-toastify';
 
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
@@ -136,7 +137,7 @@ export default function ProductsPage() {
             <AddBtn
               onClick={async () => {
                 if (!selectedProduct) {
-                  alert('plese select product');
+                  toast.error('plese select product');
                   return;
                 } else {
                   navigate(`/products/${selectedProduct.id}?mode=adding`, {
@@ -163,7 +164,7 @@ export default function ProductsPage() {
               disabled={!selectedProduct}
               onClick={() => {
                 if (!selectedProduct) {
-                  alert('Please select a product');
+                  toast.error('Please select a product');
                   return;
                 }
                 navigate(`/products/${selectedProduct.id}?mode=view`, {
@@ -190,7 +191,7 @@ export default function ProductsPage() {
                     },
                   });
                 } else {
-                  alert('Please select a product');
+                  toast.error('Please select a product');
                   return;
                 }
               }}
@@ -202,7 +203,7 @@ export default function ProductsPage() {
               disabled={!selectedProduct || !selectedProduct.isDefault}
               onClick={async () => {
                 if (!selectedProduct) {
-                  alert('Please select a product');
+                  toast.error('Please select a product');
                   return;
                 }
                 if (currentUser.uid) {
@@ -212,7 +213,7 @@ export default function ProductsPage() {
                       selectedProduct
                     );
                     dispatch(removeDictionaryProduct(selectedProduct.id));
-                    alert('Product deleted');
+                    toast.success('product deleted');
                   } catch (error) {
                     console.error('Error deleting product:', error);
                   }

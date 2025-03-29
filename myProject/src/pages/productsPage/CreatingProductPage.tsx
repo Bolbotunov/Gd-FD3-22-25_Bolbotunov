@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useProductForm } from '../../hooks/useProductForm';
 import { calculateNutrients } from '../../utils/calculateNutrients';
+import { toast } from 'react-toastify';
 
 export default function CreateProductPage() {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function CreateProductPage() {
       dispatch(addUserProduct(productToSave));
       try {
         await updateUserProductInFirebase(currentUser.uid, productToSave);
-        alert('Product created');
+        toast.success('product created');
         navigate(`/products/${productToSave.id}?mode=view`, {
           state: { product: productToSave, mode: 'view' },
         });

@@ -12,7 +12,7 @@ import {
 } from '../../styles/Fonts.styled';
 import { auth } from '../../config/firebase';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useDispatch, UseDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';

@@ -1,11 +1,25 @@
 import useDailyKCal from '../../hooks/useDailyKCal';
 import { DailyKCalStyle } from '../../styles/Fonts.styled';
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
+import { calculateNormDailyCalories } from '../../utils/calculateNormDailyCalories';
 
-export default function DailyKCal() {
-  let dailyKCal = useDailyKCal();
+type DailyKCalProps = {
+  onDate: number;
+};
+
+export default function DailyKCal({ onDate }: DailyKCalProps) {
+  let dailyKCal = Math.round(onDate);
+  const currentUser = useSelector((state: RootState) => state.authSlice);
+
+  const recommendedCalories = currentUser.profile
+    ? calculateNormDailyCalories(currentUser.profile)
+    : null;
   return (
     <>
-      <DailyKCalStyle>kCal: {dailyKCal}</DailyKCalStyle>
+      <DailyKCalStyle>
+        kCal: {dailyKCal} / {recommendedCalories?.normCalories}
+      </DailyKCalStyle>
     </>
   );
 }

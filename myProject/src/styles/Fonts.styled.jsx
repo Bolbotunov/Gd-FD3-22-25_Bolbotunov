@@ -58,7 +58,6 @@ export const UserInfoText = styled('p')`
 
 export const CategoryTitleStyle = styled('h2')`
   ${FontsFamily};
-  /* font-size: 1.2rem; */
   font-weight: 500;
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;

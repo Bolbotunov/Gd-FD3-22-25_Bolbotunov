@@ -6,12 +6,12 @@ import {
 import Chart from '../../components/charts/Chart';
 import DailyKCal from '../../components/DailyKCal/DailyKCal';
 import { useDispatch, useSelector } from 'react-redux';
-import useCurrentDate from '../../hooks/useCurrentDate';
 import { appColors } from '../../styles/AppColors';
-import { CategoryTitleStyle } from '../../styles/Fonts.styled';
 import { BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
 import { useNavigate } from 'react-router';
 import { RootState } from '../../store/store';
+import { useMemo } from 'react';
+import { toast } from 'react-toastify';
 import {
   ProductType,
   setDailyProducts,
@@ -29,20 +29,29 @@ import {
   ProductColumn,
   ProductRowWrapper,
 } from '../productsPage/ProductsPage.styled';
-import { useDailyNutrients } from '../../hooks/useDailyNutrients';
+
+import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 import { calculateNutrients } from '../../utils/calculateNutrients';
+import Carousel from '../../components/carousel/Carousel';
+import {
+  MessageStyle,
+  ProductRowStat,
+} from '../statisticsPage/StatisticsPage.styled';
 
 export default function DiaryPage() {
-  const currentDate = useCurrentDate();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const {
-    products,
+    filteredProducts,
+    totals,
     proteinPercent,
     fatsPercent,
     carbsPercent,
     proteinTitle,
     fatsTitle,
     carbsTitle,
-  } = useDailyNutrients();
+  } = useDailyNutrientsForDate(selectedDate);
+
   const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
     null
   );
@@ -50,11 +59,12 @@ export default function DiaryPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const extraTitles = {
-    protein: proteinTitle,
-    fats: fatsTitle,
-    carbs: carbsTitle,
-  };
+  const formattedSelectedDate = useMemo(() => {
+    return new Date(selectedDate).toLocaleDateString('ru-RU');
+  }, [selectedDate]);
+
+  const todayFormatted = new Date().toLocaleDateString('ru-RU');
+  const isToday = formattedSelectedDate === todayFormatted;
 
   useEffect(() => {
     async function fetchDailyProducts() {
@@ -83,7 +93,10 @@ export default function DiaryPage() {
     <>
       <BlurContainer>
         <ContentContainer>
-          <CategoryTitleStyle>Today: {currentDate}</CategoryTitleStyle>
+          <Carousel
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
           <Chart
             proteinPercent={proteinPercent}
             fatsPercent={fatsPercent}
@@ -97,9 +110,10 @@ export default function DiaryPage() {
               carbs: carbsTitle,
             }}
           />
-          <DailyKCal />
+          <DailyKCal onDate={totals.calories} />
           <Flex>
             <LinkBtn
+              disabled={!isToday}
               onClick={() => {
                 navigate(`/products`, {
                   state: { mode: 'creating' },
@@ -149,10 +163,9 @@ export default function DiaryPage() {
             </LinkBtn>
 
             <BtnDelete
-              disabled={!selectedProduct}
               onClick={async () => {
                 if (!selectedProduct) {
-                  alert('Please select a product');
+                  toast.error('Please select a product');
                   return;
                 }
                 if (currentUser.uid) {
@@ -162,9 +175,10 @@ export default function DiaryPage() {
                       selectedProduct
                     );
                     dispatch(removeDailyProduct(selectedProduct.id));
-                    alert('Product deleted');
+                    toast.success('Product deleted successfully!');
                   } catch (error) {
                     console.error('Error deleting product:', error);
+                    toast.error('Error deleting product');
                   }
                 }
               }}
@@ -174,6 +188,7 @@ export default function DiaryPage() {
           </Flex>
 
           <TableHeader>
+            {!isToday ? <HeaderItem>Date</HeaderItem> : null}
             <HeaderItem>Products</HeaderItem>
             <HeaderItem>Proteins</HeaderItem>
             <HeaderItem>Fats</HeaderItem>
@@ -183,27 +198,56 @@ export default function DiaryPage() {
           </TableHeader>
 
           <ProductRowWrapper>
-            {products.map((product: ProductType) => {
-              const nutrients = calculateNutrients(product);
-              return (
-                <ProductRow
-                  key={product.id}
-                  isSelected={
-                    selectedProduct && selectedProduct.id === product.id
-                  }
-                  onClick={() => handleSelectedProduct(product)}
-                >
-                  <ProductColumn>{product.food_name}</ProductColumn>
-                  <ProductColumn>{nutrients.protein.toFixed(1)}g</ProductColumn>
-                  <ProductColumn>{nutrients.fats.toFixed(1)}g</ProductColumn>
-                  <ProductColumn>{nutrients.carbs.toFixed(1)}g</ProductColumn>
-                  <ProductColumn>
-                    {nutrients.calories.toFixed(1)} kCal
-                  </ProductColumn>
-                  <ProductColumn>{product.weight || 100} g</ProductColumn>
-                </ProductRow>
-              );
-            })}
+            {isToday ? (
+              filteredProducts.map((product: ProductType) => {
+                const nutrients = calculateNutrients(product);
+                return (
+                  <ProductRow
+                    key={product.id}
+                    isSelected={
+                      selectedProduct && selectedProduct.id === product.id
+                    }
+                    onClick={() => handleSelectedProduct(product)}
+                  >
+                    <ProductColumn>{product.food_name}</ProductColumn>
+                    <ProductColumn>
+                      {nutrients.protein.toFixed(1)}g
+                    </ProductColumn>
+                    <ProductColumn>{nutrients.fats.toFixed(1)}g</ProductColumn>
+                    <ProductColumn>{nutrients.carbs.toFixed(1)}g</ProductColumn>
+                    <ProductColumn>
+                      {nutrients.calories.toFixed(1)} kCal
+                    </ProductColumn>
+                    <ProductColumn>{product.weight || 100} g</ProductColumn>
+                  </ProductRow>
+                );
+              })
+            ) : filteredProducts.length > 0 ? (
+              filteredProducts.map((product: ProductType) => {
+                const nutrients = calculateNutrients(product);
+                return (
+                  <ProductRowStat key={product.id}>
+                    <ProductColumn>{product.diaryDate}</ProductColumn>
+                    <ProductColumn>{product.food_name}</ProductColumn>
+                    <ProductColumn>
+                      {nutrients.protein.toFixed(1)}g
+                    </ProductColumn>
+                    <ProductColumn>{nutrients.fats.toFixed(1)}g</ProductColumn>
+                    <ProductColumn>{nutrients.carbs.toFixed(1)}g</ProductColumn>
+                    <ProductColumn>
+                      {nutrients.calories.toFixed(1)} kCal
+                    </ProductColumn>
+                    <ProductColumn>{product.weight || 100} g</ProductColumn>
+                  </ProductRowStat>
+                );
+              })
+            ) : (
+              <Flex>
+                <MessageStyle>
+                  there are no products in the diary on this date
+                </MessageStyle>
+              </Flex>
+            )}
           </ProductRowWrapper>
         </ContentContainer>
       </BlurContainer>

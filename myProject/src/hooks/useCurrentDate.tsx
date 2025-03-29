@@ -7,5 +7,5 @@ export default function useCurrentDate() {
     setCurrentDate(new Date());
   }, []);
 
-  return currentDate.toLocaleDateString();
+  return currentDate;
 }

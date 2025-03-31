@@ -60,7 +60,7 @@ export const ProductRow = styled('div')<{ isSelected: boolean | null }>`
   font-size: 16px;
   border-radius: 10px;
   background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.colors.OK_COLOR : theme.colors.MAIN_COLOR};
+    isSelected ? theme.colors.OK_COLOR : theme.colors.BLACK_COLOR};
   cursor: pointer;
   transition: 0.3s all;
 

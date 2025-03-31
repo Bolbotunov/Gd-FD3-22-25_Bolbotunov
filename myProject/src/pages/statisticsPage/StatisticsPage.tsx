@@ -16,21 +16,24 @@ import {
   TableHeader,
   HeaderItem,
   ProductRowWrapper,
-  ProductRow,
   ProductColumn,
 } from '../productsPage/ProductsPage.styled';
 import {
   MessageStyle,
   ProductRowStat,
+  StatisticsBlock,
+  StatisticsTitles,
   StyledCalendar,
 } from './StatisticsPage.styled';
 import { getDailyProducts } from '../../config/firebase';
+import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 
 export default function StatisticsPage() {
   const { products } = useSelector((state: RootState) => state.authSlice);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const currentUser = useSelector((state: RootState) => state.authSlice);
   const dispatch = useDispatch();
+  const { totals } = useDailyNutrientsForDate(selectedDate);
 
   function MyCalendar() {
     const handleChange: CalendarProps['onChange'] = (value) => {
@@ -76,6 +79,26 @@ export default function StatisticsPage() {
           />
           <Flex>
             <MyCalendar />
+            <StatisticsBlock>
+              <StatisticsTitles>
+                <Flex>
+                  <HeaderItem>Proteins:</HeaderItem>
+                  <HeaderItem>{Math.round(totals.protein)}</HeaderItem>
+                </Flex>
+                <Flex>
+                  <HeaderItem>Fats:</HeaderItem>
+                  <HeaderItem>{Math.round(totals.fats)}</HeaderItem>
+                </Flex>
+                <Flex>
+                  <HeaderItem>Carbs:</HeaderItem>
+                  <HeaderItem>{Math.round(totals.carbs)}</HeaderItem>
+                </Flex>
+                <Flex>
+                  <HeaderItem>kCal:</HeaderItem>
+                  <HeaderItem>{Math.round(totals.calories)}</HeaderItem>
+                </Flex>
+              </StatisticsTitles>
+            </StatisticsBlock>
           </Flex>
 
           <TableHeader>

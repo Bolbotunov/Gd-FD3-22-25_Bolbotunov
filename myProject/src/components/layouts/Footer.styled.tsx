@@ -22,12 +22,12 @@ export const FooterDivText = styled('div')`
   font-weight: 600;
   margin-top: 7px;
   padding: 10px;
-  font-size: calc(8px + 10%);
+  font-size: calc(4px + 0.5vw);
 `;
 
 export const FooterLink = styled('a')`
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   ${FontsFamily};
   font-weight: 600;
-  font-size: calc(9px + 10%);
+  font-size: calc(4px + 0.5vw);
 `;

@@ -12,6 +12,7 @@ export const AppContainer = styled('div')`
   flex-direction: column;
   margin: 0 auto;
   max-width: 1440px;
+  min-height: 100vh;
   padding: 0px 82px;
   overflow: hidden;
 `;
@@ -45,13 +46,12 @@ export const BlurContainer = styled('div')`
   width: 100%;
   margin: 0px;
   ${FlexDiv};
-  justify-content: center;
+  justify-content: space-evenly;
   flex-direction: column;
-  gap: 10px;
+  gap: 50px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
-  padding: 20px;
+  padding: 30px 20px;
   height: auto;
-  min-height: 75vh;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

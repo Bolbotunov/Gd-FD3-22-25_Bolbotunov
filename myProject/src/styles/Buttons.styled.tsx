@@ -43,6 +43,7 @@ export const BtnStyle = styled('button')`
   font-size: 1.2rem;
   font-weight: 500;
   margin-top: 20px;
+  margin: 20px;
 `;
 
 export const BtnAuth = styled('button')`

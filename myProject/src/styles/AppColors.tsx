@@ -37,7 +37,7 @@ export const lightAppColors = {
     ERROR_COLOR: '#e83636',
     ERROR_COLOR_HOVER: '#a60000',
     OK_COLOR: '#47f647',
-    DISABLED_COLOR_LIGHT: '#7a7777',
+    DISABLED_COLOR_LIGHT: '#858383',
     DISABLED_COLOR_DARK: '#a4a1a1',
   },
   backgroundImage: "url('/bgLight.avif')",

@@ -14,7 +14,7 @@ export const InformationBlock = styled('div')`
 export const WrapperSections = styled('div')`
   ${FlexDiv};
   width: 100%;
-  height: 100vh;
+  height: auto;
 `;
 
 export const RecommendedkCalBlock = styled('div')`

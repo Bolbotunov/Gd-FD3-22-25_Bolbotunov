@@ -10,7 +10,7 @@ export const ProductRowStat = styled('div')`
   height: 50px;
   font-size: 16px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
+  background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
 `;
 
 export const MessageStyle = styled('h3')`
@@ -22,10 +22,15 @@ export const MessageStyle = styled('h3')`
 export const StyledCalendar = styled(Calendar)`
   width: 100%;
   max-width: 600px;
-  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  background-color: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 20px;
+
+  &:hover {
+    box-sizing: border-box;
+    outline: 2px solid ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  }
 
   .react-calendar__navigation {
     display: flex;
@@ -40,8 +45,8 @@ export const StyledCalendar = styled(Calendar)`
       cursor: pointer;
 
       &:hover {
-        color: #007bff;
-        text-decoration: underline;
+        color: ${({ theme }) => theme.colors.DISABLED_COLOR_DARK};
+        text-decoration: none;
         background-color: initial;
       }
     }
@@ -68,8 +73,8 @@ export const StyledCalendar = styled(Calendar)`
       }
 
       &--active {
-        background-color: #007bff;
-        color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+        background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+        color: ${({ theme }) => theme.colors.OK_COLOR};
         font-weight: bold;
       }
     }

@@ -4,4 +4,5 @@ import { FlexDiv } from '../../styles/Common.styled';
 export const ContentStyle = styled('div')`
   ${FlexDiv};
   width: 100%;
+  flex: 1;
 `;

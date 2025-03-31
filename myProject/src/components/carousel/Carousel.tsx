@@ -7,6 +7,7 @@ import {
   DateSliderInner,
   RightButton,
   CarouselContainer,
+  ButtonWrapper,
 } from './Carousel.styled';
 import { useState, useMemo } from 'react';
 
@@ -70,9 +71,11 @@ export default function Carousel({
   return (
     <>
       <CarouselContainer>
-        <CarouselTitleStyle>Selected Date</CarouselTitleStyle>
+        <CarouselTitleStyle>Date</CarouselTitleStyle>
         <FlexContainer>
-          <LeftButton onClick={handlePreviousDate} />
+          <ButtonWrapper onClick={handlePreviousDate}>
+            <LeftButton />
+          </ButtonWrapper>
           <DateSliderContainer>
             <DateSliderInner offset={slideOffset} isAnimating={isAnimating}>
               {dateArray.map((date, index) => (
@@ -85,7 +88,9 @@ export default function Carousel({
               ))}
             </DateSliderInner>
           </DateSliderContainer>
-          <RightButton onClick={handleNextDate} />
+          <ButtonWrapper onClick={handleNextDate}>
+            <RightButton />
+          </ButtonWrapper>
         </FlexContainer>
       </CarouselContainer>
     </>

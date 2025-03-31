@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { BtnStyle } from '../../styles/Buttons.styled';
-import { AppContainer, InputStyle } from '../../styles/Common.styled';
+import { Flex, InputStyle } from '../../styles/Common.styled';
 import {
   InputLabelStyle,
   MainTitle,
@@ -64,28 +64,23 @@ export default function UserLoginForm() {
       onSubmit={loginUser}
     >
       <Form>
-        <AppContainer>
+        <Flex style={{ flexDirection: 'column' }}>
           <MainTitle style={{ marginBottom: '50px' }}>
             Please, Log in!
           </MainTitle>
           {loginError && <ErrorText>{loginError}</ErrorText>}
-          <AppContainer>
-            <InputLabelStyle htmlFor='email'>Email Address</InputLabelStyle>
-            <Field name='email' type='email' as={InputStyle} />
-            <ErrorMessage name='email' component={ErrorText} />
-          </AppContainer>
 
-          <AppContainer>
-            <InputLabelStyle htmlFor='password'>Password</InputLabelStyle>
-            <Field name='password' type='password' as={InputStyle} />
-            <ErrorMessage name='password' component={ErrorText} />
-          </AppContainer>
+          <InputLabelStyle htmlFor='email'>Email Address</InputLabelStyle>
+          <Field name='email' type='email' as={InputStyle} />
+          <ErrorMessage name='email' component={ErrorText} />
 
-          <AppContainer>
-            <BtnStyle type='submit'>Log In</BtnStyle>
-          </AppContainer>
+          <InputLabelStyle htmlFor='password'>Password</InputLabelStyle>
+          <Field name='password' type='password' as={InputStyle} />
+          <ErrorMessage name='password' component={ErrorText} />
 
-          <AppContainer>
+          <BtnStyle type='submit'>Log In</BtnStyle>
+
+          <Flex>
             <InformationText>
               Don't have an account?{' '}
               <FontsHeaderStyle to={'/register'}>
@@ -93,8 +88,8 @@ export default function UserLoginForm() {
                 Please, register
               </FontsHeaderStyle>
             </InformationText>
-          </AppContainer>
-        </AppContainer>
+          </Flex>
+        </Flex>
       </Form>
     </Formik>
   );

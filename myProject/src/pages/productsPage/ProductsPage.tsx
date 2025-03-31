@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { debounce } from '../../utils/debounce';
 import { ErrorText } from '../../styles/Fonts.styled';
 import { useDispatch, useSelector } from 'react-redux';
+import { todayFormatted } from '../../config/defaultProducts';
 import {
   addUserProduct,
   setDictionaryProducts,
@@ -25,11 +26,11 @@ import {
 import { AddBtn, BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
 import { searchFood } from '../../components/api/ApiTest';
 import { RootState } from '../../store/store';
-import ModalBlock from '../../components/modals/ModalBlock';
 import { useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import { calculateNutrients } from '../../utils/calculateNutrients';
 import { toast } from 'react-toastify';
+import LoadingSpinner from '../../components/Spinner/LoadingSpinner';
 
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
@@ -42,6 +43,7 @@ export default function ProductsPage() {
   );
   const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
@@ -55,7 +57,7 @@ export default function ProductsPage() {
     const formatToOneDecimal = (num: number) =>
       ((num / servingWeight) * 100).toFixed(1);
     return {
-      id: uuidv4(),
+      id: uuidv4() + todayFormatted,
       food_name: apiProduct.food_name,
       nf_protein: parseFloat(formatToOneDecimal(apiProduct.nf_protein || 0)),
       nf_total_fat: parseFloat(
@@ -71,6 +73,7 @@ export default function ProductsPage() {
 
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
+      setIsLoading(true);
       try {
         const data = await searchFood(query);
         if (!data.foods || data.foods.length === 0) {
@@ -92,9 +95,11 @@ export default function ProductsPage() {
           setError('There was an error loading data. Please try again later.');
         }
         setResults([...productsFromDictionary]);
+      } finally {
+        setIsLoading(false);
       }
     }, 1200),
-    []
+    [dispatch]
   );
 
   useEffect(() => {
@@ -114,14 +119,6 @@ export default function ProductsPage() {
     }
   }
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
   return (
     <>
       <BlurContainer>
@@ -133,6 +130,7 @@ export default function ProductsPage() {
             placeholder='Search products...'
           />
           {error && <ErrorText>{error}</ErrorText>}
+          {isLoading && <LoadingSpinner />}
           <Flex>
             <AddBtn
               onClick={async () => {
@@ -260,7 +258,6 @@ export default function ProductsPage() {
           </ProductRowWrapper>
         </ContentContainer>
       </BlurContainer>
-      <ModalBlock isOpen={isOpen} onClose={closeModal} />
     </>
   );
 }

@@ -2,7 +2,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { AppContainer, InputStyle } from '../../styles/Common.styled';
+import { AppContainer, Flex, InputStyle } from '../../styles/Common.styled';
 import { InputLabelStyle, ErrorText } from '../../styles/Fonts.styled';
 import { BtnStyle } from '../../styles/Buttons.styled';
 import { setUserProfile } from '../../store/AuthSlice';
@@ -52,7 +52,7 @@ export default function ProfileForm() {
       onSubmit={handleSubmit}
     >
       <Form>
-        <AppContainer>
+        <Flex style={{ padding: '0px', flexDirection: 'column', gap: '4px' }}>
           <InputLabelStyle htmlFor='weight'>Weight (kg)</InputLabelStyle>
           <Field name='weight' type='number' as={InputStyle} />
           <ErrorMessage name='weight' component={ErrorText} />
@@ -104,7 +104,7 @@ export default function ProfileForm() {
           <ErrorMessage name='gender' component={ErrorText} />
 
           <BtnStyle type='submit'>Save Profile</BtnStyle>
-        </AppContainer>
+        </Flex>
       </Form>
     </Formik>
   );

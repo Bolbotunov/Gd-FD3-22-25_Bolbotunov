@@ -18,22 +18,31 @@ export const CarouselTitleStyle = styled('h2')`
   ${FontsFamily};
   font-weight: 500;
   padding: 5px;
-  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  font-size: calc(14px + 1vw);
+  color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
 `;
 
 export const Buttons = css`
-  width: 30px;
-  height: 30px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 1px solid black;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   transition: 0.3s all;
-
+`;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: 0.3s;
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+    scale: 1.3;
+    border: 1px solid ${({ theme }) => theme.colors.SECONDARY_COLOR};
   }
 `;
 

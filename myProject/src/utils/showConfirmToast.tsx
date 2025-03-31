@@ -1,10 +1,11 @@
 import { toast } from 'react-toastify';
-import ConfirmToast from '../components/ConfirmToast';
+import ConfirmToast from '../components/ToastifyCastomize';
+import DeleteUserBtn from '../components/authorization/DeleteUserBtn';
 
 export function showConfirmToast(onConfirm: () => void) {
   toast(
     <ConfirmToast
-      onConfirm={() => {
+      onConfirm={async () => {
         onConfirm();
         toast.dismiss();
       }}

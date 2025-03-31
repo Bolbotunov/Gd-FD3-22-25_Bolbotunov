@@ -9,7 +9,7 @@ export const ProductsBlock = styled('div')`
   font-weight: 600;
   font-size: calc(24px + 10%);
   color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
-  background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
+
   justify-content: center;
   height: 100vh;
 `;
@@ -60,13 +60,13 @@ export const ProductRow = styled('div')<{ isSelected: boolean | null }>`
   font-size: 16px;
   border-radius: 10px;
   background-color: ${({ isSelected, theme }) =>
-    isSelected ? theme.colors.OK_COLOR : theme.colors.MAIN_COLOR};
+    isSelected ? theme.colors.OK_COLOR : theme.colors.SECONDARY_COLOR};
   cursor: pointer;
   transition: 0.3s all;
 
   &:hover {
     background-color: ${({ isSelected, theme }) =>
-      isSelected ? theme.colors.OK_COLOR : theme.colors.SECONDARY_COLOR};
+      isSelected ? theme.colors.OK_COLOR : theme.colors.ADDITIONAL_COLOR};
   }
 `;
 

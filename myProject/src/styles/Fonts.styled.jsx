@@ -32,15 +32,16 @@ export const InformationTextOk = styled('h4')`
 
 export const FontsHeaderStyle = styled(NavLink)`
   ${FontsFamily};
-  font-size: 1.2rem;
+  font-size: calc(12px + 0.5vw);
   font-weight: 500;
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  padding-right: 5px;
 
   &:hover {
     color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
   }
   &.active {
-    color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+    color: ${({ theme }) => theme.colors.NAV_COLOR};
   }
 `;
 
@@ -54,6 +55,7 @@ export const ErrorText = styled('div')`
 export const UserInfoText = styled('p')`
   font-size: 0.9rem;
   font-weight: 400;
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
 export const CategoryTitleStyle = styled('h2')`

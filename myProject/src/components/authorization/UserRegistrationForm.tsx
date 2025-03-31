@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { BtnStyle } from '../../styles/Buttons.styled';
-import { AppContainer, InputStyle } from '../../styles/Common.styled';
+import { AppContainer, Flex, InputStyle } from '../../styles/Common.styled';
 import {
   InputLabelStyle,
   MainTitle,
@@ -71,36 +71,28 @@ export default function UserRegistrationForm() {
       onSubmit={registerUser}
     >
       <Form>
-        <AppContainer>
+        <Flex style={{ flexDirection: 'column' }}>
           <MainTitle style={{ marginBottom: '50px' }}>
             Registartion Form!
           </MainTitle>
-          <AppContainer>
-            <InputLabelStyle htmlFor='firstName'>Name</InputLabelStyle>
-            <Field name='userName' type='text' as={InputStyle} />
-            <ErrorMessage name='userName' component={ErrorText} />
-          </AppContainer>
+          <InputLabelStyle htmlFor='firstName'>Name</InputLabelStyle>
+          <Field name='userName' type='text' as={InputStyle} />
+          <ErrorMessage name='userName' component={ErrorText} />
 
-          <AppContainer>
-            <InputLabelStyle htmlFor='email'>Email Address</InputLabelStyle>
-            <Field name='email' type='email' as={InputStyle} />
-            <ErrorMessage name='email' component={ErrorText} />
-          </AppContainer>
+          <InputLabelStyle htmlFor='email'>Email Address</InputLabelStyle>
+          <Field name='email' type='email' as={InputStyle} />
+          <ErrorMessage name='email' component={ErrorText} />
 
-          <AppContainer>
-            <InputLabelStyle htmlFor='password'>Password</InputLabelStyle>
-            <Field name='password' type='password' as={InputStyle} />
-            <ErrorMessage name='password' component={ErrorText} />
-          </AppContainer>
+          <InputLabelStyle htmlFor='password'>Password</InputLabelStyle>
+          <Field name='password' type='password' as={InputStyle} />
+          <ErrorMessage name='password' component={ErrorText} />
 
-          <AppContainer>
-            <BtnStyle type='submit'>Sign up</BtnStyle>
-          </AppContainer>
+          <BtnStyle type='submit'>Sign up</BtnStyle>
           <InformationTextOk>
             Already have an account?{' '}
             <FontsHeaderStyle to={'/'}> Please, log in</FontsHeaderStyle>
           </InformationTextOk>
-        </AppContainer>
+        </Flex>
       </Form>
     </Formik>
   );

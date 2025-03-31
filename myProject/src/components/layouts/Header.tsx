@@ -33,7 +33,6 @@ export default function Header() {
         <FontsHeaderStyle to='/products'>Products</FontsHeaderStyle>
         <FontsHeaderStyle to='/diary'>Diary</FontsHeaderStyle>
         <FontsHeaderStyle to='/statistics'>Statistics</FontsHeaderStyle>
-        <FontsHeaderStyle to='/settings'>Settings</FontsHeaderStyle>
         <UserInfo />
         <ThemeToggleButton />
       </NavStyle>

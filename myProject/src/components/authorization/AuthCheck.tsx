@@ -10,6 +10,8 @@ import {
 import { useNavigate } from 'react-router';
 import { doc, getDoc } from 'firebase/firestore';
 import { initializeUserDictionary } from '../../config/firebase';
+import { CustomThemeProvider } from '../../contexts/ThemeContext';
+import LoadingScreen from '../Spinner/LoadingScreen';
 
 export default function AuthCheck({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
@@ -44,7 +46,14 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
   }, [dispatch, navigate]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <CustomThemeProvider>
+          <LoadingScreen />
+        </CustomThemeProvider>
+        ;
+      </>
+    );
   }
 
   return <>{children}</>;

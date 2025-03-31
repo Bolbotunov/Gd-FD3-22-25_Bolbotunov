@@ -1,9 +1,10 @@
 import { ProductType } from '../store/AuthSlice';
 import { v4 as uuidv4 } from 'uuid';
 
+export const todayFormatted = new Date().toLocaleDateString('ru-RU');
 export const defaultProducts: ProductType[] = [
   {
-    id: uuidv4(),
+    id: uuidv4() + todayFormatted,
     food_name: 'cheese',
     nf_protein: 25,
     nf_total_fat: 17.2,
@@ -13,7 +14,7 @@ export const defaultProducts: ProductType[] = [
     weight: 100,
   },
   {
-    id: uuidv4(),
+    id: uuidv4() + todayFormatted,
     food_name: 'egg',
     nf_protein: 12.8,
     nf_total_fat: 11.6,
@@ -23,7 +24,7 @@ export const defaultProducts: ProductType[] = [
     weight: 100,
   },
   {
-    id: uuidv4(),
+    id: uuidv4() + todayFormatted,
     food_name: 'tomato',
     nf_protein: 1.1,
     nf_total_fat: 0.2,
@@ -33,7 +34,7 @@ export const defaultProducts: ProductType[] = [
     weight: 100,
   },
   {
-    id: uuidv4(),
+    id: uuidv4() + todayFormatted,
     food_name: 'persimmon',
     nf_protein: 0.5,
     nf_total_fat: 0.4,
@@ -43,7 +44,7 @@ export const defaultProducts: ProductType[] = [
     weight: 100,
   },
   {
-    id: uuidv4(),
+    id: uuidv4() + todayFormatted,
     food_name: 'prunes',
     nf_protein: 1.6,
     nf_total_fat: 0.4,

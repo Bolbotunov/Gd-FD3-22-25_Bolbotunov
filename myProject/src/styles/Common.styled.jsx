@@ -45,13 +45,13 @@ export const BlurContainer = styled('div')`
   width: 100%;
   margin: 0px;
   ${FlexDiv};
-  justify-content: space-evenly;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
   padding: 20px;
   height: auto;
-  min-height: 100vh;
+  min-height: 75vh;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -67,7 +67,7 @@ export const SmallBlurContainer = styled(Link)`
   justify-content: space-around;
   flex-direction: column;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
   padding: 10px;
   height: 65px;
   border-radius: 10px;

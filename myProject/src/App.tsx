@@ -12,12 +12,26 @@ import store from './store/store';
 import { CustomThemeProvider } from './contexts/ThemeContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import LoadingScreen from './components/Spinner/LoadingScreen';
+import { useEffect, useState } from 'react';
 
-function App() {
-  return (
-    <DateProvider>
-      <Provider store={store}>
-        <CustomThemeProvider>
+export default function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
+
+  return loading ? (
+    <CustomThemeProvider>
+      <LoadingScreen />
+    </CustomThemeProvider>
+  ) : (
+    <CustomThemeProvider>
+      <DateProvider>
+        <Provider store={store}>
           <GlobalStyle />
           <AppContainer>
             <BrowserRouter>
@@ -26,7 +40,7 @@ function App() {
               <Footer />
               <ToastContainer
                 position='top-right'
-                autoClose={3000}
+                autoClose={2000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
@@ -36,10 +50,8 @@ function App() {
               />
             </BrowserRouter>
           </AppContainer>
-        </CustomThemeProvider>
-      </Provider>
-    </DateProvider>
+        </Provider>
+      </DateProvider>
+    </CustomThemeProvider>
   );
 }
-
-export default App;

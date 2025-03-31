@@ -11,13 +11,13 @@ export const BtnCommonStyle = css`
   justify-content: center;
   max-width: 100%;
   width: 250px;
-  height: 45px;
+  height: 5vh;
   border-radius: 10px;
   background-color: transparent;
-  border: 3px solid ${({ theme }) => theme.colors.MAIN_COLOR};
+  border: 2px solid ${({ theme }) => theme.colors.MAIN_COLOR};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.BLACK_COLOR};
+    color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
     cursor: pointer;
   }
@@ -52,7 +52,7 @@ export const BtnAuth = styled('button')`
   border-radius: 5px;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  color: ${({ theme }) => theme.colors.BLACK_COLOR};
+  color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
 
   &:hover {
     color: ${({ theme }) => theme.colors.MAIN_COLOR};
@@ -85,13 +85,14 @@ export const BtnDelete = styled('button')`
 export const AddBtn = styled('button')`
   ${BtnDictionary}
   background-color: transparent;
-  color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  border: 2px solid ${({ theme }) => theme.colors.MAIN_COLOR};
+  color: ${({ theme }) => theme.colors.DICT_BTN_COLOR};
+  border: 2px solid ${({ theme }) => theme.colors.DICT_BTN_COLOR};
   font-weight: 600;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.BLACK_COLOR};
+    color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+    border: initial;
     cursor: pointer;
   }
 `;
@@ -101,18 +102,21 @@ export const LinkBtn = styled('button')<{ disabled?: boolean }>`
   ${FlexDiv};
   background-color: transparent;
   color: ${({ theme, disabled }) =>
-    disabled ? theme.colors.DISABLED_COLOR_LIGHT : theme.colors.MAIN_COLOR};
+    disabled ? theme.colors.DISABLED_COLOR_LIGHT : theme.colors.DICT_BTN_COLOR};
   border: 2px solid
     ${({ theme, disabled }) =>
-      disabled ? theme.colors.DISABLED_COLOR_DARK : theme.colors.MAIN_COLOR};
+      disabled
+        ? theme.colors.DISABLED_COLOR_DARK
+        : theme.colors.DICT_BTN_COLOR};
   font-weight: 600;
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 
   &:hover {
+    border: initial;
     ${({ disabled, theme }) =>
       !disabled &&
       css`
-        color: ${theme.colors.BLACK_COLOR};
+        color: ${theme.colors.PRODUCT_ROW_COLOR};
         background-color: ${theme.colors.MAIN_COLOR};
       `}
   }

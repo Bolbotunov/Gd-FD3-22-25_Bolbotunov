@@ -4,9 +4,11 @@ import { BlurContainer } from '../styles/Common.styled';
 export default function RegisterPage() {
   return (
     <>
-      <BlurContainer style={{ justifyContent: 'center' }}>
-        <UserRegistrationForm />
-      </BlurContainer>
+      <div style={{ marginTop: '50px' }}>
+        <BlurContainer style={{ justifyContent: 'center' }}>
+          <UserRegistrationForm />
+        </BlurContainer>
+      </div>
     </>
   );
 }

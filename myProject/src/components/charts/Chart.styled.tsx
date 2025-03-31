@@ -38,9 +38,9 @@ export const ChartsFilling = styled('span')<ChartsFillingProps>`
 `;
 export const ChartLineStyle = styled('div')`
   ${FlexDiv}
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  border: 1px solid white;
+  border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   width: 100%;
   height: 35px;
   overflow: hidden;
@@ -55,7 +55,7 @@ export const ChartLineStyle = styled('div')`
 
 export const ExtraBlock = styled('div')`
   ${FlexDiv}
-  color:${({ theme }) => theme.colors.SECONDARY_COLOR};
+  color:${({ theme }) => theme.colors.MAIN_COLOR};
   padding: 20px;
   margin-left: 10px;
   height: 35px;

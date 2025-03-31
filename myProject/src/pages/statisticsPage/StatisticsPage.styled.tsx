@@ -10,7 +10,7 @@ export const ProductRowStat = styled('div')`
   height: 50px;
   font-size: 16px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.BLACK_COLOR};
+  background-color: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
 `;
 
 export const MessageStyle = styled('h3')`
@@ -64,7 +64,7 @@ export const StyledCalendar = styled(Calendar)`
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
-        color: ${({ theme }) => theme.colors.BLACK_COLOR};
+        color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
       }
 
       &--active {

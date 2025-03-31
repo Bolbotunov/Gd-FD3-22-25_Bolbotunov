@@ -29,7 +29,6 @@ import {
   ProductColumn,
   ProductRowWrapper,
 } from '../productsPage/ProductsPage.styled';
-
 import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 import { calculateNutrients } from '../../utils/calculateNutrients';
 import Carousel from '../../components/carousel/Carousel';
@@ -85,7 +84,6 @@ export default function DiaryPage() {
       setSelectedProduct(null);
     } else {
       setSelectedProduct(product);
-      console.log(product);
     }
   }
 
@@ -127,7 +125,7 @@ export default function DiaryPage() {
               disabled={!selectedProduct}
               onClick={() => {
                 if (!selectedProduct) {
-                  alert('Please select a product');
+                  toast.warning('Please select a product');
                   return;
                 }
                 navigate(`/products/${selectedProduct.id}?mode=view`, {

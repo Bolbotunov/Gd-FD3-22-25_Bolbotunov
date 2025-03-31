@@ -13,7 +13,7 @@ export const SwitchInput = styled('input')`
   height: 0;
 
   &:checked + span {
-    background-color: ${({ theme }) => theme.colors.BLACK_COLOR};
+    background-color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
   }
 
   &:checked + span:before {

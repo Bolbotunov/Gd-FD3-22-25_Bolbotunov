@@ -1,5 +1,5 @@
 import UserLoginForm from '../components/authorization/UserLoginForm';
-import { BlurContainer } from '../styles/Common.styled';
+import { BlurContainer, Flex } from '../styles/Common.styled';
 import { RootState } from '../store/store';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -17,9 +17,11 @@ export default function LoginPage() {
 
   return (
     <>
-      <BlurContainer style={{ justifyContent: 'center' }}>
-        <UserLoginForm />
-      </BlurContainer>
+      <div style={{ marginTop: '50px' }}>
+        <BlurContainer style={{ justifyContent: 'center' }}>
+          <UserLoginForm />
+        </BlurContainer>
+      </div>
     </>
   );
 }

@@ -1,15 +1,15 @@
-import { Flex, ContentContainer } from '../../styles/Common.styled';
-import { BlurContainer } from '../../styles/Common.styled';
-import { MainTitle } from '../../styles/Fonts.styled';
+import { Flex, ContentContainer } from '../../../styles/Common.styled';
+import { BlurContainer } from '../../../styles/Common.styled';
+import { MainTitle } from '../../../styles/Fonts.styled';
 import {
   NutrientValue,
   NutrientRow,
   NutrientLabel,
-} from '../../pages/productsPage/ProductsPage.styled';
-import { AddBtn } from '../../styles/Buttons.styled';
-import { ProductType } from '../../store/AuthSlice';
+} from '../ProductsPage.styled';
+import { AddBtn } from '../../../styles/Buttons.styled';
+import { ProductType } from '../../../store/AuthSlice';
 import { useMemo } from 'react';
-import { calculateNutrients } from '../../utils/calculateNutrients';
+import { calculateNutrients } from '../../../utils/calculateNutrients';
 
 type ViewingModeProps = {
   dictionaryProducts: ProductType;

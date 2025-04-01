@@ -1,4 +1,4 @@
-import { ProductType } from '../store/AuthSlice';
+import { ProductType } from '../../store/AuthSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export const todayFormatted = new Date().toLocaleDateString('ru-RU');

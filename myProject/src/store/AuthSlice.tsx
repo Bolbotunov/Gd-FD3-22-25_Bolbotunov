@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { defaultProducts } from '../config/defaultProducts';
+import { defaultProducts } from '../pages/productsPage/defaultProducts';
 import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories';
 
 export type ProfileType = {

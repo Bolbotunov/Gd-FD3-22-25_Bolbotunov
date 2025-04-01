@@ -11,7 +11,7 @@ import {
   FontsHeaderStyle,
   InformationTextOk,
 } from '../../styles/Fonts.styled';
-import { auth } from '../../config/firebase';
+import { auth } from '../../firebase/firebase';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch, UseDispatch } from 'react-redux';
 import { updateProfile } from 'firebase/auth';
@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { initializeUserDictionary } from '../../config/firebase';
+import { initializeUserDictionary } from '../../firebase/firebase';
 
 type RegisterType = {
   userName: string;

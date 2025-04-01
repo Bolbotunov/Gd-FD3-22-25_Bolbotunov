@@ -7,7 +7,7 @@ import { AppContainer } from './styles/Common.styled';
 import { GlobalStyle } from './styles/GlobalStyles';
 import { DateProvider } from './contexts/DateContext';
 import { Provider } from 'react-redux';
-import './config/firebase';
+import './firebase/firebase';
 import store from './store/store';
 import { CustomThemeProvider } from './contexts/ThemeContext';
 import 'react-toastify/dist/ReactToastify.css';

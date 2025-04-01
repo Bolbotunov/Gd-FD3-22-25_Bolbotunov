@@ -3,13 +3,9 @@ import { useEffect, useState, useCallback } from 'react';
 import { debounce } from '../../utils/debounce';
 import { ErrorText } from '../../styles/Fonts.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { todayFormatted } from '../../config/defaultProducts';
-import {
-  addUserProduct,
-  setDictionaryProducts,
-  removeDictionaryProduct,
-} from '../../store/AuthSlice';
-import { deleteUserProductInFirebase } from '../../config/firebase';
+import { todayFormatted } from './defaultProducts';
+import { addUserProduct, removeDictionaryProduct } from '../../store/AuthSlice';
+import { deleteUserProductInFirebase } from '../../firebase/firebase';
 import { ProductType } from '../../store/AuthSlice';
 import { Flex, ContentContainer } from '../../styles/Common.styled';
 import {
@@ -24,7 +20,7 @@ import {
   CreatedImage,
 } from './ProductsPage.styled';
 import { AddBtn, BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
-import { searchFood } from '../../components/api/ApiTest';
+import { searchFood } from '../../api/ApiTest';
 import { RootState } from '../../store/store';
 import { useNavigate } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,15 +38,10 @@ export default function ProductsPage() {
     null
   );
   const [error, setError] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
-
-  useEffect(() => {
-    setResults(productsFromDictionary);
-  }, [productsFromDictionary]);
 
   function normalizeProduct(apiProduct: any): ProductType {
     const servingWeight = apiProduct.serving_weight_grams || 100;
@@ -71,45 +62,64 @@ export default function ProductsPage() {
     };
   }
 
+  useEffect(() => {
+    const sortedResult = [...productsFromDictionary].sort((a, b) =>
+      a.food_name.toLowerCase().localeCompare(b.food_name.toLowerCase())
+    );
+    setResults(sortedResult);
+  }, [productsFromDictionary]);
+
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
       setIsLoading(true);
       try {
-        const data = await searchFood(query);
-        if (!data.foods || data.foods.length === 0) {
+        const localResults = productsFromDictionary.filter((product) =>
+          product.food_name.toLowerCase().includes(query.toLowerCase())
+        );
+        console.log('Local Results:', localResults);
+        let apiResults: ProductType[] = [];
+        try {
+          const data = await searchFood(query);
+          if (data.foods && data.foods.length > 0) {
+            apiResults = data.foods.map((p: any) => normalizeProduct(p));
+          }
+        } catch (apiError) {
+          console.error('Error API data:', apiError);
+        }
+        const combinedResults = [...localResults, ...apiResults];
+        if (combinedResults.length === 0) {
           setError('this product does not exist');
-          setResults([...productsFromDictionary]);
+          setResults([]);
         } else {
-          const normalized = data.foods.map((p: any) => normalizeProduct(p));
-          dispatch(
-            setDictionaryProducts([...normalized, ...productsFromDictionary])
-          );
-          setResults([...normalized, ...productsFromDictionary]);
           setError(null);
+          const sortedResults = combinedResults.sort((a, b) =>
+            a.food_name.toLowerCase().localeCompare(b.food_name.toLowerCase())
+          );
+          setResults(sortedResults);
         }
-      } catch (error: any) {
-        console.error('Error fetching data:', error);
-        if (error.response && error.response.status === 404) {
-          setError('this product does not exist');
-        } else {
-          setError('There was an error loading data. Please try again later.');
-        }
-        setResults([...productsFromDictionary]);
+      } catch (error) {
+        console.error('General Error:', error);
+        setError('There was an error loading data. Please try again later.');
+        setResults([]);
       } finally {
         setIsLoading(false);
       }
     }, 1200),
-    [dispatch]
+    [productsFromDictionary]
   );
 
   useEffect(() => {
     if (query.trim() === '') {
-      setResults(productsFromDictionary);
+      const sortedResult = [...productsFromDictionary].sort((a, b) =>
+        a.food_name.toLowerCase().localeCompare(b.food_name.toLowerCase())
+      );
+      setResults(sortedResult);
       setError(null);
       return;
     }
     debouncedSearch(query);
-  }, [query, debouncedSearch]);
+    console.log('Query:', query);
+  }, [query]);
 
   function handleSelectedProduct(product: ProductType) {
     if (selectedProduct && selectedProduct.id === product.id) {
@@ -135,7 +145,7 @@ export default function ProductsPage() {
             <AddBtn
               onClick={async () => {
                 if (!selectedProduct) {
-                  toast.error('plese select product');
+                  toast.error('please select product');
                   return;
                 } else {
                   const diaryProduct = {

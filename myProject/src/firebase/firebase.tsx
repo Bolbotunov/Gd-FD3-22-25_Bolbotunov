@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, updateDoc, getDoc, setDoc, arrayUnion } from 'firebase/firestore';
 import { ProductType, ProfileType } from '../store/AuthSlice';
-import { defaultProducts } from './defaultProducts';
+import { defaultProducts } from '../pages/productsPage/defaultProducts';
 import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories';
 
 const firebaseConfig = {

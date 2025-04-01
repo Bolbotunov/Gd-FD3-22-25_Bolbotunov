@@ -8,7 +8,7 @@ import { BtnStyle } from '../../styles/Buttons.styled';
 import { setUserProfile } from '../../store/AuthSlice';
 import { SelectStyle } from '../../styles/Common.styled';
 import { ProfileType } from '../../store/AuthSlice';
-import { saveUserProfile } from '../../config/firebase';
+import { saveUserProfile } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
 
 export default function ProfileForm() {

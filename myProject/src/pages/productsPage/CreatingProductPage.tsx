@@ -12,7 +12,7 @@ import { addUserProduct } from '../../store/AuthSlice';
 import { ProductType } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router';
 import { NutrientLabel, NutrientRow } from './ProductsPage.styled';
-import { updateUserProductInFirebase } from '../../config/firebase';
+import { updateUserProductInFirebase } from '../../firebase/firebase';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useProductForm } from '../../hooks/useProductForm';

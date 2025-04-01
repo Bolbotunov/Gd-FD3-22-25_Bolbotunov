@@ -1,3 +1,27 @@
+type BreakpointKeys = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+type Breakpoints = {
+  values: Record<BreakpointKeys, number>;
+  min: (size: BreakpointKeys) => string;
+  max: (size: BreakpointKeys) => string;
+};
+
+export const breakpoints: Breakpoints = {
+  values: {
+    xs: 360,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1440,
+  },
+  min(size: keyof (typeof breakpoints)['values']) {
+    return `@media (min-width: ${this.values[size]}px)`;
+  },
+  max(size: keyof (typeof breakpoints)['values']) {
+    return `@media (max-width: ${this.values[size]}px)`;
+  },
+};
+
 export const appColors = {
   colors: {
     MAIN_COLOR: '#F8FC9E',
@@ -19,6 +43,7 @@ export const appColors = {
   },
   backgroundImage: "url('/bgDark.avif')",
   logoSrc: '/LogoLight.png',
+  breakpoints,
 };
 
 export const lightAppColors = {
@@ -42,4 +67,5 @@ export const lightAppColors = {
   },
   backgroundImage: "url('/bgLight.avif')",
   logoSrc: '/LogoBlack.png',
+  breakpoints,
 };

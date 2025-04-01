@@ -8,4 +8,13 @@ export const InformationWrapper = styled('div')`
   flex: 1;
   padding: 30px;
   text-align: center;
+
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    margin: 20px 0px;
+  }
 `;

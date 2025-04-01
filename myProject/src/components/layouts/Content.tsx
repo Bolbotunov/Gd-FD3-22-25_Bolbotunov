@@ -9,7 +9,7 @@ import { ContentStyle } from './Content.styled';
 import LoginPage from '../../pages/LoginPage';
 import { Navigate } from 'react-router';
 import RegisterPage from '../../pages/RegisterPage';
-import AuthCheck from '../authorization/AuthCheck';
+import AuthCheck from '../../authorization/AuthCheck';
 import CreateProductPage from '../../pages/productsPage/CreatingProductPage';
 
 export default function Content() {

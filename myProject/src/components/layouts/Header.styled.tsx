@@ -16,3 +16,18 @@ export const HeaderStyle = styled('nav')`
   justify-content: space-between;
   gap: 10px;
 `;
+
+export const HeaderLogo = styled('img')`
+  height: 50px;
+  max-width: 100%;
+  margin: 0 10px;
+  position: relative;
+  top: 5px;
+
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    height: 40px;
+  }
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    height: 25px;
+  }
+`;

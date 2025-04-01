@@ -1,6 +1,6 @@
 import { FontsHeaderStyle } from '../../styles/Fonts.styled';
-import { HeaderStyle, NavStyle } from './Header.styled';
-import UserInfo from '../authorization/UserInfo';
+import { HeaderLogo, HeaderStyle, NavStyle } from './Header.styled';
+import UserInfo from '../../authorization/UserInfo';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
 import ThemeToggleButton from '../buttons/ThemeToggleBtn';
@@ -15,17 +15,7 @@ export default function Header() {
   return (
     <>
       <HeaderStyle>
-        <img
-          src={theme.logoSrc}
-          alt='App Logo'
-          style={{
-            height: '50px',
-            width: 'auto',
-            margin: '0 10px',
-            position: 'relative',
-            top: '5px',
-          }}
-        />
+        <HeaderLogo src={theme.logoSrc} alt='App Logo' />
         <NavStyle>
           <FontsHeaderStyle to='/home'>Home</FontsHeaderStyle>
           <FontsHeaderStyle to='/profile'>Profile</FontsHeaderStyle>

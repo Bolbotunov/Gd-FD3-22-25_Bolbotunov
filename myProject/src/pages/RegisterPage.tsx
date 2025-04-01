@@ -1,4 +1,4 @@
-import UserRegistrationForm from '../components/authorization/UserRegistrationForm';
+import UserRegistrationForm from '../authorization/UserRegistrationForm';
 import { BlurContainer } from '../styles/Common.styled';
 
 export default function RegisterPage() {

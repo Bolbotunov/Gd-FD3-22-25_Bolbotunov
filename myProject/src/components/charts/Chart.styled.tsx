@@ -58,6 +58,7 @@ export const ExtraBlock = styled('div')`
   ${FlexDiv}
   color:${({ theme }) => theme.colors.MAIN_COLOR};
   padding: 20px;
+  font-size: calc(10px + 0.5vw);
   margin-left: 10px;
   height: 35px;
   overflow: hidden;

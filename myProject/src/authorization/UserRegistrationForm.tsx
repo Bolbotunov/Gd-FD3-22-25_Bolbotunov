@@ -1,8 +1,8 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { BtnStyle } from '../../styles/Buttons.styled';
-import { AppContainer, Flex, InputStyle } from '../../styles/Common.styled';
+import { BtnStyle } from '../styles/Buttons.styled';
+import { AppContainer, Flex, InputStyle } from '../styles/Common.styled';
 import {
   InputLabelStyle,
   MainTitle,
@@ -10,17 +10,17 @@ import {
   InformationText,
   FontsHeaderStyle,
   InformationTextOk,
-} from '../../styles/Fonts.styled';
-import { auth } from '../../firebase/firebase';
+} from '../styles/Fonts.styled';
+import { auth } from '../firebase/firebase';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch, UseDispatch } from 'react-redux';
 import { updateProfile } from 'firebase/auth';
-import { setUser } from '../../store/AuthSlice';
+import { setUser } from '../store/AuthSlice';
 import { useNavigate } from 'react-router';
-import { RootState } from '../../store/store';
+import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { initializeUserDictionary } from '../../firebase/firebase';
+import { initializeUserDictionary } from '../firebase/firebase';
 
 type RegisterType = {
   userName: string;

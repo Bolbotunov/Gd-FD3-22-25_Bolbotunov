@@ -9,7 +9,7 @@ import ProfileForm from './ProfileForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { UserMail } from './ProfilePage.styled';
-import DeleteUserBtn from '../../components/authorization/DeleteUserBtn';
+import DeleteUserBtn from '../../authorization/DeleteUserBtn';
 import { calculateNormDailyCalories } from '../../utils/calculateNormDailyCalories';
 
 export default function ProfilePage() {

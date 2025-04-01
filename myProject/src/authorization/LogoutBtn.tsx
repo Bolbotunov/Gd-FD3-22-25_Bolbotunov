@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
-import { clearUser } from '../../store/AuthSlice';
-import { BtnAuth } from '../../styles/Buttons.styled';
+import { auth } from '../firebase/firebase';
+import { clearUser } from '../store/AuthSlice';
+import { BtnAuth } from '../styles/Buttons.styled';
 
 export default function LogoutButton() {
   const dispatch = useDispatch();

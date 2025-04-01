@@ -1,19 +1,19 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { BtnStyle } from '../../styles/Buttons.styled';
-import { Flex, InputStyle } from '../../styles/Common.styled';
+import { BtnStyle } from '../styles/Buttons.styled';
+import { Flex, InputStyle } from '../styles/Common.styled';
 import {
   InputLabelStyle,
   MainTitle,
   ErrorText,
   InformationText,
   FontsHeaderStyle,
-} from '../../styles/Fonts.styled';
-import { auth } from '../../firebase/firebase';
+} from '../styles/Fonts.styled';
+import { auth } from '../firebase/firebase';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../../store/AuthSlice';
+import { setUser } from '../store/AuthSlice';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 

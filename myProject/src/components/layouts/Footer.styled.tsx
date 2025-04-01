@@ -11,23 +11,35 @@ export const FooterStyle = styled('footer')`
 
 export const FooterBlock = styled('div')`
   ${FlexDiv};
-  width: 25%;
-  max-width: 100%
-  justify-content: space-between;
+  max-width: 400px;
+  width: 100%
+  justify-content: center;
+  
+
 `;
 
 export const FooterDivText = styled('div')`
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   ${FontsFamily};
-  font-weight: 600;
-  margin-top: 7px;
-  padding: 10px;
-  font-size: calc(4px + 0.5vw);
+  width: 100%;
+  font-weight: 500;
+  margin-top: 5px;
+  font-size: calc(7px + 0.5vw);
 `;
 
 export const FooterLink = styled('a')`
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   ${FontsFamily};
-  font-weight: 600;
-  font-size: calc(4px + 0.5vw);
+`;
+
+export const FooterLogo = styled('img')`
+  height: 30px;
+  max-width: 100%;
+  margin: 0 10px;
+  position: relative;
+  top: 5px;
+
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    height: 25px;
+  }
 `;

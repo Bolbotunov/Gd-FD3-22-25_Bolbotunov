@@ -52,6 +52,7 @@ export const BtnAuth = styled('button')`
   width: 70px;
   border-radius: 5px;
   text-align: center;
+  font-size: calc(6px + 0.5vw);
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
   color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
 
@@ -59,6 +60,10 @@ export const BtnAuth = styled('button')`
     color: ${({ theme }) => theme.colors.MAIN_COLOR};
     background-color: ${({ theme }) => theme.colors.ERROR_COLOR};
     cursor: alias;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('lg')} {
+    width: 60px;
   }
 `;
 

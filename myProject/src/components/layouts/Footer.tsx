@@ -3,6 +3,7 @@ import {
   FooterLink,
   FooterStyle,
   FooterBlock,
+  FooterLogo,
 } from './Footer.styled';
 import { useTheme } from 'styled-components';
 import { RootState } from '../../store/store';
@@ -18,17 +19,7 @@ export default function Footer() {
     <>
       <FooterBlock>
         <FooterStyle>
-          <img
-            src={theme.logoSrc}
-            alt='App Logo'
-            style={{
-              height: '25px',
-              width: 'auto',
-              margin: '0 2px',
-              position: 'relative',
-              top: '5px',
-            }}
-          ></img>
+          <FooterLogo src={theme.logoSrc} alt='App Logo'></FooterLogo>
           <FooterDivText>
             made by{' '}
             <FooterLink href='https://github.com/Bolbotunov' target='_blank'>

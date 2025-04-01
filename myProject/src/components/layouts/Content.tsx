@@ -9,8 +9,9 @@ import { ContentStyle } from './Content.styled';
 import LoginPage from '../../pages/LoginPage';
 import { Navigate } from 'react-router';
 import RegisterPage from '../../pages/RegisterPage';
-import AuthCheck from '../authorization/AuthCheck';
+import AuthCheck from '../../authorization/AuthCheck';
 import CreateProductPage from '../../pages/productsPage/CreatingProductPage';
+import NotFoundPage from '../../pages/NotFoundPage';
 
 export default function Content() {
   return (
@@ -29,6 +30,7 @@ export default function Content() {
             <Route path='/diary' element={<DiaryPage />} />
             <Route path='/diary/:id' element={<DiaryPage />} />
             <Route path='/statistics' element={<StatisticsPage />} />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </AuthCheck>
       </ContentStyle>

@@ -3,8 +3,13 @@ import { styled, css } from 'styled-components';
 export const SwitchWrapper = styled('label')`
   position: relative;
   display: inline-block;
-  width: 3.8rem;
-  height: 2rem;
+  width: calc(65px + 0.5vw);
+  height: calc(26px + 0.5vw);
+
+  ${({ theme }) => theme.breakpoints.max('lg')} {
+    width: calc(50px + 0.5vw);
+    height: calc(14px + 0.5vw);
+  }
 `;
 
 export const SwitchInput = styled('input')`
@@ -17,7 +22,13 @@ export const SwitchInput = styled('input')`
   }
 
   &:checked + span:before {
-    transform: translateX(30px);
+    transform: translateX(40px);
+  }
+
+  ${({ theme }) => theme.breakpoints.max('lg')} {
+    &:checked + span:before {
+      transform: translateX(22px);
+    }
   }
 `;
 
@@ -30,17 +41,25 @@ export const Slider = styled('span')`
   bottom: 0;
   background-color: #ccc;
   transition: 0.4s;
-  border-radius: 34px;
+  border-radius: 35px;
 
   &:before {
     position: absolute;
     content: '';
-    height: 1.8rem;
-    width: 1.8rem;
-    left: 0.2rem;
+    width: calc(24px + 0.5vw);
+    height: calc(24px + 0.5vw);
+    left: 0rem;
     bottom: 0.1rem;
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
     transition: 0.4s;
     border-radius: 50%;
+
+    ${({ theme }) => theme.breakpoints.max('lg')} {
+      width: calc(12px + 0.5vw);
+      height: calc(12px + 0.5vw);
+    }
+  }
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    transform: rotate(90deg);
   }
 `;

@@ -11,10 +11,20 @@ export const AppContainer = styled('div')`
   ${FlexDiv};
   flex-direction: column;
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1400px;
   min-height: 100vh;
-  padding: 0px 82px;
+  padding: 0px 20px;
   overflow: hidden;
+
+  ${({ theme }) => theme.breakpoints.max('lg')} {
+    max-width: 1240px;
+    padding: 0px 20px;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    max-width: 820px;
+    padding: 0px 20px;
+  }
 `;
 
 export const InputStyle = styled('input')`
@@ -62,7 +72,6 @@ export const SmallBlurContainer = styled(Link)`
   ${FlexDiv};
   margin: 0px;
   text-decoration: none;
-
   color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
   justify-content: space-around;
   flex-direction: column;
@@ -77,6 +86,12 @@ export const SmallBlurContainer = styled(Link)`
 
   &:hover {
     cursor: pointer;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('lg')} {
+    padding: 5px;
+    gap: 1px;
+    flex-direction: row;
   }
 `;
 

@@ -26,7 +26,7 @@ export const BtnCommonStyle = css`
 export const BtnDictionary = css`
   ${FontsFamily};
   max-width: 100%;
-  width: 150px;
+  width: 175px;
   height: 5vh;
   border-radius: 5px;
   text-align: center;

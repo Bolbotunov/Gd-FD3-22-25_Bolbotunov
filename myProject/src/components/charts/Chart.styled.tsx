@@ -40,6 +40,7 @@ export const ChartLineStyle = styled('div')`
   ${FlexDiv}
   padding: 10px;
   border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.MAIN_COLOR_30};
   border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   width: 100%;
   height: 35px;

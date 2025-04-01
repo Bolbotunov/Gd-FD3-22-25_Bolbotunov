@@ -138,10 +138,16 @@ export default function ProductsPage() {
                   toast.error('plese select product');
                   return;
                 } else {
-                  navigate(`/products/${selectedProduct.id}?mode=adding`, {
-                    state: { product: selectedProduct, mode: 'adding' },
+                  const diaryProduct = {
+                    ...selectedProduct,
+                    id: uuidv4(),
+                    diaryDate: new Date().toLocaleDateString(),
+                  };
+
+                  navigate(`/products/${diaryProduct.id}?mode=adding`, {
+                    state: { product: diaryProduct, mode: 'adding' },
                   });
-                  dispatch(addUserProduct(selectedProduct));
+                  dispatch(addUserProduct(diaryProduct));
                 }
               }}
             >

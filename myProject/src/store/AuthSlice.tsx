@@ -12,7 +12,7 @@ export type ProfileType = {
 };
 
 export type ProductType = {
-  id: string;
+  id: string | '';
   food_name: string;
   nf_protein: number;
   nf_total_fat: number;

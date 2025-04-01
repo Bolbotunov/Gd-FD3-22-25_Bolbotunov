@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { ProductType } from '../store/AuthSlice';
 import { v4 as uuidv4 } from 'uuid';
-import { todayFormatted } from '../config/defaultProducts';
 
 export function useProductForm(initialProduct?: ProductType) {
   const [product, setProduct] = useState<ProductType>(
     initialProduct || {
-      id: uuidv4() + todayFormatted,
+      id: uuidv4(),
       food_name: '',
       nf_protein: 0,
       nf_total_fat: 0,

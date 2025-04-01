@@ -101,9 +101,7 @@ export async function updateDailyProductInFirebase(
   }
   const data = docSnap.data();
   let dailyProducts: ProductType[] = data.products || [];
-  const index = dailyProducts.findIndex(
-    (p) => p.food_name === updatedProduct.food_name
-  );
+  const index = dailyProducts.findIndex((p) => p.id === updatedProduct.id);
 
   if (index !== -1) {
     dailyProducts[index] = updatedProduct;

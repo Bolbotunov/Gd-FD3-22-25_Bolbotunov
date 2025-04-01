@@ -8,7 +8,7 @@ export const SpinnerWrapper = styled('div')`
 `;
 
 export const Spinner = styled('div')`
-  background-image: url('/Favicon.png');
+  background-image: url('/favicon.png');
   background-size: cover;
   background-position: center;
   width: 50px;

@@ -1,4 +1,4 @@
-import HomePage from '../../pages/HomePage';
+import HomePage from '../../pages/homePage/HomePage';
 import { Route, Routes } from 'react-router';
 import ProfilePage from '../../pages/profilePage/ProfilePage';
 import ProductsPage from '../../pages/productsPage/ProductsPage';

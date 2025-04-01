@@ -18,12 +18,12 @@ import {
 import {
   updateUserProductInFirebase,
   updateDailyProductInFirebase,
-} from '../../config/firebase';
+} from '../../firebase/firebase';
 import { ProductType } from '../../store/AuthSlice';
-import AddingMode from '../../components/mode/AddingMode';
-import ViewingMode from '../../components/mode/ViewingMode';
-import EditMode from '../../components/mode/EditMode';
-import { addProductToUser } from '../../config/firebase';
+import AddingMode from './mode/AddingMode';
+import ViewingMode from './mode/ViewingMode';
+import EditMode from './mode/EditMode';
+import { addProductToUser } from '../../firebase/firebase';
 import { BlurContainer, ContentContainer } from '../../styles/Common.styled';
 import { useProductForm } from '../../hooks/useProductForm';
 import useCurrentDate from '../../hooks/useCurrentDate';

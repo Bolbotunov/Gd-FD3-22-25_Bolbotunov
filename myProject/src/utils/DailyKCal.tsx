@@ -1,8 +1,8 @@
-import useDailyKCal from '../../hooks/useDailyKCal';
-import { DailyKCalStyle } from '../../styles/Fonts.styled';
-import { RootState } from '../../store/store';
+import useDailyKCal from '../hooks/useDailyKCal';
+import { DailyKCalStyle } from '../styles/Fonts.styled';
+import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
-import { calculateNormDailyCalories } from '../../utils/calculateNormDailyCalories';
+import { calculateNormDailyCalories } from './calculateNormDailyCalories';
 
 type DailyKCalProps = {
   onDate: number;

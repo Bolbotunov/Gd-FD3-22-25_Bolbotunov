@@ -1,15 +1,15 @@
 import { BlurContainer } from '../../styles/Common.styled';
 import { CategoryTitleStyle } from '../../styles/Fonts.styled';
-import Chart from '../charts/Chart';
+import Chart from '../../components/charts/Chart';
 import { useDispatch, useSelector } from 'react-redux';
 import useCurrentDate from '../../hooks/useCurrentDate';
 import { appColors } from '../../styles/AppColors';
-import DailyKCal from '../DailyKCal/DailyKCal';
+import DailyKCal from '../../utils/DailyKCal';
 import { BtnStyle } from '../../styles/Buttons.styled';
 import { FontsHeaderStyle } from '../../styles/Fonts.styled';
 import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 import { useEffect } from 'react';
-import { getDailyProducts } from '../../config/firebase';
+import { getDailyProducts } from '../../firebase/firebase';
 import { setDailyProducts } from '../../store/AuthSlice';
 import { RootState } from '../../store/store';
 

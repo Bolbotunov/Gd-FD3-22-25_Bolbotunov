@@ -2,7 +2,7 @@ import { deleteUser } from 'firebase/auth';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { auth } from '../../config/firebase';
+import { auth } from '../../firebase/firebase';
 import { clearUser } from '../../store/AuthSlice';
 import { BtnDelete } from '../../styles/Buttons.styled';
 import { showConfirmToast } from '../../utils/showConfirmToast';

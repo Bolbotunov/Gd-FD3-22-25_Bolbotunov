@@ -1,7 +1,7 @@
 import { JSX, useEffect, useId, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-import { auth, db, getUserDictionary } from '../../config/firebase';
+import { auth, db, getUserDictionary } from '../../firebase/firebase';
 import {
   setUser,
   clearUser,
@@ -9,7 +9,7 @@ import {
 } from '../../store/AuthSlice';
 import { useNavigate } from 'react-router';
 import { doc, getDoc } from 'firebase/firestore';
-import { initializeUserDictionary } from '../../config/firebase';
+import { initializeUserDictionary } from '../../firebase/firebase';
 import { CustomThemeProvider } from '../../contexts/ThemeContext';
 import LoadingScreen from '../Spinner/LoadingScreen';
 

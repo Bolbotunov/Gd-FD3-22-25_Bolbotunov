@@ -10,7 +10,7 @@ import {
   InformationText,
   FontsHeaderStyle,
 } from '../../styles/Fonts.styled';
-import { auth } from '../../config/firebase';
+import { auth } from '../../firebase/firebase';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/AuthSlice';

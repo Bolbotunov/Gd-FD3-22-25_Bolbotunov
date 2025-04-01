@@ -4,7 +4,7 @@ import {
   ContentContainer,
 } from '../../styles/Common.styled';
 import Chart from '../../components/charts/Chart';
-import DailyKCal from '../../components/DailyKCal/DailyKCal';
+import DailyKCal from '../../utils/DailyKCal';
 import { useDispatch, useSelector } from 'react-redux';
 import { appColors } from '../../styles/AppColors';
 import { BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
@@ -20,7 +20,7 @@ import {
 import {
   getDailyProducts,
   deleteDailyProductInFirebase,
-} from '../../config/firebase';
+} from '../../firebase/firebase';
 import { useState, useEffect } from 'react';
 import {
   TableHeader,

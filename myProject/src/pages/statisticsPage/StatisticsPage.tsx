@@ -25,7 +25,7 @@ import {
   StatisticsTitles,
   StyledCalendar,
 } from './StatisticsPage.styled';
-import { getDailyProducts } from '../../config/firebase';
+import { getDailyProducts } from '../../firebase/firebase';
 import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 
 export default function StatisticsPage() {

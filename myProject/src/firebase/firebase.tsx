@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { doc, updateDoc, getDoc, setDoc, arrayUnion } from 'firebase/firestore';
 import { ProductType, ProfileType } from '../store/AuthSlice';
-import { defaultProducts } from './defaultProducts';
+import { defaultProducts } from '../pages/productsPage/defaultProducts';
 import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories';
 
 const firebaseConfig = {
@@ -101,9 +101,7 @@ export async function updateDailyProductInFirebase(
   }
   const data = docSnap.data();
   let dailyProducts: ProductType[] = data.products || [];
-  const index = dailyProducts.findIndex(
-    (p) => p.food_name === updatedProduct.food_name
-  );
+  const index = dailyProducts.findIndex((p) => p.id === updatedProduct.id);
 
   if (index !== -1) {
     dailyProducts[index] = updatedProduct;

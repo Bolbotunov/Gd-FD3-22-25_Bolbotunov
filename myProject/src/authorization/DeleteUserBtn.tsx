@@ -15,7 +15,7 @@ export default function DeleteUserBtn() {
     const user = auth.currentUser;
     if (user) {
       try {
-        await user.delete();
+        await deleteUser(user);
         dispatch(clearUser());
         navigate('/register');
       } catch (error) {

@@ -30,5 +30,5 @@ export const RecommendedkCalBlock = styled('div')`
 
 export const UserMail = styled('p')`
   ${FontsFamily};
-  color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  color: ${({ theme }) => theme.colors.DISABLED_COLOR_DARK};
 `;

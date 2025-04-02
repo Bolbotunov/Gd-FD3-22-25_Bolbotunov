@@ -17,11 +17,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div style={{ marginTop: '50px' }}>
-        <BlurContainer style={{ justifyContent: 'center' }}>
-          <UserLoginForm />
-        </BlurContainer>
-      </div>
+      <UserLoginForm />
     </>
   );
 }

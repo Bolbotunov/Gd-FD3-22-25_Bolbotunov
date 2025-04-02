@@ -12,23 +12,9 @@ import store from './store/store';
 import { CustomThemeProvider } from './contexts/ThemeContext';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import LoadingScreen from './components/Spinner/LoadingScreen';
-import { useEffect, useState } from 'react';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  return loading ? (
-    <CustomThemeProvider>
-      <LoadingScreen />
-    </CustomThemeProvider>
-  ) : (
+  return (
     <CustomThemeProvider>
       <DateProvider>
         <Provider store={store}>

@@ -61,7 +61,7 @@ export const BlurContainer = styled('div')`
   flex-direction: column;
   gap: 50px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
-  padding: 30px 20px;
+  padding: 10px 20px 5px 20px;
   height: auto;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};

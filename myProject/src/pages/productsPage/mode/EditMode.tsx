@@ -113,7 +113,7 @@ export default function EditMode({
           </NutrientRow>
         )}
       </ContentContainer>
-      <Flex>
+      <Flex style={{ gap: '20px' }}>
         <AddBtn onClick={handleSave}>Save</AddBtn>
         <BtnDelete onClick={handleFromPage}>cancel</BtnDelete>
       </Flex>

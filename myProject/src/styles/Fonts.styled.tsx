@@ -32,12 +32,14 @@ export const InformationText = styled('h4')`
   color: ${({ theme }) => theme.colors.ERROR_COLOR};
   font-weight: 400;
   font-size: calc(6px + 0.5vw);
+  padding: 10px;
 `;
 
 export const InformationTextOk = styled('h4')`
   ${FontsFamily};
   color: ${({ theme }) => theme.colors.OK_COLOR};
   font-weight: 500;
+  padding: 10px;
 `;
 
 export const FontsHeaderStyle = styled(NavLink)`
@@ -75,6 +77,7 @@ export const UserInfoText = styled('p')`
 export const CategoryTitleStyle = styled('h2')`
   ${FontsFamily};
   font-weight: 500;
+  padding-top: 20px;
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   font-size: calc(16px + 0.5vw);
 `;

@@ -1,5 +1,4 @@
 import UserLoginForm from '../authorization/UserLoginForm';
-import { BlurContainer, Flex } from '../styles/Common.styled';
 import { RootState } from '../store/store';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';

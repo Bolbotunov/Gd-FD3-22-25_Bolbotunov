@@ -1,7 +1,7 @@
 import { Spinner } from '../components/Spinner/Spinner.styles';
 import { BtnLink } from '../styles/Buttons.styled';
 import { BlurContainer, ContentContainer } from '../styles/Common.styled';
-import { MainSubTitle, MainTitle, NotFoundText } from '../styles/Fonts.styled';
+import { MainSubTitle, NotFoundText } from '../styles/Fonts.styled';
 
 export default function NotFoundPage() {
   return (

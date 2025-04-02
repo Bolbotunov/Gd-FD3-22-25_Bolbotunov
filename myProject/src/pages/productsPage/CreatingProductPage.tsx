@@ -50,7 +50,6 @@ export default function CreateProductPage() {
         console.error('Error updating product in Firebase:', error);
       }
     }
-    console.log('product:', productToSave);
   };
 
   return (

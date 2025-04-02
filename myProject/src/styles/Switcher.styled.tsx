@@ -7,7 +7,7 @@ export const SwitchWrapper = styled('label')`
   height: calc(26px + 0.5vw);
 
   ${({ theme }) => theme.breakpoints.max('lg')} {
-    width: calc(50px + 0.5vw);
+    width: calc(45px + 0.5vw);
     height: calc(14px + 0.5vw);
   }
 `;
@@ -27,7 +27,7 @@ export const SwitchInput = styled('input')`
 
   ${({ theme }) => theme.breakpoints.max('lg')} {
     &:checked + span:before {
-      transform: translateX(22px);
+      transform: translateX(30px);
     }
   }
 `;

@@ -34,7 +34,7 @@ export const LoadingWrapper = styled('div')`
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
 export const Logo = styled('img')`

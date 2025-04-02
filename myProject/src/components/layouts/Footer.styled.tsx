@@ -5,7 +5,7 @@ import { FontsFamily } from '../../styles/Fonts.styled';
 export const FooterStyle = styled('footer')`
   ${FlexDiv};
   width: 100%;
-  height: 80px;
+  height: 60px;
   justify-content: space-between;
 `;
 
@@ -23,7 +23,7 @@ export const FooterDivText = styled('div')`
   ${FontsFamily};
   width: 100%;
   font-weight: 500;
-  margin-top: 5px;
+  margin-bottom: 4px;
   font-size: calc(7px + 0.5vw);
 `;
 
@@ -37,7 +37,7 @@ export const FooterLogo = styled('img')`
   max-width: 100%;
   margin: 0 10px;
   position: relative;
-  top: 5px;
+  top: 0px;
 
   ${({ theme }) => theme.breakpoints.max('md')} {
     height: 25px;

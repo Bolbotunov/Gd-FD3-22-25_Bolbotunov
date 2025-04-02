@@ -8,7 +8,6 @@ import { calculateNormDailyCalories } from '../utils/calculateNormDailyCalories'
 export function useDailyNutrientsForDate(selectedDate: Date) {
   const products = useSelector((state: RootState) => state.authSlice.products);
   const currentUser = useSelector((state: RootState) => state.authSlice);
-
   const formattedDate = new Date(selectedDate).toLocaleDateString('ru-RU');
 
   const filteredProducts: ProductType[] = useMemo(() => {

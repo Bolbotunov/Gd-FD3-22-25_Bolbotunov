@@ -28,6 +28,15 @@ import { calculateNutrients } from '../../utils/calculateNutrients';
 import { toast } from 'react-toastify';
 import LoadingSpinner from '../../components/Spinner/LoadingSpinner';
 
+type ApiProductType = {
+  serving_weight_grams?: number;
+  food_name: string;
+  nf_protein?: number;
+  nf_total_fat?: number;
+  nf_total_carbohydrate?: number;
+  nf_calories?: number;
+};
+
 export default function ProductsPage() {
   const [query, setQuery] = useState('');
   const productsFromDictionary = useSelector(
@@ -43,10 +52,12 @@ export default function ProductsPage() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.authSlice);
 
-  function normalizeProduct(apiProduct: any): ProductType {
+  function normalizeProduct(apiProduct: ApiProductType): ProductType {
     const servingWeight = apiProduct.serving_weight_grams || 100;
+
     const formatToOneDecimal = (num: number) =>
       ((num / servingWeight) * 100).toFixed(1);
+
     return {
       id: uuidv4() + todayFormatted,
       food_name: apiProduct.food_name,
@@ -76,12 +87,13 @@ export default function ProductsPage() {
         const localResults = productsFromDictionary.filter((product) =>
           product.food_name.toLowerCase().includes(query.toLowerCase())
         );
-        console.log('Local Results:', localResults);
         let apiResults: ProductType[] = [];
         try {
           const data = await searchFood(query);
           if (data.foods && data.foods.length > 0) {
-            apiResults = data.foods.map((p: any) => normalizeProduct(p));
+            apiResults = data.foods.map((p: ApiProductType) =>
+              normalizeProduct(p)
+            );
           }
         } catch (apiError) {
           console.error('Error API data:', apiError);
@@ -118,7 +130,6 @@ export default function ProductsPage() {
       return;
     }
     debouncedSearch(query);
-    console.log('Query:', query);
   }, [query]);
 
   function handleSelectedProduct(product: ProductType) {

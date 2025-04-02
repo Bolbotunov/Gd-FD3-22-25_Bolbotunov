@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import ConfirmToast from '../components/ToastifyCastomize';
-import DeleteUserBtn from '../authorization/DeleteUserBtn';
 
 export function showConfirmToast(onConfirm: () => void) {
   toast(

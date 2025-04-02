@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { Spinner, SpinnerWrapper } from './Spinner.styles';
+import { SpinnerWrapper, Spinner } from './Spinner.styles';
 
 export default function LoadingSpinner() {
   return (

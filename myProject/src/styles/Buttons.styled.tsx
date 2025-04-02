@@ -40,7 +40,16 @@ export const BtnDictionary = css`
 export const BtnStyle = styled('button')`
   ${BtnCommonStyle};
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  font-size: 1.2rem;
+  font-size: calc(8px + 0.5vw);
+  font-weight: 500;
+  margin-top: 20px;
+  margin: 20px;
+`;
+
+export const BtnLink = styled(Link)`
+  ${BtnCommonStyle};
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  font-size: calc(8px + 0.5vw);
   font-weight: 500;
   margin-top: 20px;
   margin: 20px;

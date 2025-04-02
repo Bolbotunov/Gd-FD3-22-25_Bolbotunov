@@ -1,14 +1,9 @@
 import { MainTitle } from '../../styles/Fonts.styled';
-import { AddBtn, BtnDelete } from '../../styles/Buttons.styled';
+import { AddBtn } from '../../styles/Buttons.styled';
 import { useSelector } from 'react-redux';
-import {
-  useParams,
-  useNavigate,
-  useLocation,
-  useSearchParams,
-} from 'react-router';
+import { useParams, useNavigate, useLocation } from 'react-router';
 import { RootState } from '../../store/store';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   updateUserProduct,
@@ -26,11 +21,9 @@ import EditMode from './mode/EditMode';
 import { addProductToUser } from '../../firebase/firebase';
 import { BlurContainer, ContentContainer } from '../../styles/Common.styled';
 import { useProductForm } from '../../hooks/useProductForm';
-import useCurrentDate from '../../hooks/useCurrentDate';
 import { toast } from 'react-toastify';
 
 export default function ProductPage() {
-  const currentDate = useCurrentDate();
   const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -77,10 +70,6 @@ export default function ProductPage() {
       setProduct({ ...productForView, weight: productForView.weight || 100 });
     }
   }, [mode, productForView, setProduct]);
-
-  useEffect(() => {
-    console.log('editedProduct: ', editedProduct);
-  }, [editedProduct]);
 
   if (!productForView) {
     return (
@@ -134,10 +123,6 @@ export default function ProductPage() {
 
   const handleSaveToDiary = async () => {
     if (currentUser.uid && editedProduct) {
-      const productWithDate = {
-        ...editedProduct,
-        diaryDate: currentDate,
-      };
       try {
         await addProductToUser(currentUser.uid, editedProduct);
         dispatch(addUserProduct(editedProduct));

@@ -1,4 +1,4 @@
-import { JSX, useEffect, useId, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { auth, db, getUserDictionary } from '../firebase/firebase';
@@ -41,16 +41,11 @@ export default function AuthCheck({ children }: { children: React.ReactNode }) {
     return () => unsubscribe();
   }, [dispatch, navigate]);
 
-  if (loading) {
-    return (
-      <>
-        <CustomThemeProvider>
-          <LoadingScreen />
-        </CustomThemeProvider>
-        ;
-      </>
-    );
-  }
-
-  return <>{children}</>;
+  return loading ? (
+    <CustomThemeProvider>
+      <LoadingScreen />
+    </CustomThemeProvider>
+  ) : (
+    <>{children}</>
+  );
 }

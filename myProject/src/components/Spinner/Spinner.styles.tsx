@@ -29,8 +29,12 @@ export const LoadingWrapper = styled('div')`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100vh;
-  background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
+  width: 100vw;
+  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
 export const Logo = styled('img')`

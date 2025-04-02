@@ -35,6 +35,7 @@ export const InputStyle = styled('input')`
   border-radius: 10px;
   font-size: 1.2rem;
   padding: 10px;
+  margin-bottom: 1px;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.MAIN_COLOR};
@@ -60,7 +61,7 @@ export const BlurContainer = styled('div')`
   flex-direction: column;
   gap: 50px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
-  padding: 30px 20px;
+  padding: 10px 20px 5px 20px;
   height: auto;
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
@@ -77,7 +78,7 @@ export const SmallBlurContainer = styled(Link)`
   flex-direction: column;
   gap: 10px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
-  padding: 10px;
+  padding: 10px 20px;
   height: 65px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

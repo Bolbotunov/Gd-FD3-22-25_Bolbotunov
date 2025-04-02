@@ -18,7 +18,6 @@ export default function TodayBlock() {
   const currentDate = useCurrentDate();
   const currentUser = useSelector((state: RootState) => state.authSlice);
   const {
-    filteredProducts,
     totals,
     proteinPercent,
     fatsPercent,

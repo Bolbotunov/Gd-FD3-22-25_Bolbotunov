@@ -2,18 +2,17 @@ import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { BtnStyle } from '../styles/Buttons.styled';
-import { AppContainer, Flex, InputStyle } from '../styles/Common.styled';
+import { Flex, InputStyle } from '../styles/Common.styled';
 import {
   InputLabelStyle,
   MainTitle,
   ErrorText,
-  InformationText,
   FontsHeaderStyle,
   InformationTextOk,
 } from '../styles/Fonts.styled';
 import { auth } from '../firebase/firebase';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useDispatch, UseDispatch } from 'react-redux';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
 import { updateProfile } from 'firebase/auth';
 import { setUser } from '../store/AuthSlice';
 import { useNavigate } from 'react-router';
@@ -34,7 +33,6 @@ export default function UserRegistrationForm() {
   const userName = useSelector((state: RootState) => state.authSlice.userName);
 
   function registerUser({ userName, email, password }: RegisterType) {
-    console.log(auth);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -42,7 +40,6 @@ export default function UserRegistrationForm() {
         updateProfile(user, { displayName: userName });
         dispatch(setUser({ uid, userName, userEmail: email }));
         initializeUserDictionary(uid);
-        console.log('User registered and profile updated', uid);
         navigate('/home');
       })
       .catch((error) => {
@@ -73,7 +70,7 @@ export default function UserRegistrationForm() {
       <Form>
         <Flex style={{ flexDirection: 'column' }}>
           <MainTitle style={{ marginBottom: '50px' }}>
-            Registartion Form!
+            Registration Form!
           </MainTitle>
           <InputLabelStyle htmlFor='firstName'>Name</InputLabelStyle>
           <Field name='userName' type='text' as={InputStyle} />

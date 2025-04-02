@@ -12,7 +12,7 @@ export type ProfileType = {
 };
 
 export type ProductType = {
-  id: string | '';
+  id: string;
   food_name: string;
   nf_protein: number;
   nf_total_fat: number;
@@ -125,9 +125,14 @@ export const authSlice = createSlice({
       state.userName = null;
       state.userEmail = null;
       state.profile = null;
+      state.recommendedCalories = null;
+      state.userNormOfProtein = null;
+      state.userNormOfFats = null;
+      state.userNormOfCarbs = null;
       state.products = [];
       state.dictionary = [];
       state.status = '';
+      state.error = null;
     },
   },
 });

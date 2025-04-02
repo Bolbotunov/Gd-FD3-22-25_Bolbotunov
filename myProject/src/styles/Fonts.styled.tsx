@@ -9,7 +9,14 @@ export const FontsFamily = css`
 
 export const MainTitle = styled('h1')`
   ${FontsFamily};
-  font-size: calc(22px + 1vw);
+  font-size: calc(21px + 0.5vw);
+  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;
+
+export const NotFoundText = styled('h1')`
+  ${FontsFamily};
+  display: inline-block;
+  font-size: calc(32px + 1vw);
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
@@ -23,13 +30,16 @@ export const MainSubTitle = styled('h4')`
 export const InformationText = styled('h4')`
   ${FontsFamily};
   color: ${({ theme }) => theme.colors.ERROR_COLOR};
-  font-weight: 500;
+  font-weight: 400;
+  font-size: calc(6px + 0.5vw);
+  padding: 10px;
 `;
 
 export const InformationTextOk = styled('h4')`
   ${FontsFamily};
   color: ${({ theme }) => theme.colors.OK_COLOR};
   font-weight: 500;
+  padding: 10px;
 `;
 
 export const FontsHeaderStyle = styled(NavLink)`
@@ -49,8 +59,8 @@ export const FontsHeaderStyle = styled(NavLink)`
 
 export const ErrorText = styled('div')`
   color: ${({ theme }) => theme.colors.ERROR_COLOR};
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+  font-size: calc(6px + 0.5vw);
+  margin-bottom: 1rem;
   font-weight: bold;
 `;
 
@@ -67,6 +77,7 @@ export const UserInfoText = styled('p')`
 export const CategoryTitleStyle = styled('h2')`
   ${FontsFamily};
   font-weight: 500;
+  padding-top: 20px;
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   font-size: calc(16px + 0.5vw);
 `;
@@ -80,6 +91,7 @@ export const ChartLineTitle = styled('p')`
 export const InputLabelStyle = styled('label')`
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   text-align: left;
+  font-size: calc(6px + 0.5vw);
 `;
 
 export const DailyKCalStyle = styled('p')`

@@ -12,28 +12,84 @@ import RegisterPage from '../../pages/RegisterPage';
 import AuthCheck from '../../authorization/AuthCheck';
 import CreateProductPage from '../../pages/productsPage/CreatingProductPage';
 import NotFoundPage from '../../pages/NotFoundPage';
+import ProtectedRoute from '../ProtectedRoutes';
 
 export default function Content() {
   return (
-    <>
-      <ContentStyle>
-        <AuthCheck>
-          <Routes>
-            <Route path='/' element={<Navigate to='/login' />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/home' element={<HomePage />} />
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/products' element={<ProductsPage />} />
-            <Route path='/products/:id' element={<ProductPage />} />
-            <Route path='/products/creating' element={<CreateProductPage />} />
-            <Route path='/diary' element={<DiaryPage />} />
-            <Route path='/diary/:id' element={<DiaryPage />} />
-            <Route path='/statistics' element={<StatisticsPage />} />
-            <Route path='*' element={<NotFoundPage />} />
-          </Routes>
-        </AuthCheck>
-      </ContentStyle>
-    </>
+    <ContentStyle>
+      <AuthCheck>
+        <Routes>
+          <Route path='/' element={<Navigate to='/login' />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+
+          <Route
+            path='/home'
+            element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/products'
+            element={
+              <ProtectedRoute>
+                <ProductsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/products/:id'
+            element={
+              <ProtectedRoute>
+                <ProductPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/products/creating'
+            element={
+              <ProtectedRoute>
+                <CreateProductPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/diary'
+            element={
+              <ProtectedRoute>
+                <DiaryPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/diary/:id'
+            element={
+              <ProtectedRoute>
+                <DiaryPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/statistics'
+            element={
+              <ProtectedRoute>
+                <StatisticsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path='*' element={<NotFoundPage />} />
+        </Routes>
+      </AuthCheck>
+    </ContentStyle>
   );
 }

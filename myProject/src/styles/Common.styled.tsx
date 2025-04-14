@@ -22,7 +22,7 @@ export const AppContainer = styled('div')`
   }
 
   ${({ theme }) => theme.breakpoints.max('md')} {
-    max-width: 820px;
+    max-width: 920px;
     padding: 0px 20px;
   }
 `;

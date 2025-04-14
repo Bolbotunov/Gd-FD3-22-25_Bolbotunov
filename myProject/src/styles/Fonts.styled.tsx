@@ -55,6 +55,11 @@ export const FontsHeaderStyle = styled(NavLink)`
   &.active {
     color: ${({ theme }) => theme.colors.NAV_COLOR};
   }
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    font-size: calc(30px + 1vw);
+    padding-top: 20px;
+  }
 `;
 
 export const ErrorText = styled('div')`
@@ -78,7 +83,7 @@ export const CategoryTitleStyle = styled('h2')`
   ${FontsFamily};
   font-weight: 500;
   padding-top: 20px;
-  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  color: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
   font-size: calc(16px + 0.5vw);
 `;
 
@@ -98,5 +103,5 @@ export const DailyKCalStyle = styled('p')`
   ${FontsFamily};
   font-size: calc(16px + 0.5vw);
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  color: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
 `;

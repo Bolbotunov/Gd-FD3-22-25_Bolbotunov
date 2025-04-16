@@ -1,19 +1,17 @@
-import React from 'react';
-import { MyLink, MyHeader } from '../styles/MyHeader.styled';
-import { MyHeaderWrapper } from '../styles/MyHeader.styled';
+import React from "react";
+import { MyLink, MyHeader } from "../styles/MyHeader.styled";
+import { MyHeaderWrapper } from "../styles/MyHeader.styled";
 
 export default function Header() {
-
-    
-    return (
-        <MyHeaderWrapper>
-            <MyHeader>
-                <MyLink to='/'>Home</MyLink>
-                <br />
-                <MyLink to='/users'>Users</MyLink>
-                <br />
-                <MyLink to='/albums'>Albums</MyLink>
-            </MyHeader>
-        </MyHeaderWrapper>
-    );
+  return (
+    <MyHeaderWrapper>
+      <MyHeader>
+        <MyLink to="/">First</MyLink>
+        <br />
+        <MyLink to="/second">Second</MyLink>
+        <br />
+        <MyLink to="/third">Third</MyLink>
+      </MyHeader>
+    </MyHeaderWrapper>
+  );
 }

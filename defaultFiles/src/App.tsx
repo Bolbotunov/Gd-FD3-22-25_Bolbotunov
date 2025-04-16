@@ -12,7 +12,6 @@ function App() {
     <ThemeProvider theme={siteColors}>
       <BrowserRouter>
         <Header />
-        TEST
         <Content />
         <Footer />
       </BrowserRouter>

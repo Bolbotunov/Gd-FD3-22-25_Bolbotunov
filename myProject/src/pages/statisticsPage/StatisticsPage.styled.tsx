@@ -1,5 +1,4 @@
-import { styled, css } from 'styled-components';
-import { FlexDiv } from '../../styles/Common.styled';
+import { styled } from 'styled-components';
 import { FontsFamily } from '../../styles/Fonts.styled';
 import Calendar from 'react-calendar';
 

@@ -130,7 +130,7 @@ export default function ProductsPage() {
       return;
     }
     debouncedSearch(query);
-  }, [query]);
+  }, [query, debouncedSearch, productsFromDictionary]);
 
   function handleSelectedProduct(product: ProductType) {
     if (selectedProduct && selectedProduct.id === product.id) {

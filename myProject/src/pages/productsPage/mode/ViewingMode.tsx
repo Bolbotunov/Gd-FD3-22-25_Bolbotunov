@@ -1,4 +1,4 @@
-import { Flex, ContentContainer } from '../../../styles/Common.styled';
+import { ContentContainer } from '../../../styles/Common.styled';
 import { BlurContainer } from '../../../styles/Common.styled';
 import { MainTitle } from '../../../styles/Fonts.styled';
 import {

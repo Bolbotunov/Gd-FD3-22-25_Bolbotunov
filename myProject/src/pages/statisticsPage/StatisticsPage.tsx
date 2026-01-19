@@ -3,7 +3,7 @@ import {
   ContentContainer,
   Flex,
 } from '../../styles/Common.styled';
-import Calendar, { CalendarProps } from 'react-calendar';
+import { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState } from 'react';
 import { RootState } from '../../store/store';

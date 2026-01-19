@@ -1,7 +1,6 @@
 import { styled, css } from 'styled-components';
 import { FlexDiv } from '../../styles/Common.styled';
 import { FontsFamily } from '../../styles/Fonts.styled';
-import { Link } from 'react-router';
 
 export const CarouselContainer = styled('div')`
   ${FlexDiv};

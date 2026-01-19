@@ -44,8 +44,6 @@ export default function UserLoginForm() {
         navigate('/home');
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         setLoginError('User or password incorrect! Try again!');
         console.error('Error', error);
       })

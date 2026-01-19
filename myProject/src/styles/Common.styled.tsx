@@ -78,8 +78,8 @@ export const SmallBlurContainer = styled(Link)`
   flex-direction: column;
   gap: 10px;
   background-color: ${({ theme }) => theme.colors.SECONDARY_COLOR_40};
-  padding: 10px 20px;
-  height: 65px;
+  padding: 5px 20px;
+  height: auto;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);

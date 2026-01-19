@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "macromate-796f7"
-  }
+  },
+  "targets": {
+    "macromate-796f7": {
+      "hosting": {
+        "macromate-796f7": [
+          "macromate-796f7"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

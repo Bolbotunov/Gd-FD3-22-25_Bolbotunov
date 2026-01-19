@@ -3,12 +3,22 @@ import { styled, css } from 'styled-components';
 export const SwitchWrapper = styled('label')`
   position: relative;
   display: inline-block;
-  width: calc(65px + 0.5vw);
-  height: calc(26px + 0.5vw);
+  width: 64px;
+  height: 26px;
 
   ${({ theme }) => theme.breakpoints.max('lg')} {
-    width: calc(45px + 0.5vw);
-    height: calc(14px + 0.5vw);
+    width: 60px;
+    height: 20px;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    width: 72px;
+    height: 24px;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    width: 62px;
+    height: 24px;
   }
 `;
 
@@ -16,6 +26,7 @@ export const SwitchInput = styled('input')`
   opacity: 0;
   width: 0;
   height: 0;
+  position: absolute;
 
   &:checked + span {
     background-color: ${({ theme }) => theme.colors.PRODUCT_ROW_COLOR};
@@ -23,12 +34,6 @@ export const SwitchInput = styled('input')`
 
   &:checked + span:before {
     transform: translateX(40px);
-  }
-
-  ${({ theme }) => theme.breakpoints.max('lg')} {
-    &:checked + span:before {
-      transform: translateX(30px);
-    }
   }
 `;
 
@@ -46,8 +51,9 @@ export const Slider = styled('span')`
   &:before {
     position: absolute;
     content: '';
-    width: calc(24px + 0.5vw);
-    height: calc(24px + 0.5vw);
+    top: 1px;
+    width: 24px;
+    height: 24px;
     left: 0rem;
     bottom: 0.1rem;
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
@@ -55,8 +61,13 @@ export const Slider = styled('span')`
     border-radius: 50%;
 
     ${({ theme }) => theme.breakpoints.max('lg')} {
-      width: calc(12px + 0.5vw);
-      height: calc(12px + 0.5vw);
+      width: 18px;
+      height: 18px;
+    }
+
+    ${({ theme }) => theme.breakpoints.max('md')} {
+      width: 22px;
+      height: 22px;
     }
   }
   ${({ theme }) => theme.breakpoints.max('md')} {

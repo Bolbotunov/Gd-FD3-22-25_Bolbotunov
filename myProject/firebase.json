@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "macromate-796f7",
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [

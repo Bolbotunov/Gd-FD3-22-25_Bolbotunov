@@ -1,43 +1,34 @@
-import { useEffect, useState } from 'react';
-import { StyledMenu } from '../layouts/Header.styled';
+import { useState } from 'react';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { StyledMobileMenu } from '../layouts/Header.styled';
 import { NavStyle } from '../layouts/Header.styled';
 import Navigation from '../Navigation';
+import { BurgerButton, BurgerLine } from './Burger.styled';
 
 export default function MenuBlock() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 760px)');
-    const handleMediaChange = (e: MediaQueryListEvent) => {
-      setIsMobile(e.matches);
-    };
+  const isMobile = useMediaQuery('(max-width: 760px)');
+  const [isOpen, setIsOpen] = useState(false);
 
-    setIsMobile(mediaQuery.matches);
-
-    mediaQuery.addEventListener('change', handleMediaChange);
-    return () => mediaQuery.removeEventListener('change', handleMediaChange);
-  }, []);
+  const toggleMenu = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <>
       {isMobile ? (
         <>
-          <div
-            style={{
-              position: 'relative',
-              width: '50px',
-              height: '50px',
-              border: '1px solid red',
-              left: '0px',
-            }}
-          >
-            <StyledMenu right width={'100%'}>
-              <Navigation />
-            </StyledMenu>
-          </div>
+          <BurgerButton onClick={toggleMenu}>
+            <BurgerLine $index={0} $isOpen={isOpen} />
+            <BurgerLine $index={1} $isOpen={isOpen} />
+            <BurgerLine $index={2} $isOpen={isOpen} />
+          </BurgerButton>
+          <StyledMobileMenu $isOpen={isOpen}>
+            <Navigation isMobileMenuOpen={isOpen} />
+          </StyledMobileMenu>
         </>
       ) : (
         <NavStyle>
-          <Navigation />
+          <Navigation isMobileMenuOpen={false} />
         </NavStyle>
       )}
     </>

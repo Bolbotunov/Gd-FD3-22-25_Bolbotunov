@@ -98,3 +98,31 @@ export const StyledMenu = styled(Menu)`
     background: rgba(0, 0, 0, 0.3);
   }
 `;
+
+export const StyledMobileMenu = styled('div')<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 80px;
+  right: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
+  width: 100%;
+  height: calc(100vh - 80px);
+  background-color: ${({ theme }) => theme.colors.DICT_BTN_COLOR};
+  z-index: 999;
+  transition: right 0.4s ease;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+
+  ${({ $isOpen }) =>
+    $isOpen &&
+    `
+    &::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+  `}
+`;

@@ -126,6 +126,10 @@ export const WhiteBlock = css`
 export const Flex = styled('div')`
   ${FlexDiv};
   align-items: center;
+  gap: 20px;
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    gap: 10px;
+  }
 `;
 
 export const ContentContainer = styled('div')`

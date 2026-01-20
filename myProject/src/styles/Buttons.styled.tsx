@@ -110,6 +110,7 @@ export const BtnDelete = styled('button')`
   }
   ${({ theme }) => theme.breakpoints.max('sm')} {
     font-size: 14px;
+    width: 150px;
   }
 `;
 
@@ -128,6 +129,7 @@ export const AddBtn = styled('button')`
   }
   ${({ theme }) => theme.breakpoints.max('md')} {
     font-size: 14px;
+    width: 150px;
   }
 `;
 

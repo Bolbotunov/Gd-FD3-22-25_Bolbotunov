@@ -9,11 +9,11 @@ Product database + API search + custom product creation
 Responsive design
 
 ### Technologies:
-React 19  TypeScript 
-Redux Toolkit
-React Router
-Styled Components 6.1 
-Formik / Yup 
-Firebase
-Axios
-ESLint / Prettier
+- React 19  TypeScript 
+- Redux Toolkit
+- React Router
+- Styled Components 6.1 
+- Formik / Yup 
+- Firebase
+- Axios
+- ESLint / Prettier

@@ -1,5 +1,5 @@
 # ![MM](https://github.com/user-attachments/assets/aae66416-8ce4-4cf0-a972-1ddd8e65a399) **MacroMate App**
-## is an educational React application for nutrition and macronutrient tracking. Users can calculate their daily calorie needs based on personal parameters, maintain a food diary, track daily nutrients, and work with a product database.
+MacroMate is an educational React application for nutrition and macronutrient tracking. Users can calculate their daily calorie needs based on personal parameters, maintain a food diary, track daily nutrients, and work with a product database.
 
 ### Features:
 Calorie calculator 

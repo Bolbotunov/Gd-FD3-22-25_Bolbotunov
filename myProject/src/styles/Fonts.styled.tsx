@@ -44,10 +44,10 @@ export const InformationTextOk = styled('h4')`
 
 export const FontsHeaderStyle = styled(NavLink)`
   ${FontsFamily};
-  font-size: calc(8px + 0.5vw);
+  font-size: 16px;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  padding-right: 5px;
+  padding: 0px 5px;
 
   &:hover {
     color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
@@ -57,14 +57,12 @@ export const FontsHeaderStyle = styled(NavLink)`
   }
 
   ${({ theme }) => theme.breakpoints.max('sm')} {
-    font-size: calc(30px + 1vw);
     padding-top: 20px;
   }
 `;
 
 export const ErrorText = styled('div')`
   color: ${({ theme }) => theme.colors.ERROR_COLOR};
-  font-size: calc(6px + 0.5vw);
   margin-bottom: 1rem;
   font-weight: bold;
 `;
@@ -76,6 +74,10 @@ export const UserInfoText = styled('p')`
 
   ${({ theme }) => theme.breakpoints.max('lg')} {
     width: 50%;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    display: none;
   }
 `;
 
@@ -97,6 +99,9 @@ export const InputLabelStyle = styled('label')`
   color: ${({ theme }) => theme.colors.MAIN_COLOR};
   text-align: left;
   font-size: calc(6px + 0.5vw);
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    font-size: 14px;
+  }
 `;
 
 export const DailyKCalStyle = styled('p')`

@@ -1,6 +1,7 @@
 import { BlurContainer } from '../../styles/Common.styled';
 import {
   InformationBlock,
+  ProfileWrapperStyle,
   RecommendedkCalBlock,
   WrapperSections,
 } from './ProfilePage.styled';
@@ -19,23 +20,25 @@ export default function ProfilePage() {
     : null;
   return (
     <>
-      <BlurContainer>
-        <MainTitle>my profile</MainTitle>
-        <WrapperSections>
-          <ProfileForm />
-        </WrapperSections>
-      </BlurContainer>
-      <InformationBlock>
-        <RecommendedkCalBlock>
-          {recommendedCalories?.normCalories}kCal
-        </RecommendedkCalBlock>
-        <MainSubTitle>
-          Recommended daily calorie intake Everybody is unique. Try different
-          calorie intake and seek what best fits you
-        </MainSubTitle>
-        <UserMail>{currentUser.userEmail}</UserMail>
-        <DeleteUserBtn />
-      </InformationBlock>
+      <ProfileWrapperStyle>
+        <InformationBlock>
+          <RecommendedkCalBlock>
+            {recommendedCalories?.normCalories}kCal
+          </RecommendedkCalBlock>
+          <MainSubTitle>
+            Recommended daily calorie intake Everybody is unique. Try different
+            calorie intake and seek what best fits you
+          </MainSubTitle>
+          <UserMail>{currentUser.userEmail}</UserMail>
+          <DeleteUserBtn />
+        </InformationBlock>
+        <BlurContainer>
+          <MainTitle>my profile</MainTitle>
+          <WrapperSections>
+            <ProfileForm />
+          </WrapperSections>
+        </BlurContainer>
+      </ProfileWrapperStyle>
     </>
   );
 }

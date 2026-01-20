@@ -1,4 +1,4 @@
-import { WhiteBlock } from '../../styles/Common.styled';
+import { FlexDiv, WhiteBlock } from '../../styles/Common.styled';
 import { FontsFamily } from '../../styles/Fonts.styled';
 import styled from 'styled-components';
 
@@ -31,19 +31,30 @@ export const SearchInput = styled('input')`
 `;
 
 export const TableHeader = styled('div')`
+  order 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
   padding: 10px;
   font-weight: 500;
-  font-size: 10px;
   font-size: calc(2px + 1vw);
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    font-size: 12px;
+    padding: 10px 0px;
+  }
+
 `;
 
 export const HeaderItem = styled('div')`
   flex: 1;
   text-align: left;
+  margin-right: 4px;
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    text-align: center;
+    padding: 4px;
+  }
 `;
 
 export const HeaderItemUser = styled('div')`
@@ -72,6 +83,7 @@ export const ProductRow = styled('div')<{ isSelected: boolean | null }>`
 
 export const ProductRowWrapper = styled('div')`
   gap: 10px;
+  order: 4;
   display: flex;
   flex-direction: column;
 `;
@@ -82,6 +94,8 @@ export const ProductColumn = styled('div')`
   font-size: calc(8px + 1vw);
   padding: 5px;
   min-width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const ProductColumnUser = styled('div')`
@@ -111,4 +125,14 @@ export const CreatedImage = styled('img')`
   width: 16px;
   height: 16px;
   object-fit: cover;
+`;
+
+export const FlexBtns = styled('div')`
+  ${FlexDiv}
+  order: 3;
+  gap: 10px;
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    flex-direction: column;
+    order: 4;
+  }
 `;

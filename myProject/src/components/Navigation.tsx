@@ -10,8 +10,8 @@ export default function Navigation({
   isMobileMenuOpen = false,
   linkClick,
 }: NavigationProps) {
-  const navLinks = textLinks.map(({ link, title }) => (
-    <FontsHeaderStyle to={link} onClick={linkClick}>
+  const navLinks = textLinks.map(({ id, link, title }) => (
+    <FontsHeaderStyle key={id} to={link} onClick={linkClick}>
       {title}
     </FontsHeaderStyle>
   ));

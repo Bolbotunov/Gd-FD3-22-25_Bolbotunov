@@ -29,17 +29,25 @@ export const AppContainer = styled('div')`
 
 export const InputStyle = styled('input')`
   text-align: left;
-  width: 100%;
-  max-width: 350px;
+  max-width: 100%;
+  width: 350px;
   height: 35px;
   border-radius: 10px;
+  flex-shrink: 1;
+  min-width: 0;
   font-size: 1.2rem;
   padding: 10px;
   margin-bottom: 1px;
+  box-sizing: border-box;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.MAIN_COLOR};
     opacity: 0.8;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    gap: 25px;
+    width: auto;
   }
 `;
 export const SelectStyle = styled('select')`
@@ -67,6 +75,9 @@ export const BlurContainer = styled('div')`
   border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    gap: 25px;
+  }
 `;
 
 export const SmallBlurContainer = styled(Link)`
@@ -93,6 +104,10 @@ export const SmallBlurContainer = styled(Link)`
     padding: 5px;
     gap: 1px;
     flex-direction: row;
+  }
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    padding: 0px;
   }
 `;
 

@@ -1,30 +1,26 @@
 import { FontsHeaderStyle } from '../styles/Fonts.styled';
 import { MobileNavMenu } from './Navigation.styled';
+import { textLinks } from './navigationConfig';
 
 type NavigationProps = {
   isMobileMenuOpen?: boolean;
+  linkClick?: () => void;
 };
 export default function Navigation({
   isMobileMenuOpen = false,
+  linkClick,
 }: NavigationProps) {
+  const navLinks = textLinks.map(({ link, title }) => (
+    <FontsHeaderStyle to={link} onClick={linkClick}>
+      {title}
+    </FontsHeaderStyle>
+  ));
   return (
     <>
       {isMobileMenuOpen ? (
-        <MobileNavMenu>
-          <FontsHeaderStyle to='/home'>Home</FontsHeaderStyle>
-          <FontsHeaderStyle to='/profile'>Profile</FontsHeaderStyle>
-          <FontsHeaderStyle to='/products'>Products</FontsHeaderStyle>
-          <FontsHeaderStyle to='/diary'>Diary</FontsHeaderStyle>
-          <FontsHeaderStyle to='/statistics'>Statistics</FontsHeaderStyle>
-        </MobileNavMenu>
+        <MobileNavMenu>{navLinks}</MobileNavMenu>
       ) : (
-        <>
-          <FontsHeaderStyle to='/home'>Home</FontsHeaderStyle>
-          <FontsHeaderStyle to='/profile'>Profile</FontsHeaderStyle>
-          <FontsHeaderStyle to='/products'>Products</FontsHeaderStyle>
-          <FontsHeaderStyle to='/diary'>Diary</FontsHeaderStyle>
-          <FontsHeaderStyle to='/statistics'>Statistics</FontsHeaderStyle>
-        </>
+        <>{navLinks}</>
       )}
     </>
   );

@@ -65,6 +65,9 @@ export const DateSliderContainer = styled('div')`
   width: 300px;
   overflow: hidden;
   position: relative;
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    width: 200px;
+  }
 `;
 
 export const DateSliderInner = styled('div')<{

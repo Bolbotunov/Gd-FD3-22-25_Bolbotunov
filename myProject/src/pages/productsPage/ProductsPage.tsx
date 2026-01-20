@@ -7,7 +7,7 @@ import { todayFormatted } from './defaultProducts';
 import { addUserProduct, removeDictionaryProduct } from '../../store/AuthSlice';
 import { deleteUserProductInFirebase } from '../../firebase/firebase';
 import { ProductType } from '../../store/AuthSlice';
-import { Flex, ContentContainer } from '../../styles/Common.styled';
+import { ContentContainer } from '../../styles/Common.styled';
 import {
   SearchInput,
   TableHeader,
@@ -18,6 +18,7 @@ import {
   ProductColumnUser,
   HeaderItemUser,
   CreatedImage,
+  FlexBtns,
 } from './ProductsPage.styled';
 import { AddBtn, BtnDelete, LinkBtn } from '../../styles/Buttons.styled';
 import { searchFood } from '../../api/ApiTest';
@@ -152,7 +153,42 @@ export default function ProductsPage() {
           />
           {error && <ErrorText>{error}</ErrorText>}
           {isLoading && <LoadingSpinner />}
-          <Flex>
+
+          <TableHeader>
+            <HeaderItem>Products</HeaderItem>
+            <HeaderItemUser>Created</HeaderItemUser>
+            <HeaderItem>Proteins</HeaderItem>
+            <HeaderItem>Fats</HeaderItem>
+            <HeaderItem>Carbs</HeaderItem>
+            <HeaderItem>kCal per 100g</HeaderItem>
+          </TableHeader>
+
+          <ProductRowWrapper>
+            {results.map((product: ProductType) => (
+              <ProductRow
+                key={product.id}
+                isSelected={
+                  selectedProduct && selectedProduct.id === product.id
+                }
+                onClick={() => handleSelectedProduct(product)}
+              >
+                <ProductColumn>{product.food_name}</ProductColumn>
+                <ProductColumnUser>
+                  <CreatedImage
+                    src={product.isDefault ? '/user.png' : '/api.png'}
+                    alt='User Product'
+                  />
+                </ProductColumnUser>
+                <ProductColumn>{product.nf_protein}g</ProductColumn>
+                <ProductColumn>{product.nf_total_fat}g</ProductColumn>
+                <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>
+                <ProductColumn>
+                  {calculateNutrients(product).calories} kCal
+                </ProductColumn>
+              </ProductRow>
+            ))}
+          </ProductRowWrapper>
+          <FlexBtns>
             <AddBtn
               onClick={async () => {
                 if (!selectedProduct) {
@@ -247,42 +283,7 @@ export default function ProductsPage() {
             >
               delete
             </BtnDelete>
-          </Flex>
-
-          <TableHeader>
-            <HeaderItem>Products</HeaderItem>
-            <HeaderItemUser>Created</HeaderItemUser>
-            <HeaderItem>Proteins</HeaderItem>
-            <HeaderItem>Fats</HeaderItem>
-            <HeaderItem>Carbs</HeaderItem>
-            <HeaderItem>kCal per 100g</HeaderItem>
-          </TableHeader>
-
-          <ProductRowWrapper>
-            {results.map((product: ProductType) => (
-              <ProductRow
-                key={product.id}
-                isSelected={
-                  selectedProduct && selectedProduct.id === product.id
-                }
-                onClick={() => handleSelectedProduct(product)}
-              >
-                <ProductColumn>{product.food_name}</ProductColumn>
-                <ProductColumnUser>
-                  <CreatedImage
-                    src={product.isDefault ? '/user.png' : '/api.png'}
-                    alt='User Product'
-                  />
-                </ProductColumnUser>
-                <ProductColumn>{product.nf_protein}g</ProductColumn>
-                <ProductColumn>{product.nf_total_fat}g</ProductColumn>
-                <ProductColumn>{product.nf_total_carbohydrate}g</ProductColumn>
-                <ProductColumn>
-                  {calculateNutrients(product).calories} kCal
-                </ProductColumn>
-              </ProductRow>
-            ))}
-          </ProductRowWrapper>
+          </FlexBtns>
         </ContentContainer>
       </BlurContainer>
     </>

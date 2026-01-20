@@ -13,6 +13,10 @@ export default function MenuBlock() {
     setIsOpen((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       {isMobile ? (
@@ -23,7 +27,7 @@ export default function MenuBlock() {
             <BurgerLine $index={2} $isOpen={isOpen} />
           </BurgerButton>
           <StyledMobileMenu $isOpen={isOpen}>
-            <Navigation isMobileMenuOpen={isOpen} />
+            <Navigation isMobileMenuOpen={true} linkClick={closeMenu} />
           </StyledMobileMenu>
         </>
       ) : (

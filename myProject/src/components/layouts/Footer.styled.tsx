@@ -25,6 +25,9 @@ export const FooterDivText = styled('div')`
   font-weight: 500;
   margin-bottom: 4px;
   font-size: calc(7px + 0.5vw);
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    font-size: 12px;
+  }
 `;
 
 export const FooterLink = styled('a')`
@@ -41,5 +44,8 @@ export const FooterLogo = styled('img')`
 
   ${({ theme }) => theme.breakpoints.max('md')} {
     height: 25px;
+  }
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    height: 40px;
   }
 `;

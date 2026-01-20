@@ -11,6 +11,20 @@ export const InformationBlock = styled('div')`
   text-align: center;
 `;
 
+export const FlexColumnStyle = styled('div')`
+  ${FlexDiv};
+  flex-direction: column;
+  gap: 4px;
+  padding: 0px;
+`;
+
+export const ProfileWrapperStyle = styled('div')`
+  ${FlexDiv};
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    flex-direction: column;
+  }
+`;
+
 export const WrapperSections = styled('div')`
   ${FlexDiv};
   width: 100%;

@@ -18,6 +18,8 @@ import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import LoadingScreen from '../components/Spinner/LoadingScreen';
 import { CustomThemeProvider } from '../contexts/ThemeContext';
+import { FlexFormStyle } from './UserLoginForm.styled';
+import { FlexColumnStyle } from '../pages/profilePage/ProfilePage.styled';
 
 type LoginType = {
   email: string;
@@ -44,8 +46,6 @@ export default function UserLoginForm() {
         navigate('/home');
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         setLoginError('User or password incorrect! Try again!');
         console.error('Error', error);
       })
@@ -76,34 +76,37 @@ export default function UserLoginForm() {
               onSubmit={loginUser}
             >
               <Form>
-                <Flex style={{ flexDirection: 'column' }}>
-                  <MainTitle style={{ marginBottom: '30px' }}>
-                    Please, Log in!
-                  </MainTitle>
-                  {loginError && <ErrorText>{loginError}</ErrorText>}
+                <FlexFormStyle>
+                  <FlexColumnStyle>
+                    <MainTitle style={{ marginBottom: '30px' }}>
+                      Please, Log in!
+                    </MainTitle>
+                    {loginError && <ErrorText>{loginError}</ErrorText>}
 
-                  <InputLabelStyle htmlFor='email'>
-                    Email Address
-                  </InputLabelStyle>
-                  <Field name='email' type='email' as={InputStyle} />
-                  <ErrorMessage name='email' component={ErrorText} />
+                    <InputLabelStyle htmlFor='email'>
+                      Email Address
+                    </InputLabelStyle>
+                    <Field name='email' type='email' as={InputStyle} />
+                    <ErrorMessage name='email' component={ErrorText} />
 
-                  <InputLabelStyle htmlFor='password'>Password</InputLabelStyle>
-                  <Field name='password' type='password' as={InputStyle} />
-                  <ErrorMessage name='password' component={ErrorText} />
+                    <InputLabelStyle htmlFor='password'>
+                      Password
+                    </InputLabelStyle>
+                    <Field name='password' type='password' as={InputStyle} />
+                    <ErrorMessage name='password' component={ErrorText} />
 
-                  <BtnStyle type='submit'>Log In</BtnStyle>
+                    <BtnStyle type='submit'>Log In</BtnStyle>
 
-                  <Flex>
-                    <InformationText>
-                      Don't have an account?{' '}
-                      <FontsHeaderStyle to={'/register'}>
-                        {' '}
-                        Please, register
-                      </FontsHeaderStyle>
-                    </InformationText>
-                  </Flex>
-                </Flex>
+                    <Flex>
+                      <InformationText>
+                        Don't have an account?
+                        <FontsHeaderStyle to={'/register'}>
+                          Please, register
+                        </FontsHeaderStyle>
+                      </InformationText>
+                    </Flex>
+                  </FlexColumnStyle>
+                </FlexFormStyle>
               </Form>
             </Formik>
           </BlurContainer>

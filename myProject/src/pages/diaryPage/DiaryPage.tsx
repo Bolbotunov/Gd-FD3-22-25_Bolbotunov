@@ -28,6 +28,7 @@ import {
   ProductRow,
   ProductColumn,
   ProductRowWrapper,
+  FlexBtns,
 } from '../productsPage/ProductsPage.styled';
 import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
 import { calculateNutrients } from '../../utils/calculateNutrients';
@@ -109,7 +110,7 @@ export default function DiaryPage() {
             }}
           />
           <DailyKCal onDate={totals.calories} />
-          <Flex>
+          <FlexBtns>
             <LinkBtn
               disabled={!isToday}
               onClick={() => {
@@ -183,7 +184,7 @@ export default function DiaryPage() {
             >
               delete
             </BtnDelete>
-          </Flex>
+          </FlexBtns>
 
           <TableHeader>
             {!isToday ? <HeaderItem>Date</HeaderItem> : null}

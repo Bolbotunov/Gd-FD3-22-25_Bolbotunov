@@ -1,6 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FlexDiv } from '../../styles/Common.styled';
-import { slide as Menu } from 'react-burger-menu';
+
+const MobileMenuOverlay = css`
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+  }
+`;
 
 export const NavStyle = styled('nav')`
   ${FlexDiv};
@@ -37,92 +48,21 @@ export const HeaderLogo = styled('img')`
   }
 `;
 
-export const StyledMenu = styled(Menu)`
-  position: absolute;
-  .bm-burger-button {
-    background: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
-    border: 1px solid red;
-    position: absolute;
-    width: 36px;
-    height: 30px;
-    left: 0px;
-    top: 0px;
-  }
-
-  .bm-burger-bars {
-    background: 'red';
-  }
-
-  button#react-burger-menu-btn {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    left: 10px;
-    top: 10px;
-    background-color: red;
-    z-index: 1000;
-  }
-
-  .bm-cross-button {
-    height: 24px;
-    width: 24px;
-  }
-
-  .bm-cross {
-    background: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
-  }
-
-  .bm-menu {
-    background: ${({ theme }) => theme.colors.DICT_BTN_COLOR};
-    padding: 2.5em 1.5em 0;
-    font-size: 1.15em;
-  }
-
-  .bm-item-list {
-    color: ${({ theme }) => theme.colors.ADDITIONAL_COLOR};
-    padding: 0.8em;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: 100vh;
-  }
-
-  .bm-item {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    margin-bottom: 10px;
-  }
-
-  .bm-overlay {
-    background: rgba(0, 0, 0, 0.3);
-  }
-`;
-
 export const StyledMobileMenu = styled('div')<{ $isOpen: boolean }>`
   position: fixed;
   top: 80px;
   right: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
   width: 100%;
   height: calc(100vh - 80px);
-  background-color: ${({ theme }) => theme.colors.DICT_BTN_COLOR};
+  background-color: ${({ theme }) => theme.colors.MOBILE_MENU};
   z-index: 999;
-  transition: right 0.4s ease;
+  transition:
+    right 0.4s ease,
+    opacity 0.4s ease;
   padding: 2rem 1.5rem;
-  overflow-y: auto;
+  opacity: ${({ $isOpen }) => ($isOpen ? '1' : '0')};
+  pointer-events: ${({ $isOpen }) => ($isOpen ? 'auto' : 'none')};
+  overflow: hidden;
 
-  ${({ $isOpen }) =>
-    $isOpen &&
-    `
-    &::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-    }
-  `}
+  ${({ $isOpen }) => $isOpen && MobileMenuOverlay}
 `;

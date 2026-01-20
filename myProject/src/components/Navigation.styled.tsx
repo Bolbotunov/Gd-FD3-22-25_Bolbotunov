@@ -11,7 +11,8 @@ export const MobileNavMenu = styled('div')`
   ${FontsHeaderStyle} {
     font-size: 1.4rem;
     padding: 16px 20px;
+    text-decoration: none;
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: 0.4s;
   }
 `;

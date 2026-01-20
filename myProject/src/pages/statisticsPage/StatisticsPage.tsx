@@ -3,7 +3,7 @@ import {
   ContentContainer,
   Flex,
 } from '../../styles/Common.styled';
-import Calendar, { CalendarProps } from 'react-calendar';
+import { CalendarProps } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState } from 'react';
 import { RootState } from '../../store/store';
@@ -27,6 +27,7 @@ import {
 } from './StatisticsPage.styled';
 import { getDailyProducts } from '../../firebase/firebase';
 import { useDailyNutrientsForDate } from '../../hooks/useDailyNutrientsForDate';
+import { FlexColumnStyle } from '../profilePage/ProfilePage.styled';
 
 export default function StatisticsPage() {
   const { products } = useSelector((state: RootState) => state.authSlice);
@@ -77,7 +78,7 @@ export default function StatisticsPage() {
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
-          <Flex>
+          <FlexColumnStyle>
             <MyCalendar />
             <StatisticsBlock>
               <StatisticsTitles>
@@ -99,7 +100,7 @@ export default function StatisticsPage() {
                 </Flex>
               </StatisticsTitles>
             </StatisticsBlock>
-          </Flex>
+          </FlexColumnStyle>
 
           <TableHeader>
             <HeaderItem>Date</HeaderItem>

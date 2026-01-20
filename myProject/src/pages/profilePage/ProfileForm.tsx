@@ -2,7 +2,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { Flex, InputStyle } from '../../styles/Common.styled';
+import { InputStyle } from '../../styles/Common.styled';
 import { InputLabelStyle, ErrorText } from '../../styles/Fonts.styled';
 import { BtnStyle } from '../../styles/Buttons.styled';
 import { setUserProfile } from '../../store/AuthSlice';
@@ -10,6 +10,7 @@ import { SelectStyle } from '../../styles/Common.styled';
 import { ProfileType } from '../../store/AuthSlice';
 import { saveUserProfile } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
+import { FlexColumnStyle } from './ProfilePage.styled';
 
 export default function ProfileForm() {
   const dispatch = useDispatch();
@@ -51,8 +52,8 @@ export default function ProfileForm() {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <Flex style={{ padding: '0px', flexDirection: 'column', gap: '4px' }}>
+      <Form style={{ width: '100%' }}>
+        <FlexColumnStyle>
           <InputLabelStyle htmlFor='weight'>Weight (kg)</InputLabelStyle>
           <Field name='weight' type='number' as={InputStyle} />
           <ErrorMessage name='weight' component={ErrorText} />
@@ -66,11 +67,7 @@ export default function ProfileForm() {
           <ErrorMessage name='age' component={ErrorText} />
 
           <InputLabelStyle htmlFor='goal'>Goal</InputLabelStyle>
-          <Field
-            as={SelectStyle}
-            name='goal'
-            style={{ width: '350px', height: '35px' }}
-          >
+          <Field as={SelectStyle} name='goal'>
             <option value=''>Select goal</option>
             <option value='lose'>Lose Weight</option>
             <option value='maintain'>Maintain</option>
@@ -79,11 +76,7 @@ export default function ProfileForm() {
           <ErrorMessage name='goal' component={ErrorText} />
 
           <InputLabelStyle htmlFor='activity'>Activity</InputLabelStyle>
-          <Field
-            as={SelectStyle}
-            name='activity'
-            style={{ width: '350px', height: '35px' }}
-          >
+          <Field as={SelectStyle} name='activity'>
             <option value=''>Select Activity</option>
             <option value='Low'>Low</option>
             <option value='Average'>Average</option>
@@ -92,11 +85,7 @@ export default function ProfileForm() {
           <ErrorMessage name='activity' component={ErrorText} />
 
           <InputLabelStyle htmlFor='gender'>Gender</InputLabelStyle>
-          <Field
-            as={SelectStyle}
-            name='gender'
-            style={{ width: '350px', height: '35px' }}
-          >
+          <Field as={SelectStyle} name='gender'>
             <option value=''>Select Gender</option>
             <option value='male'>Male</option>
             <option value='female'>Female</option>
@@ -104,7 +93,7 @@ export default function ProfileForm() {
           <ErrorMessage name='gender' component={ErrorText} />
 
           <BtnStyle type='submit'>Save Profile</BtnStyle>
-        </Flex>
+        </FlexColumnStyle>
       </Form>
     </Formik>
   );

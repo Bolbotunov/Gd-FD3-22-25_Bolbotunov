@@ -94,12 +94,15 @@ export const StatisticsBlock = styled('div')`
 export const StatisticsTitles = styled('div')`
   display: flex;
   justify-content: space-between;
-
-  flex-direction: column;
   gap: 20px;
   align-items: left;
   color: ${({ theme }) => theme.colors.SECONDARY_COLOR};
   padding: 20px;
   font-weight: 400;
   font-size: calc(10px + 1vw);
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    text-align: center;
+    padding: 5px;
+    gap: 5px;
+  }
 `;

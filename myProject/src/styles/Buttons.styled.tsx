@@ -35,6 +35,11 @@ export const BtnDictionary = css`
   &:hover {
     cursor: pointer;
   }
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    width: 275px;
+    height: 7vh;
+    font-size: 18px;
+  }
 `;
 
 export const BtnStyle = styled('button')`
@@ -44,6 +49,10 @@ export const BtnStyle = styled('button')`
   font-weight: 500;
   margin-top: 20px;
   margin: 20px;
+
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    font-size: 14px;
+  }
 `;
 
 export const BtnLink = styled(Link)`
@@ -74,6 +83,10 @@ export const BtnAuth = styled('button')`
   ${({ theme }) => theme.breakpoints.max('lg')} {
     width: 60px;
   }
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    height: 30px;
+    font-size: 14px;
+  }
 `;
 
 export const BtnDelete = styled('button')`
@@ -95,6 +108,10 @@ export const BtnDelete = styled('button')`
         border: 2px solid ${theme.colors.ERROR_COLOR};
       `}
   }
+  ${({ theme }) => theme.breakpoints.max('sm')} {
+    font-size: 14px;
+    width: 150px;
+  }
 `;
 
 export const AddBtn = styled('button')`
@@ -109,6 +126,10 @@ export const AddBtn = styled('button')`
     background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
     border: initial;
     cursor: pointer;
+  }
+  ${({ theme }) => theme.breakpoints.max('md')} {
+    font-size: 14px;
+    width: 150px;
   }
 `;
 
